@@ -1,19 +1,17 @@
-import mongoose from 'mongoose';
-
 import express from 'express';// prepare environment to use js 
-
-import dotenv from 'dotenv';
-
-
-dotenv.config();
-
-
-mongoose.connect(process.env.MONGO)
-.then(
-
-    ()=>{console.log("connected to mongo")}
-)
+import connection from "./config/connection.js";
+import { addUser } from "./server/controllers/usercontroller.js";
 const app= express();
+
+
+
+app.get("/@",(req, res)=>{
+    addUser()
+    res.send("user is created")
+})
+
+
+
 app.listen(process.env.PORT , ()=>{console.log("server is runnung on port 3000")})
 
 
