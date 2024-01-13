@@ -1,26 +1,30 @@
 import mongoose from 'mongoose';
 import {Schema,model} from 'mongoose';
 
+const userModel = require("./user").schema;
+const productModel = require("./product").schema;
+
 
 const orderSchema = new Schema({
-    orderID: { type: String, 
+    order_id: { type: String, 
             //    required: true, 
                unique: true },
-    userId: { type: Schema.Types.ObjectId,
-              ref:"user" },
+    user_id: userModel,
     productDetails: [
       {
-        productID: { type: Schema.Types.ObjectId,
-                     ref:"product" },
-        quantity: { type: Number, required: true, min: 1 }
+        product: [productModel],
+        quantity: { type: Number, 
+                    required: true, 
+                    min: 1 ,
+                    default:1,}
       }
     ],
     
     totalAmount: { type: Number, required: true, min: 0 },
     status: {
       type: String,
-      enum: ['preparing order', 'shipped', 'delivered'],
-      default: 'preparing order'
+      enum: ['shipped', 'delivered'],
+      
     }
   },{timestamps:true});
   
