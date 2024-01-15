@@ -1,11 +1,9 @@
-import mongoose from 'mongoose';
+
 import {Schema,model} from mongoose;
-import autoIncrement from 'mongoose-auto-increment';
+
 
 const deliverySchema = new Schema({
-    delivery_id: { type: Number, 
-                  required: true, 
-                  unique: true },
+
     order_id: { type: Schema.Types.ObjectId, 
                 ref: 'Order', 
                 required: true },
@@ -21,12 +19,7 @@ const deliverySchema = new Schema({
               enum: ['shipped', 'delivered'] },
     trackingNumber: { type: String },
   });
-  // Initialize the auto-increment plugin
-  autoIncrement.initialize(mongoose.connection);
 
-  // Apply the auto-increment plugin to your schema
-  deliverySchema.plugin(autoIncrement.plugin, { model: 'Delivery', field: 'delivery_id', startAt: 1 });
-
-  const Delivery = mongoose.model('Delivery', deliverySchema);
+  const Delivery = model('Delivery', deliverySchema);
   
   export default Delivery;

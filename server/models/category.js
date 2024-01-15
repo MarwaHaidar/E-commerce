@@ -1,11 +1,18 @@
-import mongoose from 'mongoose';
+
 import {Schema,model} from 'mongoose';
 
 const categorySchema = new Schema({
-    title: { type: String, 
-             required: true },
-    description: { type: String },
-  });
+    name: { type: String, 
+             required: [true,'Category required'],
+             unique:[true,'Category must be unique'],
+             minlength:[3,'Too short category name'],
+             maxlength:[32,'Too long category name']
+           },
+    slug:{type:String,
+          lowercase:true},
+    image:{type:String},             
+    desc: { type: String },
+  },{timestamps:true});
   
-  const Category = mongoose.model('Category', categorySchema);
+  const Category = model('Category', categorySchema);
   export default Category;

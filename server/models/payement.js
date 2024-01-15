@@ -1,13 +1,11 @@
-import mongoose from 'mongoose';
+
 import {Schema,model} from 'mongoose';
-import autoIncrement from 'mongoose-auto-increment';
+
 
 
 
 const paymentSchema = new Schema({
-  payment_id: { type: Number, 
-               required: true, 
-               unique: true },
+ 
   order_id: { type: Schema.Types.ObjectId, 
              ref: 'Order', 
              required: true },
@@ -25,13 +23,8 @@ const paymentSchema = new Schema({
            required: true, 
            enum: ['pending', 'success', 'failed'] }, // Adjust status values as needed
 });
-// Initialize the auto-increment plugin
-autoIncrement.initialize(mongoose.connection);
-
-// Apply the auto-increment plugin to your schema
-paymentSchema.plugin(autoIncrement.plugin, { model: 'Payment', field: 'payment_id', startAt: 1 });
 
 
-const Payment = mongoose.model('Payment', paymentSchema);
+const Payment = model('Payment', paymentSchema);
 
 export default Payment;

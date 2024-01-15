@@ -1,7 +1,5 @@
-import mongoose from 'mongoose';
 import {Schema,model} from 'mongoose';
-import autoIncrement from 'mongoose-auto-increment';
-const subcategoryModel=require('./subcategory').schema;
+
 
 // Subdocument schema for variations
 const variationSchema = new Schema({
@@ -25,6 +23,7 @@ const variationSchema = new Schema({
 //             size: "Small",
 //             quantity: 10,
 //           },
+              
 //         ],
 //       },
 //       // Add more variations if needed
@@ -36,8 +35,7 @@ const variationSchema = new Schema({
 
 // Main product schema
 const productSchema = new Schema({
-  product_id: { type: Number, 
-                unique: true },
+  
   name: { type: String, 
           required: true },
   desc: { type: String, 
@@ -50,16 +48,14 @@ const productSchema = new Schema({
   variations: [variationSchema],
 //   category_id: { type: String, required: true },
 //   ratingAndReviews: [reviewSchema],
-  subcategory: subcategoryModel,
+  subcategory: {type:Schema.Types.ObjectId,
+                ref:Subcategory,
+                required:true},
 },{timestamps:true});
 
 
-// Initialize the auto-increment plugin
-autoIncrement.initialize(mongoose.connection);
-
-// Apply the auto-increment plugin to your schema
-productSchema.plugin(autoIncrement.plugin, { model: 'Product', field: 'product_id', startAt: 1 });
 
 
-const Product = mongoose.model('Product', productSchema);
+
+const Product =model('Product', productSchema);
 export default Product;

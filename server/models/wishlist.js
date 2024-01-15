@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import {Schema,model} from mongoose;
 
 const wishlistSchema = new Schema({
@@ -15,6 +14,6 @@ const wishlistSchema = new Schema({
     ],
   });
   
-  const Wishlist = mongoose.model('Wishlist', wishlistSchema);
+  const Wishlist = model('Wishlist', wishlistSchema);
   
   export default Wishlist;
