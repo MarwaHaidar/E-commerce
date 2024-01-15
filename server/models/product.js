@@ -38,9 +38,15 @@ const productSchema = new Schema({
   
   name: { type: String, 
           required: true },
+          
+  slug:{
+        type:String,
+        lowecase:true,
+  },
+
   desc: { type: String, 
           required: true },
-  image: { type: String, required: true },
+  // image: { type: String, required: true },
   price: { type: Number, required: true, min: 0 },
   currency: { type: Schema.Types.ObjectId, 
               ref: 'Currency', 
@@ -48,9 +54,10 @@ const productSchema = new Schema({
   variations: [variationSchema],
 //   category_id: { type: String, required: true },
 //   ratingAndReviews: [reviewSchema],
-  subcategory: {type:Schema.Types.ObjectId,
-                ref:Subcategory,
-                required:true},
+   subcategory: { type: Schema.Types.ObjectId,
+     ref: 'Subcategory',
+      required: true }
+
 },{timestamps:true});
 
 
