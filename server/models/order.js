@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+
 import {Schema,model} from 'mongoose';
 
 const userModel = require("./user").schema;
@@ -28,6 +28,6 @@ const orderSchema = new Schema({
     }
   },{timestamps:true});
   
-  const Order = mongoose.model('Order', orderSchema);
+  const Order = model('Order', orderSchema);
   
-  module.exports = Order;
+  export default Order;

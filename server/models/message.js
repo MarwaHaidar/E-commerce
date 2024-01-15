@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import { Schema } from 'mongoose';
 
-const { Schema } = mongoose;
+import { Schema,model } from 'mongoose';
+
+
 
 const messageSchema = new Schema({
   user_id: { type: Schema.Types.ObjectId, 
@@ -13,6 +13,6 @@ const messageSchema = new Schema({
                default: Date.now },
 });
 
-const Message = mongoose.model('Message', messageSchema);
+const Message =model('Message', messageSchema);
 
 export default Message;
