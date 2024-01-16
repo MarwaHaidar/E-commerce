@@ -3,13 +3,19 @@ import dotenv from 'dotenv';
 import multer from "multer";
 dotenv.config();
 
+
+
 cloudinary.config({
   cloud_name: process.env.CLOUD,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
 });
 
+
+
 const upload = multer({ storage: multer.memoryStorage() });
+
+
 
 const uploadImage = async (imageBuffer) => {
   try {
