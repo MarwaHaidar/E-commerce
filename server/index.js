@@ -6,6 +6,7 @@ import subcategoryroute from './routes/subcategoryRoute.js';
 import userroute from './routes/userRoute.js';
 import authorroute from './routes/authRoute.js';
 import productroute from './routes/productRoute.js';
+import reviewroute from './routes/reviewRoute.js';
 
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/', subcategoryroute)
 app.use('/', userroute)
 app.use('/author', authorroute)
 app.use('/', productroute)
+app.use('/',reviewroute)
 
 
 

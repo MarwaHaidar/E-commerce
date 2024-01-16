@@ -54,11 +54,14 @@ const {name}=req.body;
 const {desc}=req.body;
 const {price}= req.body;
 
-const product = await Product.findOneAndUpdate(
-    {_id:id},
-    {name,slug:slugify(name),desc,price},
-    {new:true}
-    )
+// Check if 'name' is provided in the request body before generating the slug
+  const slug = name ? slugify(name, { lower: true }) : undefined;
+
+  const product = await Product.findOneAndUpdate(
+    { _id: id },
+    { name, slug, desc, price },
+    { new: true }
+  );
 
     if(!product){
         res.status(404).json({msg:`no product for this is ${id}`})
