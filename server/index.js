@@ -1,8 +1,10 @@
 import express from 'express';// prepare environment to use js
 import morgan from 'morgan'; 
 import connection from "./config/connection.js";
-import categoryroute from './routes/categoryRoute.js'
-import subcategoryroute from './routes/subcategoryRoute.js'
+import categoryroute from './routes/categoryRoute.js';
+import subcategoryroute from './routes/subcategoryRoute.js';
+import userroute from './routes/userRoute.js';
+import authorroute from './routes/authRoute.js';
 
 const app= express();
 // --------------------morgan------------------------------------------------------------------------------
@@ -17,7 +19,8 @@ app.use(express.json());//parse json string
 
 app.use('/',categoryroute)
 app.use('/',subcategoryroute)
-
+app.use('/',userroute)
+app.use('/author',authorroute)
 
 // -----------------------------------------------------------------------------------------------
 // connecting to databse ==> listening to requests
