@@ -4,6 +4,7 @@ import connection from "./config/connection.js";
 import categoryroute from './routes/categoryRoute.js'
 import subcategoryroute from './routes/subcategoryRoute.js'
 import productroute from './routes/productRoute.js';
+import reviewroute from './routes/reviewRoute.js';
 
 const app= express();
 // --------------------morgan------------------------------------------------------------------------------
@@ -19,6 +20,7 @@ app.use(express.json());//parse json string
 app.use('/',categoryroute)
 app.use('/',subcategoryroute)
 app.use('/',productroute)
+app.use('/',reviewroute)
 
 
 // -----------------------------------------------------------------------------------------------

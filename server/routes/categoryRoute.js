@@ -1,6 +1,6 @@
 import express from 'express';
 import { createcategory, getcategories,getcategory,updatecategory,deletecategory } from '../controllers/categorycontroller.js';
-
+import subcategoriesRoute from './subcategoryRoute.js'
 
 const router = express.Router();
 
@@ -11,5 +11,8 @@ router.put('/admin/categories/:id',updatecategory)
 router.get('/categories',getcategories)
 router.get('/categories/:id',getcategory)
 router.delete('/categories/:id',deletecategory)
+
+
+router.use('/categories/:id/',subcategoriesRoute) 
 
 export default router;
