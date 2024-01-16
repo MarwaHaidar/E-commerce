@@ -9,7 +9,7 @@ import productroute from './routes/productRoute.js';
 
 
 const app= express();
-// --------------------morgan------------------------------------------------------------------------------
+// --------------------morgan---------------------------------------------------------------------------------
 if(process.env.NODE_ENV==="development"){
     app.use(morgan('dev'));
     console.log(`mode:${process.env.Node_ENV}`)
