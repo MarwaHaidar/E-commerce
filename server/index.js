@@ -1,14 +1,17 @@
 import express from 'express';// prepare environment to use js
-import morgan from 'morgan'; 
+import morgan from 'morgan';
 import connection from "./config/connection.js";
-import categoryroute from './routes/categoryRoute.js'
-import subcategoryroute from './routes/subcategoryRoute.js'
+import categoryroute from './routes/categoryRoute.js';
+import subcategoryroute from './routes/subcategoryRoute.js';
+import userroute from './routes/userRoute.js';
+import authorroute from './routes/authRoute.js';
 import productroute from './routes/productRoute.js';
 import reviewroute from './routes/reviewRoute.js';
 
-const app= express();
-// --------------------morgan------------------------------------------------------------------------------
-if(process.env.NODE_ENV==="development"){
+
+const app = express();
+// --------------------morgan---------------------------------------------------------------------------------
+if (process.env.NODE_ENV === "development") {
     app.use(morgan('dev'));
     console.log(`mode:${process.env.Node_ENV}`)
 }
@@ -17,10 +20,13 @@ app.use(express.json());//parse json string
 
 //----------------Route-----------------------------------------------------------------------------------
 
-app.use('/',categoryroute)
-app.use('/',subcategoryroute)
-app.use('/',productroute)
+app.use('/', categoryroute)
+app.use('/', subcategoryroute)
+app.use('/', userroute)
+app.use('/author', authorroute)
+app.use('/', productroute)
 app.use('/',reviewroute)
+
 
 
 // -----------------------------------------------------------------------------------------------
