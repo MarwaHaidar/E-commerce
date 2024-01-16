@@ -21,7 +21,6 @@ const uploadImage = async (imageBuffer) => {
   try {
     return new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
-        { folder: 'your-folder', tags: 'your-tags' },
         (error, result) => {
           if (error) {
             reject(error.message);
