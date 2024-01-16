@@ -5,6 +5,8 @@ import categoryroute from './routes/categoryRoute.js';
 import subcategoryroute from './routes/subcategoryRoute.js';
 import userroute from './routes/userRoute.js';
 import authorroute from './routes/authRoute.js';
+import productroute from './routes/productRoute.js';
+
 
 const app= express();
 // --------------------morgan------------------------------------------------------------------------------
@@ -21,6 +23,9 @@ app.use('/',categoryroute)
 app.use('/',subcategoryroute)
 app.use('/',userroute)
 app.use('/author',authorroute)
+app.use('/',productroute)
+
+
 
 // -----------------------------------------------------------------------------------------------
 // connecting to databse ==> listening to requests
