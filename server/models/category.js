@@ -10,7 +10,10 @@ const categorySchema = new Schema({
            },
     slug:{type:String,
           lowercase:true},
-    image:{type:String},             
+    image:{
+      type:String,
+      required: [true,'Image required'],
+    },             
     desc: { type: String },
   },{timestamps:true});
   
