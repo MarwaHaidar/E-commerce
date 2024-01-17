@@ -25,7 +25,7 @@ const loginuser = asyncHandler(async (req, res) => {
                     first_name: auth.first_name,
                     last_name: auth.last_name,
                     email: auth.email,
-                    id: auth.id,
+                    id: existingUser.id,
                 }
             }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
 
@@ -33,8 +33,9 @@ const loginuser = asyncHandler(async (req, res) => {
 
             res.status(200).json({ user: existingUser });
         } else {
-            // If the user does not exist, create a new user entry
-            const accessToken = jwt.sign({
+
+              // If the user does not exist, create a new user entry
+              const accessToken = jwt.sign({
                 user: {
                     first_name: auth.first_name,
                     last_name: auth.last_name,
@@ -42,9 +43,8 @@ const loginuser = asyncHandler(async (req, res) => {
                     id: auth.id,
                 }
             }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
-
-            // Create a new User document with the specified schema
-            const user = await User.create({
+             // Create a new User document with the specified schema
+             const user = await User.create({
                 first_name: auth.first_name,
                 last_name: auth.last_name,
                 email: auth.email,
@@ -52,6 +52,7 @@ const loginuser = asyncHandler(async (req, res) => {
                 access_token: accessToken,
             });
 
+           
             res.status(201).json({ user });
         }
     } else {
