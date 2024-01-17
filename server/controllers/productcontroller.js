@@ -90,7 +90,7 @@ const deleteproduct = asyncHandler(async(req,res) =>{
         res.status(404).json({msg:`NO Product FOR THIS ID ${id}`});
 
     }
-    res.status(200).json({msg: `the category  was deleted successfully`})
+    res.status(200).json({msg: `the Product  was deleted successfully`})
 }) 
 export {deleteproduct}
 

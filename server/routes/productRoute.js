@@ -12,3 +12,6 @@ router.delete('/products/:id',deleteproduct);
 
 
 export default router;
+
+
+
