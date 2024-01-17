@@ -46,21 +46,43 @@ const productSchema = new Schema({
 
   desc: { type: String, 
           required: true },
-  // image: { type: String, required: true },
+  sold:{
+        type:Number,
+        default:0 ,
+      },
+
   price: { type: Number, required: true, min: 0 },
+  
+  priceAfterDiscount:{
+      type:Number
+  },
+  // imageCover:{
+  //   type:String,
+  //   required:[true,'Product Image Cover is required']
+  // }
+  // ,
+  // images:[String]
+  // ,
+
   currency: { type: Schema.Types.ObjectId, 
               ref: 'Currency', 
-              required: true }, // Reference to Currency collection
-  variations: [variationSchema],
-//   category_id: { type: String, required: true },
-//   ratingAndReviews: [reviewSchema],
+              required: true }
+  ,           
+  variations: [variationSchema]
+  ,
+
    subcategory: { type: Schema.Types.ObjectId,
      ref: 'Subcategory',
       required: true }
+   ,
+    
+  ratingAverage:{
+    type:Number,
+    min:[1,'Rating must be above or equal 1'],
+    max:[1,'Rating must be below or equal 5'],
+  }    
 
 },{timestamps:true});
-
-
 
 
 
