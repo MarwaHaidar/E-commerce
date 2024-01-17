@@ -8,12 +8,15 @@ import asyncHandler from 'express-async-handler';
 const createProduct = asyncHandler(async(req,res)=>{
 const name = req.body.name;
 const desc = req.body.desc;
-// const image = req.body.image;
 const price = req.body.price;
+const priceAfterDiscount = req.body.priceAfterDiscount;
 const currency = req.body.currency;// Assuming currency is provided as an ObjectId 
 const subcategory = req.body.subcategory;// Assuming subcategory is provided as an ObjectId
 const variations = req.body.variations;
-const product = await Product.create({name,slug:slugify(name),desc,price,currency,variations,subcategory});
+// const imageCover = req.body.imageCover;
+// const images = req.body.images;
+
+const product = await Product.create({name,slug:slugify(name),desc,price,priceAfterDiscount,currency,variations,subcategory});
 res.status(201).json({data:product});
 
 });
@@ -30,6 +33,8 @@ const products= await Product.find({}).skip(skip).limit(limit);
 res.status(200).json({result:products.length,page,data:products});
 
 });
+
+
 export { getproducts };
 
 
@@ -53,13 +58,17 @@ const { id } = req.params;
 const {name}=req.body;
 const {desc}=req.body;
 const {price}= req.body;
+const {priceAfterDiscount} = req.body;
+const {currency} = req.body;
+const {variations} = req.body;
+const {subcategory}=req.body;
 
 // Check if 'name' is provided in the request body before generating the slug
   const slug = name ? slugify(name, { lower: true }) : undefined;
 
   const product = await Product.findOneAndUpdate(
     { _id: id },
-    { name, slug, desc, price },
+    { name, slug, desc, price,priceAfterDiscount,currency,variations,subcategory },
     { new: true }
   );
 
