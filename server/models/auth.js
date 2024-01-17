@@ -22,9 +22,9 @@ const authorSchema=new Schema({
     role: { type: String, 
              enum: ['user', 'admin'], 
              default: 'user' },
-// verify_token: { type: String },
-// verify_status: { type: Boolean, 
-//            default: false },
+    verificationToken: { type: String },
+verifyStatus: { type: Boolean, 
+                default: false },
 },{timestamps:true});
 
   
