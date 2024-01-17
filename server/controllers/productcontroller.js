@@ -97,9 +97,9 @@ const deleteproduct = asyncHandler(async (req, res) => {
   const product = await Product.findOneAndDelete({ _id: id });
   if (!product) {
     res.status(404).json({ msg: `NO Product FOR THIS ID ${id}` });
+    }
+    res.status(200).json({msg: `the Product  was deleted successfully`})
+}) 
+export {deleteproduct}
 
-  }
-  res.status(200).json({ msg: `the category  was deleted successfully` })
-})
-export { deleteproduct }
 

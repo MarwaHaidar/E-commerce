@@ -1,26 +1,28 @@
 
 import {Schema,model} from 'mongoose';
 
-const userModel = require("./user").schema;
-const productModel = require("./product").schema;
-
 
 const orderSchema = new Schema({
-    order_id: { type: String, 
-            //    required: true, 
-               unique: true },
-    user_id: userModel,
+  userId: {
+     type: Schema.Types.ObjectId,
+      ref: 'User'
+     },
+  
     productDetails: [
       {
-        product: [productModel],
+        product: { type: Schema.Types.ObjectId, ref: 'Product' },
         quantity: { type: Number, 
                     required: true, 
                     min: 1 ,
-                    default:1,}
-      }
+                    default:1,
+                  },
+      },
     ],
     
-    totalAmount: { type: Number, required: true, min: 0 },
+    totalAmount: { type: Number, 
+      required: true,
+       min: 0 },
+       
     status: {
       type: String,
       enum: ['shipped', 'delivered'],
