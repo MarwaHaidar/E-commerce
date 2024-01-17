@@ -1,9 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
-import multer from "multer";
+import multer from 'multer';
 dotenv.config();
-
-
 
 cloudinary.config({
   cloud_name: process.env.CLOUD,
@@ -11,11 +9,7 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-
-
 const upload = multer({ storage: multer.memoryStorage() });
-
-
 
 const uploadImage = async (imageBuffer) => {
   try {
@@ -35,6 +29,17 @@ const uploadImage = async (imageBuffer) => {
   }
 };
 
+const uploadMultipleImages = async (imageBuffers) => {
+  try {
+    const uploadPromises = imageBuffers.map((imageBuffer) => {
+      return uploadImage(imageBuffer);
+    });
 
-export { uploadImage };
-export default  upload ;
+    return Promise.all(uploadPromises);
+  } catch (error) {
+    throw new Error(`Error uploading images: ${error.message}`);
+  }
+};
+
+export  { uploadImage, uploadMultipleImages };
+export default upload
