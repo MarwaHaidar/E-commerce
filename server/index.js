@@ -9,6 +9,7 @@ import productroute from './routes/productRoute.js';
 import reviewroute from './routes/reviewRoute.js';
 import currencyroute from './routes/currencyRoute.js';
 import orderroute from './routes/orderRoute.js';
+import cartroute from './routes/cartRoute.js';
 
 
 const app = express();
@@ -30,6 +31,7 @@ app.use('/', productroute)
 app.use('/',reviewroute)
 app.use('/',currencyroute)
 app.use('/',orderroute)
+app.use('/',cartroute)
 
 // -----------------------------------------------------------------------------------------------
 // connecting to databse ==> listening to requests
