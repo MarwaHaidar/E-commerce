@@ -1,4 +1,4 @@
-import express from 'express';// prepare environment to use js
+import express from 'express';
 import morgan from 'morgan';
 import connection from "./config/connection.js";
 import categoryroute from './routes/categoryRoute.js';
@@ -13,13 +13,16 @@ import cartroute from './routes/cartRoute.js';
 
 
 const app = express();
+
+// -----------------------Middleware---------------------------------------------------------------------
+app.use(express.json());//parse json string 
+
 // --------------------morgan---------------------------------------------------------------------------------
 if (process.env.NODE_ENV === "development") {
     app.use(morgan('dev'));
-    console.log(`mode:${process.env.Node_ENV}`)
+    console.log(`mode: ${process.env.Node_ENV}`)
 }
-// -----------------------Middleware---------------------------------------------------------------------
-app.use(express.json());//parse json string 
+
 
 //----------------Route-----------------------------------------------------------------------------------
 
@@ -28,10 +31,10 @@ app.use('/', subcategoryroute)
 app.use('/', userroute)
 app.use('/author', authorroute)
 app.use('/', productroute)
-app.use('/',reviewroute)
-app.use('/',currencyroute)
-app.use('/',orderroute)
-app.use('/',cartroute)
+app.use('/', reviewroute)
+app.use('/', currencyroute)
+app.use('/', orderroute)
+app.use('/', cartroute)
 
 // -----------------------------------------------------------------------------------------------
 // connecting to databse ==> listening to requests
