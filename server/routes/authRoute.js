@@ -6,13 +6,15 @@ import { requestPasswordReset,resetPassword } from '../controllers/forgetpass.js
 
 const router=express.Router();
 
+
+//router.use(validateToken); we can use this to apply the validatetoken on all routes, 
+//but here we don;t want to apply this validation on the registration
 router.post('/register',registeruser)
 router.get('/registerverify', registerverification)
-router.post('/login',loginuser)
-router.use(validateToken);
-router.get('/current',currentuser)
-router.post('/resetpassverify',requestPasswordReset)
-router.post('/resetpass',resetPassword)
+router.post('/login',validateToken,loginuser)
+router.get('/current',validateToken,currentuser)
+router.post('/resetpassverify',validateToken,requestPasswordReset)
+router.post('/resetpass',validateToken,resetPassword)
 
 
 
