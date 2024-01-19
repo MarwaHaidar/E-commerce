@@ -9,7 +9,7 @@ const orderSchema = new Schema({
      },
   
     productDetails: [
-      {
+      { //product_id
         product: { type: Schema.Types.ObjectId, ref: 'Product' },
         quantity: { type: Number, 
                     required: true, 
@@ -18,6 +18,10 @@ const orderSchema = new Schema({
                   },
       },
     ],
+
+    subtotal:{ type:Number,
+              required:true,
+              min:0},
     
     totalAmount: { type: Number, 
       required: true,
@@ -25,7 +29,7 @@ const orderSchema = new Schema({
        
     status: {
       type: String,
-      enum: ['shipped', 'delivered'],
+      enum: ['paid', 'unpaid'],
       
     }
   },{timestamps:true});
