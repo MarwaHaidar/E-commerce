@@ -71,16 +71,16 @@ const productSchema = new Schema({
   currency: {
     type: Schema.Types.ObjectId,
     ref: 'Currency',
-    // required: true
+    required: true
   }
   ,
-  // variations: [variationSchema]
-  // ,
+  variations: [variationSchema]
+  ,
 
   subcategory: {
     type: Schema.Types.ObjectId,
     ref: 'Subcategory',
-    // required: true
+    required: true
   }
   ,
 

@@ -7,11 +7,16 @@ const stripe = new Stripe(process.env.STRIPE_KEY);
 
 const payment = asyncHandler(async (req, res) => {
 
+
     const Line_items=req.body.cartItems.map((product)=>{
+
+    
+
         return{
             price_data:{
                 currency:"USD",
                 product_data:{
+
                     name:product.name,
                     images:product.imageCover,
                     desc:product.desc,
@@ -22,6 +27,8 @@ const payment = asyncHandler(async (req, res) => {
                 price:product.price *100,
             },
             quantity:product.quantity,
+
+
 
         };
     });

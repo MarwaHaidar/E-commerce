@@ -10,9 +10,9 @@ import { uploadImage } from "./imageuploadcontroller.js"
 const createsubcategory = asyncHandler(async (req, res) => {
 
     try {
-        if(!req.body.category)
-        req.body.category =req.params.id; // if the category doesn't exist in body , get the the id of category from params in put in the body category
-    
+        if (!req.body.category)
+            req.body.category = req.params.id; // if the category doesn't exist in body , get the the id of category from params in put in the body category
+
         // console.log(req.body.category);
 
         const image = await uploadImage(req.file.buffer);
@@ -24,7 +24,7 @@ const createsubcategory = asyncHandler(async (req, res) => {
         res.status(201).json({ data: subcategory });
     } catch (error) {
         console.error('Error creating category:', error);
-        res.status(500).json({ error: 'Internal Server Error'});
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
@@ -39,17 +39,17 @@ const getsubcategories = asyncHandler(async (req, res) => {
     const limit = req.query.limit * 1 || 5; // in selected page give 5 categories
     const skip = (page - 1) * limit
     let filterObject = {};
-    if(req.params.id)
-       filterObject = { // get the id of category from params
-           category:req.params.id
-       }
-       // console.log(req.params.id)
-       const subcategories=await Subcategory.find(filterObject) // if have req.params filter the subcategory for this category req.params 
-       .skip(skip)
-       .limit(limit)
-       // .populate({path:'category',select:'name-_id'});// select the name from category -_id mean remove the select id
-       res.status(200).json({result:subcategories.length,page,data:subcategories});
-   });
+    if (req.params.id)
+        filterObject = { // get the id of category from params
+            category: req.params.id
+        }
+    // console.log(req.params.id)
+    const subcategories = await Subcategory.find(filterObject) // if have req.params filter the subcategory for this category req.params 
+        .skip(skip)
+        .limit(limit)
+    // .populate({path:'category',select:'name-_id'});// select the name from category -_id mean remove the select id
+    res.status(200).json({ result: subcategories.length, page, data: subcategories });
+});
 
 
 export { getsubcategories };
