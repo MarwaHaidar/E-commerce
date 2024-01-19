@@ -15,17 +15,17 @@ import striperoute from './routes/stripeRoute.js';
 
 const app = express();
 
-// parser
-app.use(express.json());
+// -----------------------Middleware---------------------------------------------------------------------
+app.use(express.json());//parse json string 
 
-// morgan
+// --------------------morgan---------------------------------------------------------------------------------
 if (process.env.NODE_ENV === "development") {
     app.use(morgan('dev'));
     console.log(`mode: ${process.env.Node_ENV}`)
 }
 
 
-// routes
+//----------------Route-----------------------------------------------------------------------------------
 
 app.use('/', categoryroute)
 app.use('/', subcategoryroute)
@@ -39,7 +39,7 @@ app.use('/', cartroute)
 app.use('/',striperoute)
 
 
-
+// -----------------------------------------------------------------------------------------------
 // connecting to databse ==> listening to requests
 connection().then(() => {
     app.listen(process.env.PORT, () => {
