@@ -11,21 +11,26 @@ import currencyroute from './routes/currencyRoute.js';
 import orderroute from './routes/orderRoute.js';
 import cartroute from './routes/cartRoute.js';
 import striperoute from './routes/stripeRoute.js';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
 
-// -----------------------Middleware---------------------------------------------------------------------
-app.use(express.json());//parse json string 
+// parser
+app.use(express.json());
+
+// Use cookie parser middleware
+app.use(cookieParser());
 
 // --------------------morgan---------------------------------------------------------------------------------
+// morgan
 if (process.env.NODE_ENV === "development") {
     app.use(morgan('dev'));
     console.log(`mode: ${process.env.Node_ENV}`)
 }
 
 
-//----------------Route-----------------------------------------------------------------------------------
+// routes
 
 app.use('/', categoryroute)
 app.use('/', subcategoryroute)
@@ -39,11 +44,10 @@ app.use('/', cartroute)
 app.use('/',striperoute)
 
 
-// -----------------------------------------------------------------------------------------------
+
 // connecting to databse ==> listening to requests
 connection().then(() => {
     app.listen(process.env.PORT, () => {
         console.log(`listening to requests on port ${process.env.PORT}`)
     })
 })
-
