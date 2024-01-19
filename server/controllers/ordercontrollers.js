@@ -3,6 +3,15 @@ import asyncHandler from 'express-async-handler';
 import OrderItem from '../models/orderItems.js';
 
 
+
+//total Status whith  delivery order
+function TotalFu(TotalAmount) {
+    if (TotalAmount > 100) {
+        return TotalAmount;
+    } else {
+        return TotalAmount + 10;
+    }
+}
 // create order
     const createOrder = asyncHandler(async(req,res)=>{
 
@@ -25,12 +34,15 @@ import OrderItem from '../models/orderItems.js';
     //     new ObjectId('65a93857d4c4a1d967c607db')
     //   ]
 
+
     // console.log(orderItemsIdsResolved);
+
 // -----------------------------//
 const TotalAmount = await Promise.all(orderItemsIdsResolved.map(async orderItemsId =>{ 
     const orderItem = await OrderItem.findById(orderItemsId)
-    .populate('product','price')
+    .populate('product')
     // console.log(orderItem);
+    // res.json(orderItem);
 
     const price = orderItem.product.price; // get price 
     const quantity = orderItem.quantity; // get quantity
@@ -45,15 +57,19 @@ const TotalAmount = await Promise.all(orderItemsIdsResolved.map(async orderItems
 const sumTotalAmount = TotalAmount.reduce((a,b)=>a+b,0); // sum of all values in array TotalAmount
 // console.log(sumTotalAmount);
 
+ // -----------------------------//
+ const subTotalStatus = TotalFu(sumTotalAmount);
+//  console.log(subTotalStatus);
 
 // -----------------------------//
     const userId = req.body.userId;
     const orderItems = orderItemsIdsResolved;
     const totalAmount = sumTotalAmount;
     const status = req.body.status;
+    const TotalStatus = subTotalStatus;
 
     
-    const order = await Order.create({userId,orderItems,totalAmount,status});
+    const order = await Order.create({userId,orderItems,totalAmount,TotalStatus,status});
     res.status(201).json({data:order});
     });
     export { createOrder };
@@ -88,7 +104,6 @@ const getorders = asyncHandler(async(req,res)=>{
         path: 'userId',
         select: ['first_name','last_name'],
     }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order
-
 
 
     if(!order){
