@@ -11,10 +11,10 @@ const router = express.Router();
 //but here we don;t want to apply this validation on the registration
 router.post('/register', registeruser)
 router.get('/registerverify', registerverification)
-router.post('/login',loginuser)
-router.get('/current',validateToken,currentuser)
-router.post('/resetpassverify',validateToken,requestPasswordReset)
-router.post('/resetpass',validateToken,resetPassword)
+router.post('/login', loginuser)
+router.get('/current', validateToken, currentuser)
+router.post('/resetpassverify', validateToken, requestPasswordReset)
+router.post('/resetpass', validateToken, resetPassword)
 
 
 

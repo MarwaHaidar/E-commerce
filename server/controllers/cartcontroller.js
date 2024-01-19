@@ -32,8 +32,11 @@ const addToCart = asyncHandler(async (req, res) => {
             const productExists = cart.items.some(item => item.productId.equals(productId));
 
             if (productExists) {
-                const message = `${productName} is in your cart`;
-                res.json({ message: message });
+              const existingItem = cart.items.find(item => item.productId.equals(productId));
+              let newQuantity = existingItem.quantity += 1;
+              await cart.save();
+              const message = `${newQuantity} of ${productName} added to your cart`;
+              res.status(200).json({ message: message, cart: cart });
             } else {
                 cart.items.push(...items);
                 await cart.save();

@@ -1,11 +1,10 @@
 import Product from "../models/product.js";
 import slugify from 'slugify';
 import asyncHandler from 'express-async-handler';
-import { uploadImage, uploadMultipleImages } from "./imageuploadcontroller.js"
+import { uploadMultipleImages } from "./imageuploadcontroller.js"
 
 
 
-// Call your function to handle multiple image uploads
 
 // create product 
 const createProduct = asyncHandler(async (req, res) => {
@@ -13,8 +12,8 @@ const createProduct = asyncHandler(async (req, res) => {
   const desc = req.body.desc;
   const price = req.body.price;
   const priceAfterDiscount = req.body.priceAfterDiscount;
-  const currency = req.body.currency;// Assuming currency is provided as an ObjectId 
-  const subcategory = req.body.subcategory;// Assuming subcategory is provided as an ObjectId
+  const currency = req.body.currency;
+  const subcategory = req.body.subcategory;
   const variations = req.body.variations;
   const multiimages = req.files ? req.files.map(file => file.buffer) : [];
   const imagesArray = await uploadMultipleImages(multiimages);
@@ -97,9 +96,9 @@ const deleteproduct = asyncHandler(async (req, res) => {
   const product = await Product.findOneAndDelete({ _id: id });
   if (!product) {
     res.status(404).json({ msg: `NO Product FOR THIS ID ${id}` });
-    }
-    res.status(200).json({msg: `the Product  was deleted successfully`})
-}) 
-export {deleteproduct}
+  }
+  res.status(200).json({ msg: `the Product  was deleted successfully` })
+})
+export { deleteproduct }
 
 
