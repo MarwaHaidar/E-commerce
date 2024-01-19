@@ -1,7 +1,8 @@
 import express from 'express';
 import upload from '../controllers/imageuploadcontroller.js';
-import { createProduct, getproducts, getproduct, updateproduct, deleteproduct } from '../controllers/productcontroller.js'
 import { filterSortProducts, searchProducts } from '../controllers/searchfiltercontroller.js';
+import { createProduct, getproducts, getproduct, updateproduct, deleteproduct ,FeaturedProducts} from '../controllers/productcontroller.js'
+
 
 
 const router = express.Router();
@@ -13,7 +14,7 @@ router.get('/products/filter', filterSortProducts);
 router.get('/products/:id', getproduct);
 router.get('/products', getproducts);
 router.delete('/products/:id', deleteproduct);
-
+router.get('/features',FeaturedProducts)
 
 
 
