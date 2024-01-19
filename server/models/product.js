@@ -8,28 +8,10 @@ const variationSchema = new Schema({
     {
       size: { type: String, required: true },
       quantity: { type: Number, required: true, min: 0 },
+      
     },
   ],
 });
-
-//   const newProduct = new Product({
-//     name: "Example Product",
-//     // ... other fields ...
-//     variations: [
-//       {
-//         color: "Red",
-//         sizes: [
-//           {
-//             size: "Small",
-//             quantity: 10,
-//           },
-
-//         ],
-//       },
-//       // Add more variations if needed
-//     ],
-//     // ... other fields ...
-//   });
 
 
 
@@ -50,19 +32,17 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
-  sold: {
-    type: Number,
-    default: 0,
-  },
 
-  price: { type: Number, required: true, min: 0 },
+  price: { type: Number,
+    required: true,
+     min: 0 },
 
   priceAfterDiscount: {
     type: Number
   },
   imageCover: {
     type: String,
-    required: [true, 'Product Image Cover is required']
+
   }
   ,
   images: [String]
@@ -73,7 +53,7 @@ const productSchema = new Schema({
     ref: 'Currency',
     required: true
   }
-  ,
+ ,
   variations: [variationSchema]
   ,
 
@@ -83,13 +63,11 @@ const productSchema = new Schema({
     required: true
   }
   ,
-
-  ratingAverage: {
-    type: Number,
-    min: [1, 'Rating must be above or equal 1'],
-    max: [1, 'Rating must be below or equal 5'],
+  isFeatured: {
+    type: Boolean, // to get the product who need to review in home page 
+    default: false
   }
-
+  
 }, { timestamps: true });
 
 
