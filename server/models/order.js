@@ -24,14 +24,18 @@ const orderSchema = new Schema({
     //               },
     //   },
     // ],
-    
+
+    subTotal: { type: Number, 
+      required: true,
+       min: 0 },
+
     totalAmount: { type: Number, 
       required: true,
        min: 0 },
        
     status: {
       type: String,
-      enum: ['shipped', 'delivered'],
+      enum: ['paid', 'unpaid'],
       
     },
     dateOrdered:{
