@@ -1,5 +1,6 @@
 
 import {Schema,model} from 'mongoose';
+import mongoose from 'mongoose';
 
 
 const orderSchema = new Schema({
@@ -7,28 +8,41 @@ const orderSchema = new Schema({
      type: Schema.Types.ObjectId,
       ref: 'User'
      },
-  
-    productDetails: [
-      {
-        product: { type: Schema.Types.ObjectId, ref: 'Product' },
-        quantity: { type: Number, 
-                    required: true, 
-                    min: 1 ,
-                    default:1,
-                  },
-      },
-    ],
-    
+
+  orderItems:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'OrderItem',
+    required:true
+  }], 
+    // productDetails: [
+    //   {
+    //     product: { type: Schema.Types.ObjectId, ref: 'Product' },
+    //     quantity: { type: Number, 
+    //                 required: true, 
+    //                 min: 1 ,
+    //                 default:1,
+    //               },
+    //   },
+    // ],
+
+    subTotal: { type: Number, 
+      required: true,
+       min: 0 },
+
     totalAmount: { type: Number, 
       required: true,
        min: 0 },
        
     status: {
       type: String,
-      enum: ['shipped', 'delivered'],
+      enum: ['paid', 'unpaid'],
       
+    },
+    dateOrdered:{
+      type:Date,
+      default:Date.now,
     }
-  },{timestamps:true});
+  })
   
   const Order = model('Order', orderSchema);
   
