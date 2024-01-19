@@ -16,7 +16,7 @@ const deliverySchema = new Schema({
     //if the currDate()<Date:status:shipped else:delivered
     status: { type: String, 
               required: true, 
-              enum: ['shipped', 'delivered'] },
+              enum: ['pending', 'delivered'] },
     trackingNumber: { type: String },
   });
 
