@@ -26,7 +26,7 @@ const addToCart = asyncHandler(async (req, res) => {
         if (!cart) {
             cart = await Cart.create({ userId, items });
             res.status(201).json({ cart: cart });
-            console.log("found :", cart)
+            console.log("Created :", cart)
         }
         else {
             const productExists = cart.items.some(item => item.productId.equals(productId));
@@ -49,9 +49,13 @@ export { addToCart };
 
 // get user cart
 const getCart = asyncHandler(async (req, res) => {
-    const { userId } = req.params;
-    let cart = await Cart.findOne({ id: userId });
-    res.status(200).json({ data: cart });
+try {
+      const { userId } = req.params;
+      let cart = await Cart.findOne({ id: userId });
+      res.status(200).json({ data: cart });
+} catch (error) {
+    console.error(error)
+}
 });
 
 

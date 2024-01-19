@@ -14,17 +14,17 @@ import cartroute from './routes/cartRoute.js';
 
 const app = express();
 
-// -----------------------Middleware---------------------------------------------------------------------
-app.use(express.json());//parse json string 
+// parser
+app.use(express.json());
 
-// --------------------morgan---------------------------------------------------------------------------------
+// morgan
 if (process.env.NODE_ENV === "development") {
     app.use(morgan('dev'));
     console.log(`mode: ${process.env.Node_ENV}`)
 }
 
 
-//----------------Route-----------------------------------------------------------------------------------
+// routes
 
 app.use('/', categoryroute)
 app.use('/', subcategoryroute)
@@ -36,7 +36,7 @@ app.use('/', currencyroute)
 app.use('/', orderroute)
 app.use('/', cartroute)
 
-// -----------------------------------------------------------------------------------------------
+
 // connecting to databse ==> listening to requests
 connection().then(() => {
     app.listen(process.env.PORT, () => {
