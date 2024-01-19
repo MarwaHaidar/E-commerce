@@ -11,12 +11,16 @@ import currencyroute from './routes/currencyRoute.js';
 import orderroute from './routes/orderRoute.js';
 import cartroute from './routes/cartRoute.js';
 import striperoute from './routes/stripeRoute.js';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
 
 // -----------------------Middleware---------------------------------------------------------------------
 app.use(express.json());//parse json string 
+
+// Use cookie parser middleware
+app.use(cookieParser());
 
 // --------------------morgan---------------------------------------------------------------------------------
 if (process.env.NODE_ENV === "development") {
