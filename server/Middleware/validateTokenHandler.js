@@ -18,7 +18,7 @@ const validateToken = asyncHandler(async (req, res, next) => {
 
             // Attach the user information to the request object
             req.user = decoded.user;
-            next();
+            next();//go to controller if validation is done
         });
     } else {
         res.status(401);
