@@ -2,35 +2,68 @@ import Product from "../models/product.js";
 import slugify from 'slugify';
 import asyncHandler from 'express-async-handler';
 import { uploadMultipleImages } from "./imageuploadcontroller.js";
-import { calculateDiscountedPrice } from '../Middleware/productMiddleware.js';
-
-
-
 
 
 // create product 
 const createProduct = asyncHandler(async (req, res) => {
+  
+const variations = req.body.variations;
+var sumQuantitySizes;
+var totalQuantity=[];
+variations.forEach(variation => {
+  variation.colors.forEach(color => {
+     sumQuantitySizes = color.sizes.reduce((sum, size) => sum + size.quantitySizes, 0);
+    color.quantity = sumQuantitySizes;// quantity
+  });
+  totalQuantity.push(sumQuantitySizes);
+});
+const sumQuantity = totalQuantity.reduce((acc, current) => acc + current, 0); // totalQuantity
+console.log(sumQuantity);
 
-  calculateDiscountedPrice(req, res, () => {});
-
+// create product 
   const name = req.body.name;
   const desc = req.body.desc;
   const price = req.body.price;
-  const priceAfterDiscount = req.body.priceAfterDiscount;
+  const discountPercentage = req.body.discountPercentage;
+  // const priceAfterDiscount = price - (price * discountPercentage) / 100;
   const currency = req.body.currency;
   const subcategory = req.body.subcategory;
-  const variations = req.body.variations;
   const isFeatured = req.body.isFeatured;
+  const totalQuantityProducts=sumQuantity;
   const multiimages = req.files ? req.files.map(file => file.buffer) : [];
   const imagesArray = await uploadMultipleImages(multiimages);
   const imageCover = imagesArray[0];
   const images = imagesArray.slice(1);
 
-  const product = await Product.create({ name, slug: slugify(name), desc, price, priceAfterDiscount, currency, variations, subcategory, images, imageCover,isFeatured });
+  const product = await Product.create({ name, slug: slugify(name), desc, price, currency, variations, subcategory, images, imageCover,isFeatured ,totalQuantityProducts});
   res.status(201).json({ data: product });
 
 });
+
 export { createProduct };
+
+// // create product 
+// const createProduct = asyncHandler(async (req, res) => {
+
+//   const name = req.body.name;
+//   const desc = req.body.desc;
+//   const price = req.body.price;
+//   const discountPercentage = req.body.discountPercentage;
+//   const priceAfterDiscount = price - (price * discountPercentage) / 100;
+//   const currency = req.body.currency;
+//   const subcategory = req.body.subcategory;
+//   const variations = req.body.variations;
+//   const isFeatured = req.body.isFeatured;
+//   const multiimages = req.files ? req.files.map(file => file.buffer) : [];
+//   const imagesArray = await uploadMultipleImages(multiimages);
+//   const imageCover = imagesArray[0];
+//   const images = imagesArray.slice(1);
+
+//   const product = await Product.create({ name, slug: slugify(name), desc, price, priceAfterDiscount, currency, variations, subcategory, images, imageCover,isFeatured });
+//   res.status(201).json({ data: product });
+
+// });
+// export { createProduct };
 
 
 
@@ -74,13 +107,14 @@ export { getproduct };
 
 const updateproduct = asyncHandler(async (req, res) => {
 
-  calculateDiscountedPrice(req, res, () => {});
+  // calculateDiscountedPrice(req, res, () => {});
 
   const { id } = req.params;
   const { name } = req.body;
   const { desc } = req.body;
   const { price } = req.body;
-  const { priceAfterDiscount } = req.body;
+  const {discountPercentage} = req.body;
+  const {priceAfterDiscount} = price - (price * discountPercentage) / 100;
   const { currency } = req.body;
   const { variations } = req.body;
   const { subcategory } = req.body;
@@ -138,3 +172,5 @@ const FeaturedProducts =  asyncHandler(async (req, res) => {
   res.status(200).json({ data: product })
 });
 export { FeaturedProducts };
+
+
