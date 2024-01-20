@@ -1,11 +1,12 @@
 import express from 'express';
 import upload from '../controllers/imageuploadcontroller.js';
 import { createcategory, getcategories,getcategory,updatecategory,deletecategory } from '../controllers/categorycontroller.js';
-import subcategoriesRoute from './subcategoryRoute.js'
+import subcategoriesRoute from './subcategoryRoute.js';
+import { validateToken,validateTokenForAdmin } from '../Middleware/validateTokenHandler.js';
 
 const router = express.Router();
 
-router.post('/admin/categories', upload.single("image"), createcategory)
+router.post('/admin/categories', upload.single("image"),validateTokenForAdmin, createcategory)
 router.put('/admin/categories/:id', upload.single("image"), updatecategory)
 router.get('/categories', getcategories)
 router.get('/categories/:id', getcategory)

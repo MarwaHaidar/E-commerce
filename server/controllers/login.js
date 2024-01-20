@@ -3,7 +3,10 @@ import bcrypt from 'bcrypt';
 import asyncHandler from 'express-async-handler';
 import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
+
+// Array of admin emails
+const adminEmails = ['rayansoltan99@gmail.com', 'admin2@example.com', 'admin3@example.com'];
+
 
 // login user
 const loginuser = asyncHandler(async (req, res) => {
@@ -13,12 +16,17 @@ const loginuser = asyncHandler(async (req, res) => {
         throw new Error("All fields are mandatory!");
     }
     const auth = await Author.findOne({ email });
-    // compare password with hashed password
+
+    // Check if the user exists
     if (auth && (await bcrypt.compare(password, auth.password) && auth.verifyStatus === true)) {
+
+        // Check if the user is an admin based on the email
+        const isAdmin = adminEmails.includes(email);
+
         // Check if a user with the same email already exists
         const existingUser = await User.findOne({ email });
 
-        // If the user already exists, update the access token
+        // If the user already exists, update the access token and role
         if (existingUser) {
             existingUser.access_token = jwt.sign({
                 user: {
@@ -26,34 +34,65 @@ const loginuser = asyncHandler(async (req, res) => {
                     last_name: auth.last_name,
                     email: auth.email,
                     id: existingUser.id,
+                    role: isAdmin ? 'admin' : 'user', // Set the role based on isAdmin
                 }
             }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
-
-            await existingUser.save();
-
-            res.status(200).json({ user: existingUser });
-        } else {
-
-            // If the user does not exist, create a new user entry
-            const accessToken = jwt.sign({
+            //refresh token
+            const refreshToken = jwt.sign({
                 user: {
                     first_name: auth.first_name,
                     last_name: auth.last_name,
                     email: auth.email,
-                    id: auth.id,
+                    id: existingUser.id,
+                    role: isAdmin ? 'admin' : 'user',
                 }
-            }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
-            // Create a new User document with the specified schema
-            const user = await User.create({
+            }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+        
+            // Save the refresh token in a secure manner (e.g., database, secure cookie)
+            existingUser.refresh_token = refreshToken;
+        
+            // Save the refresh token in a secure cookie
+            res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days in milliseconds
+
+            await existingUser.save();
+
+            res.status(201).json({ user: existingUser, accessToken: existingUser.access_token });
+        } else {
+            // If the user does not exist, create a new user entry
+        const newUser = await User.create({
+            first_name: auth.first_name,
+            last_name: auth.last_name,
+            email: auth.email,
+            password: auth.password, // You may want to consider hashing the password again
+            role: isAdmin ? 'admin' : 'user',
+        });
+
+        // Generate access token and refresh token for the new user
+        const accessToken = jwt.sign({
+            user: {
                 first_name: auth.first_name,
                 last_name: auth.last_name,
                 email: auth.email,
-                password: auth.password, // You may want to consider hashing the password again
-                access_token: accessToken,
-            });
+                id: newUser.id,
+                role: newUser.role,
+            }
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
 
+        const refreshToken = jwt.sign({
+            user: {
+                first_name: auth.first_name,
+                last_name: auth.last_name,
+                email: auth.email,
+                id: newUser.id,
+                role: newUser.role,
+            }
+        }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
-            res.status(201).json({ user });
+        // Save the refresh token in a secure cookie
+        res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days in milliseconds
+
+        res.status(201).json({ newUser, accessToken });
+
         }
     } else {
         res.status(401);
@@ -62,6 +101,7 @@ const loginuser = asyncHandler(async (req, res) => {
 });
 
 export { loginuser };
+
 
 
 
