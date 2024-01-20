@@ -9,12 +9,9 @@ import productroute from './routes/productRoute.js';
 import reviewroute from './routes/reviewRoute.js';
 import currencyroute from './routes/currencyRoute.js';
 import orderroute from './routes/orderRoute.js';
-
 import cartroute from './routes/cartRoute.js';
-
 import striperoute from './routes/stripeRoute.js';
 import cookieParser from 'cookie-parser';
-
 
 const app = express();
 
@@ -39,24 +36,11 @@ app.use('/', subcategoryroute)
 app.use('/', userroute)
 app.use('/author', authorroute)
 app.use('/', productroute)
-
-
-
 app.use('/', reviewroute)
 app.use('/', currencyroute)
 app.use('/', orderroute)
 app.use('/', cartroute)
 app.use('/',striperoute)
-
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-// -----------------------------------------------------------------------------------------------
-=======
->>>>>>> 2e7a726d251e177f4ea4607521ac645a2c432136
-=======
->>>>>>> 2e7a726d251e177f4ea4607521ac645a2c432136
 // connecting to databse ==> listening to requests
 connection().then(() => {
     app.listen(process.env.PORT, () => {

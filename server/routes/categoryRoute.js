@@ -6,7 +6,7 @@ import { validateToken,validateTokenForAdmin } from '../Middleware/validateToken
 
 const router = express.Router();
 
-router.post('/admin/categories', upload.single("image"),validateTokenForAdmin, createcategory)
+router.post('/admin/categories', validateTokenForAdmin,upload.single("image"), createcategory)
 router.put('/admin/categories/:id', upload.single("image"), updatecategory)
 router.get('/categories', getcategories)
 router.get('/categories/:id', getcategory)
