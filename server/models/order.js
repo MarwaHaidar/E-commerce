@@ -8,12 +8,10 @@ const orderSchema = new Schema({
      type: Schema.Types.ObjectId,
       ref: 'User'
      },
-
-  orderItems:[{
-    type: mongoose.Schema.Types.ObjectId,
-    ref:'OrderItem',
-    required:true
-  }], 
+  
+    
+    
+ 
     // productDetails: [
     //   {
     //     product: { type: Schema.Types.ObjectId, ref: 'Product' },

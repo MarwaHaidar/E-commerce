@@ -9,6 +9,8 @@ const router=express.Router();
 
 
 // Asynchronous route for creating a checkout session
-router.post('/create-checkout-session', payment)
+
+router.post('/create-checkout-session',validateToken, payment)
+
 
 export default router;

@@ -13,7 +13,6 @@ import cartroute from './routes/cartRoute.js';
 import striperoute from './routes/stripeRoute.js';
 import cookieParser from 'cookie-parser';
 
-
 const app = express();
 
 // parser
@@ -42,9 +41,6 @@ app.use('/', currencyroute)
 app.use('/', orderroute)
 app.use('/', cartroute)
 app.use('/',striperoute)
-
-
-
 // connecting to databse ==> listening to requests
 connection().then(() => {
     app.listen(process.env.PORT, () => {
