@@ -107,8 +107,3 @@ export { loginuser };
 
 
 // =====================================================================================================================
-// current user info
-const currentuser = asyncHandler(async (req, res) => {
-    res.json(req.user);
-});
-export { currentuser }
