@@ -63,7 +63,7 @@ jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
                 email: decoded.user.email,
                 role: decoded.user.role,
             }
-        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
         // Send the new access token to the client
         res.json({ accessToken: newAccessToken });

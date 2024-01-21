@@ -1,36 +1,30 @@
+
 import asyncHandler from 'express-async-handler';
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_KEY);
-import Order  from '../models/order';
-
-
-
-
-
-
-
+import Order from '../models/order.js';
+// import Delivery from '../models/delivery.js'; // Import your Delivery model
 
 const calculateTotalStatus = (totalAmount) => {
   if (totalAmount > 100) {
     return totalAmount;
   } else {
-    const shippingPercentage = 0.15; // 15% of totalAmount
-    const additionalCharge = totalAmount * shippingPercentage;
-    return totalAmount  + additionalCharge;
+    const additionalChargePercentage = 0.15; // 15% of totalAmount
+    const additionalCharge = totalAmount * additionalChargePercentage;
+    return totalAmount + additionalCharge;
   }
 };
 
 const payment = asyncHandler(async (req, res) => {
   const { cartItems } = req.body;
-//   const shippingCharge = 5; // Assuming a fixed shipping charge, you can adjust this based on your logic
 
   // Calculate totalAmount including shipping charge
   const totalAmount = cartItems.reduce((total, product) => {
     return total + product.price * product.quantity;
-  }, 0) ;
+  }, 0);
 
   // Calculate totalStatus based on the custom logic
-  const totalStatus = calculateTotalStatus(totalAmount, shippingCharge);
+  const totalStatus = calculateTotalStatus(totalAmount);
 
   // Create an order record with status 'unpaid'
   const order = await Order.create({
@@ -42,10 +36,10 @@ const payment = asyncHandler(async (req, res) => {
     totalAmount: totalAmount,
     TotalStatus: totalStatus,
     status: 'unpaid', // Set the initial order status
-    dateOrdered:{
-        type:Date,
-        default:Date.now,
-      }
+    dateOrdered: {
+      type: Date,
+      default: Date.now,
+    },
   });
 
   // Map cart items to Stripe line items
@@ -77,44 +71,23 @@ const payment = asyncHandler(async (req, res) => {
     cancel_url: `${process.env.CLIENT_URL}/cart`,
   });
 
-  // Update the order record with the Stripe session ID
+  // Update the order record with the Stripe session ID and set status to 'paid'
   await Order.findByIdAndUpdate(order._id, {
-    status: 'paid', // Update status to 'paid' after successful payment
+    status: 'paid',
     stripeSessionId: session.id,
   });
 
-  // Update the order record with the Stripe session ID
-  await Order.findByIdAndUpdate(order._id, {
-    status: 'paid', // Update status to 'paid' after successful payment
-    stripeSessionId: session.id,
-  });
   // Create a delivery record in your Delivery model
   const delivery = await Delivery.create({
-    orderId: order._id,
-    status: 'pending', // Set the initial delivery status
-    // ... other details for delivery record
-  });
+    order_id: order._id,
+    status: 'pending', // Set the initial delivery status// if current date<delivery date then pending 
+    user_id:req.user.id,
+    address:req.user.id,
+    //deliverydate date of creation of order where status: paid+10 days
 
+  });
 
   res.send({ url: session.url });
 });
 
 export { payment };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

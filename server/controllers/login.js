@@ -36,7 +36,7 @@ const loginuser = asyncHandler(async (req, res) => {
                     id: existingUser.id,
                     role: isAdmin ? 'admin' : 'user', // Set the role based on isAdmin
                 }
-            }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+            }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
             //refresh token
             const refreshToken = jwt.sign({
                 user: {
@@ -56,7 +56,7 @@ const loginuser = asyncHandler(async (req, res) => {
 
             await existingUser.save();
 
-            res.status(201).json({ user: existingUser, accessToken: existingUser.access_token });
+            res.status(201).json({ user: existingUser, });
         } else {
             // If the user does not exist, create a new user entry
         const newUser = await User.create({
@@ -76,7 +76,7 @@ const loginuser = asyncHandler(async (req, res) => {
                 id: newUser.id,
                 role: newUser.role,
             }
-        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
         const refreshToken = jwt.sign({
             user: {
@@ -91,7 +91,7 @@ const loginuser = asyncHandler(async (req, res) => {
         // Save the refresh token in a secure cookie
         res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days in milliseconds
 
-        res.status(201).json({ newUser, accessToken });
+        res.status(201).json({ newUser });
 
         }
     } else {
