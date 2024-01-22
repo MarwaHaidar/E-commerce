@@ -40,7 +40,7 @@ app.use('/', reviewroute)
 app.use('/', currencyroute)
 app.use('/', orderroute)
 app.use('/', cartroute)
-app.use('/',striperoute)
+app.use('/', striperoute)
 // connecting to databse ==> listening to requests
 connection().then(() => {
     app.listen(process.env.PORT, () => {
