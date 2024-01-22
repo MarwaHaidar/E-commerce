@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_KEY);
 import Order from '../models/order.js';
-// import Delivery from '../models/delivery.js'; // Import your Delivery model
+ import Delivery from '../models/delivery.js'; // Import your Delivery model
 
 const calculateTotalStatus = (totalAmount) => {
   if (totalAmount > 100) {
@@ -22,6 +22,11 @@ const payment = asyncHandler(async (req, res) => {
   const totalAmount = cartItems.reduce((total, product) => {
     return total + product.price * product.quantity;
   }, 0);
+  // reduce function: The reduce function is an array method used to accumulate a 
+  // single result (in this case, the total amount) by iterating over each item in the array.
+  // Initial value (0): The reduce function takes an initial value as its second argument (0 in this case). 
+  // This initial value is assigned to the total parameter in the first iteration. It's the starting point 
+  // for the accumulation.
 
   // Calculate totalStatus based on the custom logic
   const totalStatus = calculateTotalStatus(totalAmount);
@@ -30,8 +35,8 @@ const payment = asyncHandler(async (req, res) => {
   const order = await Order.create({
     userId: req.user._id, // Assuming you have a user associated with the order
     items: cartItems.map((product) => ({
-      productId: product.productId,
-      quantity: product.quantity,
+      productId: product._id,
+      quantity: product.totalQuantityProducts,
     })),
     totalAmount: totalAmount,
     TotalStatus: totalStatus,
@@ -48,18 +53,18 @@ const payment = asyncHandler(async (req, res) => {
       price_data: {
         currency: product.currency,
         product_data: {
-          name: product.productName,
+          name: product.name,
           imageCover: product.imageCover,
           desc: product.desc,
           discountPercentage: product.discountPercentage,
           metadata: {
-            id: product.productId,
+            id: product._id,
             orderId: order._id, // Include the orderId in metadata for reference
           },
         },
         price: product.price * 100, // Convert to cents for Stripe
       },
-      quantity: product.quantity,
+      quantity: product.totalQuantityProducts,
     };
   });
 
