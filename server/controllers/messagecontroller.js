@@ -15,7 +15,7 @@ const sendMessage = asyncHandler(async (req, res) => {
         const name = user.first_name;
         const email = user.email;
 
-        const message = await Message.create({ user_id, name, text, email, screenshot });
+        const message = await Message.create({ user_id, name, email, text, screenshot });
         res.status(201).json({ message: message });
     } catch (error) {
         console.error('Error sending message:', error);
