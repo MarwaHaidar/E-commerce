@@ -2,11 +2,19 @@ import Product from "../models/product.js";
 import slugify from 'slugify';
 import asyncHandler from 'express-async-handler';
 import { uploadMultipleImages } from "./imageuploadcontroller.js";
+import { productValidationSchema} from '../validationJoi/productValidation.js';
 
 
 // create product 
 const createProduct = asyncHandler(async (req, res) => {
-  
+//------------------ valdiation joi 
+const {error} = productValidationSchema.validate(req.body, { abortEarly: false });
+
+if (error) {
+  return res.status(400).json({ error: error.details.map(detail => detail.message) });
+}
+//----------------------------------
+
 const variations = req.body.variations;
 var sumQuantitySizes;
 var totalQuantity=[];
@@ -24,8 +32,8 @@ console.log(sumQuantity);
   const name = req.body.name;
   const desc = req.body.desc;
   const price = req.body.price;
-  const discountPercentage = req.body.discountPercentage;
-  // const priceAfterDiscount = price - (price * discountPercentage) / 100;
+  const discountPercentage = 10;
+   const priceAfterDiscount = price - (price * discountPercentage) / 100;
   const currency = req.body.currency;
   const subcategory = req.body.subcategory;
   const isFeatured = req.body.isFeatured;
