@@ -55,7 +55,8 @@ const getCart = asyncHandler(async (req, res) => {
 try {
       const { userId } = req.params;
       let cart = await Cart.findOne({ id: userId });
-      res.status(200).json({ data: cart });
+      let count = cart.items.length
+      res.status(200).json({result: count, data: cart });
 } catch (error) {
     console.error(error)
 }
