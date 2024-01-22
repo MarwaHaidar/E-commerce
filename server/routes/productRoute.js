@@ -14,7 +14,7 @@ router.get('/products/filter', filterSortProducts);
 router.get('/products/:id', getproduct);
 router.get('/products', getproducts);
 router.delete('/products/:id', deleteproduct);
-router.get('/features',FeaturedProducts)
+router.get('/features',FeaturedProducts);
 
 
 
