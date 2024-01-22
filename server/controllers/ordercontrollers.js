@@ -1,7 +1,7 @@
 import Order from "../models/order.js";
 import asyncHandler from 'express-async-handler';
 import OrderItem from '../models/orderItems.js';
-
+import  { orderValidationSchema } from '../validationJoi/orderValidation.js'
 
 
 //total Status whith  delivery order
@@ -14,6 +14,14 @@ function TotalFu(TotalAmount) {
 }
 // create order
     const createOrder = asyncHandler(async(req,res)=>{
+
+// validation joi-------------- 
+        const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
+
+        if (error) {
+          return res.status(400).json({ error: error.details.map(detail => detail.message) });
+        }
+
 
 // --------------function to return only the ids of products in array orderItems in the collection order  ---------------//
     const orderItemsIds= Promise.all(req.body.orderItems.map(async orderitem=>{ // Promise.all is for merge the ids

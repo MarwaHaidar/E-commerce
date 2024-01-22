@@ -5,7 +5,7 @@ import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 
 // Array of admin emails
-const adminEmails = ['rayansoltan99@gmail.com', 'admin2@example.com', 'admin3@example.com'];
+const adminEmails = ['rayansoltan99@gmail.com', 'ohamzeh10@gmail.com', 'admin3@example.com'];
 
 
 // login user

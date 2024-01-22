@@ -1,12 +1,17 @@
 import { Schema, model } from 'mongoose';
 
+
+
+
+
 const categorySchema = new Schema({
   name: {
     type: String,
     required: [true, 'Category required'],
     unique: [true, 'Category must be unique'],
     minlength: [3, 'Too short category name'],
-    maxlength: [32, 'Too long category name']
+    maxlength: [32, 'Too long category name'],
+    
   },
   slug: {
     type: String,
@@ -20,4 +25,5 @@ const categorySchema = new Schema({
 }, { timestamps: true });
 
 const Category = model('Category', categorySchema);
+
 export default Category;
