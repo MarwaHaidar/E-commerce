@@ -2,11 +2,19 @@ import Product from "../models/product.js";
 import slugify from 'slugify';
 import asyncHandler from 'express-async-handler';
 import { uploadMultipleImages } from "./imageuploadcontroller.js";
+import { productValidationSchema} from '../validationJoi/productValidation.js';
 
 
 // create product 
 const createProduct = asyncHandler(async (req, res) => {
-  
+//------------------ valdiation joi 
+const {error} = productValidationSchema.validate(req.body, { abortEarly: false });
+
+if (error) {
+  return res.status(400).json({ error: error.details.map(detail => detail.message) });
+}
+//----------------------------------
+
 const variations = req.body.variations;
 var sumQuantitySizes;
 var totalQuantity=[];
@@ -19,13 +27,13 @@ variations.forEach(variation => {
 });
 const sumQuantity = totalQuantity.reduce((acc, current) => acc + current, 0); // totalQuantity
 console.log(sumQuantity);
-
+//----------------------------------
 // create product 
   const name = req.body.name;
   const desc = req.body.desc;
   const price = req.body.price;
   const discountPercentage = req.body.discountPercentage;
-  // const priceAfterDiscount = price - (price * discountPercentage) / 100;
+   const priceAfterDiscount = price - (price * discountPercentage) / 100;
   const currency = req.body.currency;
   const subcategory = req.body.subcategory;
   const isFeatured = req.body.isFeatured;
@@ -35,7 +43,7 @@ console.log(sumQuantity);
   const imageCover = imagesArray[0];
   const images = imagesArray.slice(1);
 
-  const product = await Product.create({ name, slug: slugify(name), desc, price, currency, variations, subcategory, images, imageCover,isFeatured ,totalQuantityProducts});
+  const product = await Product.create({ name, slug: slugify(name), desc, price, currency, variations, subcategory, images, imageCover,isFeatured ,totalQuantityProducts,priceAfterDiscount});
   res.status(201).json({ data: product });
 
 });
@@ -107,6 +115,22 @@ export { getproduct };
 
 const updateproduct = asyncHandler(async (req, res) => {
 
+  //----------------------------------
+  const variations = req.body.variations;
+
+var sumQuantitySizes;
+var totalQuantity=[];
+variations.forEach(variation => {
+  variation.colors.forEach(color => {
+     sumQuantitySizes = color.sizes.reduce((sum, size) => sum + size.quantitySizes, 0);
+    color.quantity = sumQuantitySizes;// quantity
+  });
+  totalQuantity.push(sumQuantitySizes);
+});
+const sumQuantity = totalQuantity.reduce((acc, current) => acc + current, 0); // totalQuantity
+console.log(sumQuantity);
+//----------------------------------
+
   // calculateDiscountedPrice(req, res, () => {});
 
   const { id } = req.params;
@@ -116,7 +140,6 @@ const updateproduct = asyncHandler(async (req, res) => {
   const {discountPercentage} = req.body;
   const {priceAfterDiscount} = price - (price * discountPercentage) / 100;
   const { currency } = req.body;
-  const { variations } = req.body;
   const { subcategory } = req.body;
   const {isFeatured} = req.body;
   const multiimages = req.files ? req.files.map(file => file.buffer) : [];

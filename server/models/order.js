@@ -2,6 +2,7 @@ import {Schema,model} from 'mongoose';
 import mongoose from 'mongoose';
 
 
+
 const orderSchema = new Schema({
   userId: {
      type: Schema.Types.ObjectId,
@@ -13,20 +14,7 @@ const orderSchema = new Schema({
     ref:'OrderItem',
     required:true
   }], 
-    // productDetails: [
-    //   {
-    //     product: { type: Schema.Types.ObjectId, ref: 'Product' },
-    //     quantity: { type: Number, 
-    //                 required: true, 
-    //                 min: 1 ,
-    //                 default:1,
-    //               },
-    //   },
-    // ],
 
-    // subTotal: { type: Number, 
-    //   required: true,
-    //    min: 0 },
 
     totalAmount: { type: Number, 
       required: true,
@@ -37,12 +25,7 @@ const orderSchema = new Schema({
       required: true,
        min: 0 
     }
-      ,
-    status: {
-      type: String,
-      enum: ['paid', 'unpaid'],
-      
-    },
+  ,
     dateOrdered:{
       type:Date,
       default:Date.now,

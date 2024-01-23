@@ -2,12 +2,13 @@ import express from 'express';
 import upload from '../controllers/imageuploadcontroller.js';
 import { filterSortProducts, searchProducts } from '../controllers/searchfiltercontroller.js';
 import { createProduct, getproducts, getproduct, updateproduct, deleteproduct ,FeaturedProducts} from '../controllers/productcontroller.js'
+import { validateToken,validateTokenForAdmin } from '../Middleware/validateTokenHandler.js';
 
 
 
 const router = express.Router();
 
-router.post('/admin/product', upload.array("images"),  createProduct);
+router.post('/admin/product',validateToken,validateTokenForAdmin , upload.array("images"),  createProduct);
 router.put('/admin/products/:id', upload.array("images"), updateproduct);
 router.get('/products/search', searchProducts); 
 router.get('/products/filter', filterSortProducts); 
