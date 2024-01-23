@@ -14,6 +14,7 @@ const productValidationSchema = Joi.object({
   subcategory: Joi.string().required(),
   isFeatured: Joi.boolean().default(false),
   totalQuantityProducts: Joi.number(),
+  discountPercentage:Joi.number(),
 });
 
 export { productValidationSchema };

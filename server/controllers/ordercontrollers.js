@@ -16,11 +16,11 @@ function TotalFu(TotalAmount) {
     const createOrder = asyncHandler(async(req,res)=>{
 
 // validation joi-------------- 
-        const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
+        // const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
 
-        if (error) {
-          return res.status(400).json({ error: error.details.map(detail => detail.message) });
-        }
+        // if (error) {
+        //   return res.status(400).json({ error: error.details.map(detail => detail.message) });
+        // }
 
 
 // --------------function to return only the ids of products in array orderItems in the collection order  ---------------//
