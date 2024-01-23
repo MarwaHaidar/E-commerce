@@ -25,12 +25,7 @@ const orderSchema = new Schema({
       required: true,
        min: 0 
     }
-      ,
-    status: {
-      type: String,
-      enum: ['paid', 'unpaid'],
-      
-    },
+  ,
     dateOrdered:{
       type:Date,
       default:Date.now,
