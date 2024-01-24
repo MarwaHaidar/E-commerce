@@ -34,7 +34,7 @@ console.log(sumQuantity);
   const price = req.body.price;
   const discountPercentage = req.body.discountPercentage;
    const priceAfterDiscount = price - (price * discountPercentage) / 100;
-  const currency = req.body.currency;
+  // const currency = req.body.currency;
   const subcategory = req.body.subcategory;
   const isFeatured = req.body.isFeatured;
   const totalQuantityProducts=sumQuantity;
@@ -83,7 +83,7 @@ const getproducts = asyncHandler(async (req, res) => {
   const products = await Product.find({})
   .skip(skip)
   .limit(limit)
-  .populate({path:'currency',select:'symbol-_id'})
+  // .populate({path:'currency',select:'symbol-_id'})
   .populate({path:'subcategory',select:'name-_id'})
   .sort({ dateOrdered: -1 }); 
 
