@@ -37,6 +37,7 @@ const calculateQuantity = asyncHandler(async (req, res, next) => {
         console.error('Error updating quantities:', error.message);
         res.status(500).json({ error: 'Internal server error' });
     }
+    next();
 });
 
 export { calculateQuantity };

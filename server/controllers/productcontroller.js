@@ -99,8 +99,9 @@ export { getproducts };
 
 const getproduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   const product = await Product.findById(id)
-  .populate({path:'currency',select:'symbol-_id'})
+  // .populate({path:'currency',select:'symbol-_id'})
   .populate({path:'subcategory',select:'name-_id'})
 ;
   if (!product) {
