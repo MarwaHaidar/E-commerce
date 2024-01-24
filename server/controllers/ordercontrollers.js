@@ -2,6 +2,7 @@ import Order from "../models/order.js";
 import asyncHandler from 'express-async-handler';
 import OrderItem from '../models/orderItems.js';
 import  { orderValidationSchema } from '../validationJoi/orderValidation.js'
+import {calculateQuantity} from '../Middleware/RecalculateQu.js'
 
 
 //total Status whith  delivery order
@@ -76,7 +77,6 @@ const sumTotalAmount = TotalAmount.reduce((a,b)=>a+b,0); // sum of all values in
     const status = req.body.status;
     const TotalStatus = subTotalStatus;
 
-    
     const order = await Order.create({userId,orderItems,totalAmount,TotalStatus,status});
     res.status(201).json({data:order});
     });
