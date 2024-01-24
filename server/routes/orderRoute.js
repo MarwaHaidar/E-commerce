@@ -18,7 +18,7 @@ router.post('/user/order', async (req, res, next) => {
 });
 
 
-// router.post('/user/order',createOrder,calculateQuantity,);
+// router.post('/user/order',createOrder,calculateQuantity);
 router.get('/orders',getorders);
 router.get('/orders/:id',getorder)
 router.put('/admin/orders/:id',updateorder)
