@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_KEY);
 import Order from '../models/order.js';
- import Delivery from '../models/delivery.js'; // Import your Delivery model
+import Delivery from '../models/delivery.js'; // Import your Delivery model
 
 const calculateTotalStatus = (totalAmount) => {
   if (totalAmount > 100) {
