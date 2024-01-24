@@ -1,7 +1,7 @@
 import Product from "../models/product.js";
 import asyncHandler from 'express-async-handler';
 
-const calculateQuantity = asyncHandler(async (req, res, next) => {
+const calculateQuantity = asyncHandler(async (req, res) => {
     try {
         const orderItems = req.body.orderItems;
         for (const orderItem of orderItems) {
@@ -16,6 +16,7 @@ const calculateQuantity = asyncHandler(async (req, res, next) => {
                 if (colorToUpdate) {
                     // Find the specific size within the color
                     const sizeToUpdate = colorToUpdate.sizes.find(s => s.enum[0] === size);
+                    console.log(sizeToUpdate);
                     // Check if sizeToUpdate is not undefined
                     if (sizeToUpdate) {
                         // Update the quantity
@@ -30,14 +31,16 @@ const calculateQuantity = asyncHandler(async (req, res, next) => {
             }
             // Save the updated product to the database
             await productToUpdate.save();
+         
         }
-
+       
         res.status(200).json({ message: 'Order placed successfully.' });
     } catch (error) {
         console.error('Error updating quantities:', error.message);
         res.status(500).json({ error: 'Internal server error' });
     }
-    next();
+
+
 });
 
 export { calculateQuantity };

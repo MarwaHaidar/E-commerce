@@ -14,7 +14,7 @@ function TotalFu(TotalAmount) {
     }
 }
 // create order
-    const createOrder = asyncHandler(async(req,res)=>{
+    const createOrder = asyncHandler(async(req,res,next)=>{
 
 // validation joi-------------- 
         // const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
@@ -79,6 +79,7 @@ const sumTotalAmount = TotalAmount.reduce((a,b)=>a+b,0); // sum of all values in
 
     const order = await Order.create({userId,orderItems,totalAmount,TotalStatus,status});
     res.status(201).json({data:order});
+    next();
     });
     export { createOrder };
 
