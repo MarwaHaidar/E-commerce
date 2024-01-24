@@ -10,6 +10,7 @@ import reviewroute from './routes/reviewRoute.js';
 import currencyroute from './routes/currencyRoute.js';
 import orderroute from './routes/orderRoute.js';
 import cartroute from './routes/cartRoute.js';
+import wishlistroute from './routes/wishlistRoute.js';
 import striperoute from './routes/stripeRoute.js';
 import messageroute from './routes/messageRoute.js';
 import cookieParser from 'cookie-parser';
@@ -43,6 +44,7 @@ app.use('/', orderroute)
 app.use('/', cartroute)
 app.use('/', striperoute)
 app.use('/', messageroute)
+app.use('/', wishlistroute)
 
 
 
