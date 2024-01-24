@@ -7,7 +7,7 @@ import userroute from './routes/userRoute.js';
 import authorroute from './routes/authRoute.js';
 import productroute from './routes/productRoute.js';
 import reviewroute from './routes/reviewRoute.js';
-import currencyroute from './routes/currencyRoute.js';
+// import currencyroute from './routes/currencyRoute.js';
 import orderroute from './routes/orderRoute.js';
 import cartroute from './routes/cartRoute.js';
 import wishlistroute from './routes/wishlistRoute.js';
@@ -39,7 +39,7 @@ app.use('/', userroute)
 app.use('/author', authorroute)
 app.use('/', productroute)
 app.use('/', reviewroute)
-app.use('/', currencyroute)
+// app.use('/', currencyroute)
 app.use('/', orderroute)
 app.use('/', cartroute)
 app.use('/', striperoute)
