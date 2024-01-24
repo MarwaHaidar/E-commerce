@@ -117,3 +117,25 @@ const deleteItem = async (req, res) => {
   
 export  { deleteItem };
 
+const clearitems = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const newCart = await Cart.findOneAndUpdate(
+      { userId },
+      { $set: { items: [] } }, // Set the 'items' array to an empty array
+      { new: true }
+    );
+
+    if (!newCart) {
+      return res.status(404).json({ message: 'Cart not found or already empty' });
+    }
+
+    res.status(200).json({ message: 'Cart cleared successfully', data: newCart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+export { clearitems };

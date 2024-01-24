@@ -9,12 +9,12 @@ import { validateToken,validateTokenForAdmin } from '../Middleware/validateToken
 const router = express.Router();
 
 router.post('/admin/product',validateToken,validateTokenForAdmin , upload.array("images"),  createProduct);
-router.put('/admin/products/:id', upload.array("images"), updateproduct);
+router.put('/admin/products/:id',validateToken,validateTokenForAdmin , upload.array("images"), updateproduct);
 router.get('/products/search', searchProducts); 
 router.get('/products/filter', filterSortProducts); 
 router.get('/products/:id', getproduct);
 router.get('/products', getproducts);
-router.delete('/products/:id', deleteproduct);
+router.delete('/admin/products/:id',validateToken,validateTokenForAdmin, deleteproduct);
 router.get('/features',FeaturedProducts);
 
 
