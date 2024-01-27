@@ -18,6 +18,7 @@ if (error) {
 const variations = req.body.variations;
 var sumQuantitySizes;
 var totalQuantity=[];
+
 variations.forEach(variation => {
   variation.colors.forEach(color => {
      sumQuantitySizes = color.sizes.reduce((sum, size) => sum + size.quantitySizes, 0);
@@ -43,7 +44,7 @@ console.log(sumQuantity);
   const imageCover = imagesArray[0];
   const images = imagesArray.slice(1);
 
-  const product = await Product.create({ name, slug: slugify(name), desc, price, currency, variations, subcategory, images, imageCover,isFeatured ,totalQuantityProducts,priceAfterDiscount});
+  const product = await Product.create({ name, slug: slugify(name), desc, price, variations, subcategory, images, imageCover,isFeatured ,totalQuantityProducts,priceAfterDiscount});
   res.status(201).json({ data: product });
 
 });

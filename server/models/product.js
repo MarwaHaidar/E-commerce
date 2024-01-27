@@ -17,15 +17,15 @@ const variationSchema = new Schema({
 
 
 // {
-//   "colors": [
-//     {
-//       "color": "Red",
-//       "quantity": 10,
-//       "sizes": [
-//         { "size": "small", "quantitySizes": 3 },
-//         { "size": "medium", "quantitySizes": 5 },
-//         { "size": "large", "quantitySizes": 2 }
-//       ]
+  // "colors": [
+  //   {
+  //     "color": "Red",
+  //     "quantity": 10,
+  //     "sizes": [
+  //       { "size": "small", "quantitySizes": 3 },
+  //       { "size": "medium", "quantitySizes": 5 },
+  //       { "size": "large", "quantitySizes": 2 }
+  //     ]
 //     },
 //     {
 //       "color": "Blue",
@@ -76,8 +76,8 @@ const productSchema = new Schema({
 
   currency: {
     type: Schema.Types.ObjectId,
-    ref: 'Currency',
-    required: true
+    ref: 'Currency'
+    
   }
  ,
   variations: [variationSchema]
@@ -94,6 +94,7 @@ const productSchema = new Schema({
   },
   totalQuantityProducts:{
     type: Number,
+    default:0
   }
   
 }, { timestamps: true });
