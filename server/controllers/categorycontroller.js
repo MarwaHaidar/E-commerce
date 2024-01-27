@@ -60,21 +60,34 @@ export { getcategory };
 //update specific category:
 
 const updatecategory = asyncHandler(async (req, res) => {
-    const image = await uploadImage(req.file.buffer);
-    const { id } = req.params;
-    const { name } = req.body;
-    const { desc } = req.body;
-    const category = await Category.findOneAndUpdate(
-        { _id: id },
-        { name, slug: slugify(name), desc, image },
-        { new: true })// return update it category after update
-    if (!category) {
-        res.status(404).json({ msg: `no category for this is ${id}` })
-    }
-    res.status(200).json({ data: category })
-})
-export { updatecategory }
+    try {
+        let image;
 
+        if (req.file) {
+            image = await uploadImage(req.file.buffer);
+        }
+
+        const { id } = req.params;
+        const { name, desc } = req.body;
+
+        const category = await Category.findOneAndUpdate(
+            { _id: id },
+            { name, slug: slugify(name), desc, image },
+            { new: true }
+        );
+
+        if (!category) {
+            return res.status(404).json({ msg: `No category found for the given ID: ${id}` });
+        }
+
+        return res.status(200).json({ data: category });
+    } catch (error) {
+        console.error('Error updating category:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+export { updatecategory };
 
 // delete specific category
 const deletecategory = asyncHandler(async (req, res) => {

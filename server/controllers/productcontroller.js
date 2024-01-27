@@ -18,6 +18,7 @@ if (error) {
 const variations = req.body.variations;
 var sumQuantitySizes;
 var totalQuantity=[];
+
 variations.forEach(variation => {
   variation.colors.forEach(color => {
      sumQuantitySizes = color.sizes.reduce((sum, size) => sum + size.quantitySizes, 0);
@@ -43,7 +44,7 @@ console.log(sumQuantity);
   const imageCover = imagesArray[0];
   const images = imagesArray.slice(1);
 
-  const product = await Product.create({ name, slug: slugify(name), desc, price, currency, variations, subcategory, images, imageCover,isFeatured ,totalQuantityProducts,priceAfterDiscount});
+  const product = await Product.create({ name, slug: slugify(name), desc, price, variations, subcategory, images, imageCover,isFeatured ,totalQuantityProducts,priceAfterDiscount});
   res.status(201).json({ data: product });
 
 });
@@ -99,6 +100,7 @@ export { getproducts };
 
 const getproduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   const product = await Product.findById(id)
   // .populate({path:'currency',select:'symbol-_id'})
   .populate({path:'subcategory',select:'name-_id'})

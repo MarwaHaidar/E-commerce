@@ -3,85 +3,86 @@ import asyncHandler from 'express-async-handler';
 import OrderItem from '../models/orderItems.js';
 import  { orderValidationSchema } from '../validationJoi/orderValidation.js'
 import {calculateQuantity} from '../Middleware/RecalculateQu.js'
+import User from '../models/user.js';
 
 
-//total Status whith  delivery order
-function TotalFu(TotalAmount) {
-    if (TotalAmount > 100) {
-        return TotalAmount;
-    } else {
-        return TotalAmount + 10;
-    }
-}
-// create order
-    const createOrder = asyncHandler(async(req,res,next)=>{
+// //total Status whith  delivery order
+// function TotalFu(TotalAmount) {
+//     if (TotalAmount > 100) {
+//         return TotalAmount;
+//     } else {
+//         return TotalAmount + 10;
+//     }
+// }
+// // create order
+//     const createOrder = asyncHandler(async(req,res,next)=>{
 
-// validation joi-------------- 
-        // const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
+// // validation joi-------------- 
+//         // const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
 
-        // if (error) {
-        //   return res.status(400).json({ error: error.details.map(detail => detail.message) });
-        // }
-
-
-// --------------function to return only the ids of products in array orderItems in the collection order  ---------------//
-    const orderItemsIds= Promise.all(req.body.orderItems.map(async orderitem=>{ // Promise.all is for merge the ids
-        let newOrderItem = new OrderItem({
-        product: orderitem.product ,
-        quantity: orderitem.quantity
-        })
-
-        newOrderItem = await newOrderItem.save();
-
-        return newOrderItem._id;
-    }));
-    const orderItemsIdsResolved = await orderItemsIds;
-
-    //EX: orderItemsIdsResolved is array of Ids
-    //[
-    //     new ObjectId('65a93857d4c4a1d967c607da'),
-    //     new ObjectId('65a93857d4c4a1d967c607db')
-    //   ]
+//         // if (error) {
+//         //   return res.status(400).json({ error: error.details.map(detail => detail.message) });
+//         // }
 
 
-    // console.log(orderItemsIdsResolved);
+// // --------------function to return only the ids of products in array orderItems in the collection order  ---------------//
+//     const orderItemsIds= Promise.all(req.body.orderItems.map(async orderitem=>{ // Promise.all is for merge the ids
+//         let newOrderItem = new OrderItem({
+//         product: orderitem.product ,
+//         quantity: orderitem.quantity
+//         })
 
-// -----------------------------//
-const TotalAmount = await Promise.all(orderItemsIdsResolved.map(async orderItemsId =>{ 
-    const orderItem = await OrderItem.findById(orderItemsId)
-    .populate('product')
-    // console.log(orderItem);
-    // res.json(orderItem);
+//         newOrderItem = await newOrderItem.save();
 
-    const price = orderItem.product.price; // get price 
-    const quantity = orderItem.quantity; // get quantity
+//         return newOrderItem._id;
+//     }));
+//     const orderItemsIdsResolved = await orderItemsIds;
 
-    const totalAmount = price * quantity
-    // console.log(totalAmount);
-    return totalAmount;
-}))
+//     //EX: orderItemsIdsResolved is array of Ids
+//     //[
+//     //     new ObjectId('65a93857d4c4a1d967c607da'),
+//     //     new ObjectId('65a93857d4c4a1d967c607db')
+//     //   ]
 
-// console.log(TotalAmount);
 
-const sumTotalAmount = TotalAmount.reduce((a,b)=>a+b,0); // sum of all values in array TotalAmount
-// console.log(sumTotalAmount);
+//     // console.log(orderItemsIdsResolved);
 
- // -----------------------------//
- const subTotalStatus = TotalFu(sumTotalAmount);
-//  console.log(subTotalStatus);
+// // -----------------------------//
+// const TotalAmount = await Promise.all(orderItemsIdsResolved.map(async orderItemsId =>{ 
+//     const orderItem = await OrderItem.findById(orderItemsId)
+//     .populate('product')
+//     // console.log(orderItem);
+//     // res.json(orderItem);
 
-// -----------------------------//
-    const userId = req.body.userId;
-    const orderItems = orderItemsIdsResolved;
-    const totalAmount = sumTotalAmount;
-    const status = req.body.status;
-    const TotalStatus = subTotalStatus;
+//     const price = orderItem.product.price; // get price 
+//     const quantity = orderItem.quantity; // get quantity
 
-    const order = await Order.create({userId,orderItems,totalAmount,TotalStatus,status});
-    res.status(201).json({data:order});
-    next();
-    });
-    export { createOrder };
+//     const totalAmount = price * quantity
+//     // console.log(totalAmount);
+//     return totalAmount;
+// }))
+
+// // console.log(TotalAmount);
+
+// const sumTotalAmount = TotalAmount.reduce((a,b)=>a+b,0); // sum of all values in array TotalAmount
+// // console.log(sumTotalAmount);
+
+//  // -----------------------------//
+//  const subTotalStatus = TotalFu(sumTotalAmount);
+// //  console.log(subTotalStatus);
+
+// // -----------------------------//
+//     const userId = req.body.userId;
+//     const orderItems = orderItemsIdsResolved;
+//     const totalAmount = sumTotalAmount;
+//     const status = req.body.status;
+//     const TotalStatus = subTotalStatus;
+
+//     const order = await Order.create({userId,orderItems,totalAmount,TotalStatus,status});
+//     res.status(201).json({data:order});
+//     next();
+//     });
+//     export { createOrder };
 
 
     // get all oders
@@ -128,48 +129,48 @@ const getorders = asyncHandler(async(req,res)=>{
 
     // update specific order
 
-const updateorder = asyncHandler(async(req,res)=>{
-    const { id } = req.params;
-    const {userId}=req.body;
-    const {productDetails}=req.body;
-    const {totalAmount}= req.body;
-    const {status} = req.body;
+// const updateorder = asyncHandler(async(req,res)=>{
+//     const { id } = req.params;
+//     const {userId}=req.body;
+//     const {productDetails}=req.body;
+//     const {totalAmount}= req.body;
+//     const {status} = req.body;
    
-      const order = await Order.findOneAndUpdate(
-        { _id: id },
-        { userId, productDetails, totalAmount, status},
-        { new: true }
-      );
+//       const order = await Order.findOneAndUpdate(
+//         { _id: id },
+//         { userId, productDetails, totalAmount, status},
+//         { new: true }
+//       );
     
-        if(!order){
-            res.status(404).json({msg:`no order for this is ${id}`})
-        }
-        res.status(200).json({data:order})
-    })
-    export { updateorder };
+//         if(!order){
+//             res.status(404).json({msg:`no order for this is ${id}`})
+//         }
+//         res.status(200).json({data:order})
+//     })
+//     export { updateorder };
 
 
 
     
 // delete specific order and their orderItems
 
-const deleteorder = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    const order = await Order.findOne({ _id: id });
-    if (!order) {
-        return res.status(404).json({ msg: `No order for this ID ${id}` });
-    }
-    // Delete the associated orderItems
-    const orderItemIds = order.orderItems; //This line retrieves the orderItems field from the order
-    await OrderItem.deleteMany({ _id: { $in: orderItemIds } }); //delete multiple documents from the OrderItem collection
+// const deleteorder = asyncHandler(async (req, res) => {
+//     const { id } = req.params;
+//     const order = await Order.findOne({ _id: id });
+//     if (!order) {
+//         return res.status(404).json({ msg: `No order for this ID ${id}` });
+//     }
+//     // Delete the associated orderItems
+//     const orderItemIds = order.orderItems; //This line retrieves the orderItems field from the order
+//     await OrderItem.deleteMany({ _id: { $in: orderItemIds } }); //delete multiple documents from the OrderItem collection
 
-    // Now, delete the order itself
-    await Order.findOneAndDelete({ _id: id });
+//     // Now, delete the order itself
+//     await Order.findOneAndDelete({ _id: id });
 
-    res.status(200).json({ msg: `The order and its associated orderItems were deleted successfully` });
-});
+//     res.status(200).json({ msg: `The order and its associated orderItems were deleted successfully` });
+// });
 
-export { deleteorder };
+// export { deleteorder };
 
 
 
@@ -207,23 +208,56 @@ export { deleteorder };
 
 
 
-     // get history orders of specific  user
+    // get history orders of specific  user
 
- const getHistoryOrderUser = asyncHandler(async(req,res)=>{
-    const { id } = req.params;
-    const order = await Order.find({ userId: id }) // id of user 
-    .populate({path:'orderItems'}) // get all product in the order
-    .populate({        // get the first and last name of th user in order
-        path: 'userId',
-        select: ['first_name','last_name'],
-    }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order
-
-    if(!order){
-     res.status(404).json({msg:`no order for this id ${id}`})
-    }
-    res.status(200).json({data:order})
+    const getHistoryOrderUser = asyncHandler(async(req, res) => {
+        try {
+            const { id } = req.params;
+    
+            // Fetch user information (e.g., first_name, last_name)
+            const user = await User.findById(id).select(['first_name', 'last_name']);
+    
+            if (!user) {
+                return res.status(404).json({ msg: `No user found for this id ${id}` });
+            }
+    
+            // Fetch orders for the user with populated orderItems
+            const orders = await Order.find({ userId: id })
+                .populate({
+                    path: 'orderItems',
+                    select: ['_id', 'quantity', 'product'],
+                    populate: {
+                        path: 'product',
+                        model: 'Product',
+                        select: ['name']
+                    }
+                })
+                .sort({ dateOrdered: -1 });
+    
+            if (!orders || orders.length === 0) {
+                return res.status(404).json({ msg: `No orders found for this user ${id}` });
+            }
+    
+            // Extract user data
+            const { first_name, last_name } = user;
+    
+            // Remove the userId field from each order
+            const ordersWithoutUserId = orders.map(order => {
+                const { userId, ...orderWithoutUserId } = order.toObject();
+                return orderWithoutUserId;
+            });
+            // Include user data and orders in the response
+            const responseData = {
+                userName: `${first_name} ${last_name}`,
+                orders: ordersWithoutUserId
+            };
+            res.status(200).json({ data: responseData });
+        } catch (error) {
+            console.error('Error fetching history orders:', error.message);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     });
-
-    export {  getHistoryOrderUser };
-
- 
+    
+    export { getHistoryOrderUser };
+    
+    
