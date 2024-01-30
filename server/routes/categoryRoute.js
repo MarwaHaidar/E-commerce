@@ -1,7 +1,7 @@
 import express from 'express';
 import upload from '../controllers/imageuploadcontroller.js';
 import { createcategory, getcategories,getcategory,updatecategory,deletecategory } from '../controllers/categorycontroller.js';
-// import subcategoriesRoute from './subcategoryRoute.js';
+import subcategoriesRoute from './subcategoryRoute.js';
 import { validateToken,validateTokenForAdmin } from '../Middleware/validateTokenHandler.js';
 
 
@@ -15,6 +15,6 @@ router.delete('/admin/categories/:id',validateToken,validateTokenForAdmin,delete
 // Assuming createcategory is a function defined in your controllers/categorycontroller.js file
 // router.post('/',createcategory);
 
-// router.use('/categories/:id/',subcategoriesRoute) 
+ router.use('/categories/:id/',subcategoriesRoute) 
 
 export default router;

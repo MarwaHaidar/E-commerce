@@ -89,7 +89,6 @@ const updatecategory = asyncHandler(async (req, res) => {
 
 export { updatecategory };
 
-
 // delete specific category
 const deletecategory = asyncHandler(async (req, res) => {
 
