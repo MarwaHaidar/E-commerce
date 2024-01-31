@@ -34,7 +34,7 @@
     flex-direction: row;
     
 }
-input{
+.Exclusive input{
     border-radius: 10px;
     width: 250px;
     background-color: transparent;
@@ -46,7 +46,7 @@ input{
     margin-top: 10px;
     
 }
-input::placeholder{
+.Exclusive input::placeholder{
     font-size: 17px;
     padding-left: 7px;
 
@@ -118,7 +118,7 @@ input::placeholder{
     border-top: 1px solid grey;
    
 }
-p:hover{
+.Footer p:hover{
     padding-left: 20px;
     font-size: 17px;
 

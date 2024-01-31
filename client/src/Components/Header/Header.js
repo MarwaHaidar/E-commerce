@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styles from './Header.module.css';
 import Banner from './Banner';
 import Logo from './Logo';
@@ -20,18 +20,18 @@ const Header = () => {
   return (
     <div>
       <Banner />
-    <div className={styles.header}>
-      <Logo /> 
-      <NavBar />
-      <GiHamburgerMenu className={styles.hamburger} onClick={toggleNavBar} />
-      <div className={styles.iconContainer}>
-      <SearchBar />
+      <div className={styles.header}>
+        <Logo />
+        <NavBar />
+        <GiHamburgerMenu className={styles.hamburger} onClick={toggleNavBar} />
+        <div className={styles.iconContainer}>
+          <SearchBar />
 
-      <LuSearch className={styles.searchIconSmall} onClick={toggleSearchBar}/>
-      <FiHeart className={styles.wishIcon} />
-      <FiShoppingCart className={styles.shopCartIcon} />
+          <LuSearch className={styles.searchIconSmall} onClick={toggleSearchBar} />
+          <FiHeart className={styles.wishIcon} />
+          <FiShoppingCart className={styles.shopCartIcon} />
+        </div>
       </div>
-    </div>
     </div>
   )
 }

@@ -12,7 +12,7 @@ const SearchBar = () => {
             name="search"
             id="search"
             className="rounded-md py-2 pl-3 pr-20 w-full text-gray-900 ring-1 ring-gray-100 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-m sm:leading-6"
-            placeholder="What are you looking for? ..."
+            placeholder="Search a product..."
           />
           <LuSearch className={styles.searchIcon}/>
         </div>
