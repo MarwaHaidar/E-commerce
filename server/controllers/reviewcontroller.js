@@ -75,7 +75,7 @@ const getProductreview = asyncHandler(async (req, res) => {
     const reviews = await Review.find({ productId: productId })
     console.log(reviews)
     if (!reviews) {
-        res.status(404).json({ msg: `no review for this id ${ProductId}` })
+        res.status(404).json({ msg: `no review for this id ${productId}` })
     }
     res.status(200).json({ data: reviews })
 });

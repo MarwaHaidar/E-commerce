@@ -17,20 +17,20 @@ import User from '../models/user.js';
 // // create order
 //     const createOrder = asyncHandler(async(req,res,next)=>{
 
-// // validation joi-------------- 
-//         // const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
+// validation joi-------------- 
+        // const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
 
-//         // if (error) {
-//         //   return res.status(400).json({ error: error.details.map(detail => detail.message) });
-//         // }
+        // if (error) {
+        //   return res.status(400).json({ error: error.details.map(detail => detail.message) });
+        // }
 
 
-// // --------------function to return only the ids of products in array orderItems in the collection order  ---------------//
-//     const orderItemsIds= Promise.all(req.body.orderItems.map(async orderitem=>{ // Promise.all is for merge the ids
-//         let newOrderItem = new OrderItem({
-//         product: orderitem.product ,
-//         quantity: orderitem.quantity
-//         })
+// --------------function to return only the ids of products in array orderItems in the collection order  ---------------//
+    const orderItemsIds= Promise.all(req.body.orderItems.map(async orderitem=>{ // Promise.all is for merge the ids
+        let newOrderItem = new OrderItem({
+        product: orderitem.product ,
+        quantity: orderitem.quantity
+        })
 
 //         newOrderItem = await newOrderItem.save();
 
@@ -47,111 +47,111 @@ import User from '../models/user.js';
 
 //     // console.log(orderItemsIdsResolved);
 
-// // -----------------------------//
-// const TotalAmount = await Promise.all(orderItemsIdsResolved.map(async orderItemsId =>{ 
-//     const orderItem = await OrderItem.findById(orderItemsId)
-//     .populate('product')
-//     // console.log(orderItem);
-//     // res.json(orderItem);
+// -----------------------------//
+const TotalAmount = await Promise.all(orderItemsIdsResolved.map(async orderItemsId =>{ 
+    const orderItem = await OrderItem.findById(orderItemsId)
+    .populate('product')
+    // console.log(orderItem);
+    // res.json(orderItem);
 
-//     const price = orderItem.product.price; // get price 
-//     const quantity = orderItem.quantity; // get quantity
+    const price = orderItem.product.price; // get price 
+    const quantity = orderItem.quantity; // get quantity
 
-//     const totalAmount = price * quantity
-//     // console.log(totalAmount);
-//     return totalAmount;
-// }))
+    const totalAmount = price * quantity
+    // console.log(totalAmount);
+    return totalAmount;
+}))
 
-// // console.log(TotalAmount);
+// console.log(TotalAmount);
 
-// const sumTotalAmount = TotalAmount.reduce((a,b)=>a+b,0); // sum of all values in array TotalAmount
-// // console.log(sumTotalAmount);
+const sumTotalAmount = TotalAmount.reduce((a,b)=>a+b,0); // sum of all values in array TotalAmount
+// console.log(sumTotalAmount);
 
-//  // -----------------------------//
-//  const subTotalStatus = TotalFu(sumTotalAmount);
-// //  console.log(subTotalStatus);
+ // -----------------------------//
+ const subTotalStatus = TotalFu(sumTotalAmount);
+//  console.log(subTotalStatus);
 
-// // -----------------------------//
-//     const userId = req.body.userId;
-//     const orderItems = orderItemsIdsResolved;
-//     const totalAmount = sumTotalAmount;
-//     const status = req.body.status;
-//     const TotalStatus = subTotalStatus;
+// -----------------------------//
+    const userId = req.body.userId;
+    const orderItems = orderItemsIdsResolved;
+    const totalAmount = sumTotalAmount;
+    const status = req.body.status;
+    const TotalStatus = subTotalStatus;
 
-//     const order = await Order.create({userId,orderItems,totalAmount,TotalStatus,status});
-//     res.status(201).json({data:order});
-//     next();
-//     });
-//     export { createOrder };
-
-
-    // get all oders
-const getorders = asyncHandler(async(req,res)=>{
-
-    const orders= await Order.find()
-    .populate({path:'orderItems'}) // get all product in the order
-    .populate({        // get the first and last name of th user in order
-        path: 'userId',
-        select: ['first_name','last_name'],
-    }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order
-    res.status(200).json({data:orders});
-    
-    });
-    
-    
-    export { getorders };
+    const order = await Order.create({userId,orderItems,totalAmount,TotalStatus,status});
+    res.status(201).json({data:order});
+    next();
+    }));
+    export { createOrder };
 
 
-   
-     // get specific order
+// get all oders
+const getorders = asyncHandler(async (req, res) => {
 
- const getorder = asyncHandler(async(req,res)=>{
+    const orders = await Order.find()
+        .populate({ path: 'orderItems' }) // get all product in the order
+        .populate({        // get the first and last name of th user in order
+            path: 'userId',
+            select: ['first_name', 'last_name'],
+        }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order
+    res.status(200).json({ data: orders });
+
+});
+
+
+export { getorders };
+
+
+
+// get specific order
+
+const getorder = asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     const order = await Order.findById(id)
-    .populate({path:'orderItems'}) // get all product in the order
-    .populate({        // get the first and last name of th user in order
-        path: 'userId',
-        select: ['first_name','last_name'],
-    }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order
+        .populate({ path: 'orderItems' }) // get all product in the order
+        .populate({        // get the first and last name of th user in order
+            path: 'userId',
+            select: ['first_name', 'last_name'],
+        }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order
 
 
-    if(!order){
-     res.status(404).json({msg:`no order for this id ${id}`})
+    if (!order) {
+        res.status(404).json({ msg: `no order for this id ${id}` })
     }
-    res.status(200).json({data:order})
-    });
+    res.status(200).json({ data: order })
+});
 
-    export {  getorder };
-    
-
+export { getorder };
 
 
-    // update specific order
 
-// const updateorder = asyncHandler(async(req,res)=>{
-//     const { id } = req.params;
-//     const {userId}=req.body;
-//     const {productDetails}=req.body;
-//     const {totalAmount}= req.body;
-//     const {status} = req.body;
+
+// update specific order
+
+const updateorder = asyncHandler(async(req,res)=>{
+    const { id } = req.params;
+    const {userId}=req.body;
+    const {productDetails}=req.body;
+    const {totalAmount}= req.body;
+    const {status} = req.body;
    
-//       const order = await Order.findOneAndUpdate(
-//         { _id: id },
-//         { userId, productDetails, totalAmount, status},
-//         { new: true }
-//       );
+      const order = await Order.findOneAndUpdate(
+        { _id: id },
+        { userId, productDetails, totalAmount, status},
+        { new: true }
+      );
     
-//         if(!order){
-//             res.status(404).json({msg:`no order for this is ${id}`})
-//         }
-//         res.status(200).json({data:order})
-//     })
-//     export { updateorder };
+        if(!order){
+            res.status(404).json({msg:`no order for this is ${id}`})
+        }
+        res.status(200).json({data:order})
+    })
+    export { updateorder };
 
 
 
-    
+
 // delete specific order and their orderItems
 
 // const deleteorder = asyncHandler(async (req, res) => {
@@ -175,89 +175,56 @@ const getorders = asyncHandler(async(req,res)=>{
 
 
 
- // get getorderInDetails order
+// get getorderInDetails order
 
- const getorderInDetails = asyncHandler(async(req,res)=>{
+const getorderInDetails = asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     const order = await Order.findById(id)
-    .populate({
-        path: 'orderItems',select:'-_id-__v',
-        populate: {
-            path: 'product',
-            select: 'name-_id',
+        .populate({
+            path: 'orderItems', select: '-_id-__v',
             populate: {
-                path: 'subcategory',
-                select: 'name-_id'
+                path: 'product',
+                select: 'name-_id',
+                populate: {
+                    path: 'subcategory',
+                    select: 'name-_id'
+                }
             }
-        }
-    })
+        })
+        .populate({        // get the first and last name of th user in order
+            path: 'userId',
+            select: ['first_name', 'last_name'],
+        }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order;
+
+
+
+    if (!order) {
+        res.status(404).json({ msg: `no order for this id ${id}` })
+    }
+    res.status(200).json({ data: order })
+});
+export { getorderInDetails };
+
+
+
+     // get history orders of specific  user
+
+ const getHistoryOrderUser = asyncHandler(async(req,res)=>{
+    const { id } = req.params;
+    const order = await Order.find({ userId: id }) // id of user 
+    .populate({path:'orderItems'}) // get all product in the order
     .populate({        // get the first and last name of th user in order
         path: 'userId',
         select: ['first_name','last_name'],
-    }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order;
-
-
+    }).sort({ dateOrdered: -1 }); // 1 for ascending order, -1 for descending order
 
     if(!order){
      res.status(404).json({msg:`no order for this id ${id}`})
     }
     res.status(200).json({data:order})
     });
-    export {  getorderInDetails };
 
+    export {  getHistoryOrderUser };
 
-
-    // get history orders of specific  user
-
-    const getHistoryOrderUser = asyncHandler(async(req, res) => {
-        try {
-            const { id } = req.params;
-    
-            // Fetch user information (e.g., first_name, last_name)
-            const user = await User.findById(id).select(['first_name', 'last_name']);
-    
-            if (!user) {
-                return res.status(404).json({ msg: `No user found for this id ${id}` });
-            }
-    
-            // Fetch orders for the user with populated orderItems
-            const orders = await Order.find({ userId: id })
-                .populate({
-                    path: 'orderItems',
-                    select: ['_id', 'quantity', 'product'],
-                    populate: {
-                        path: 'product',
-                        model: 'Product',
-                        select: ['name']
-                    }
-                })
-                .sort({ dateOrdered: -1 });
-    
-            if (!orders || orders.length === 0) {
-                return res.status(404).json({ msg: `No orders found for this user ${id}` });
-            }
-    
-            // Extract user data
-            const { first_name, last_name } = user;
-    
-            // Remove the userId field from each order
-            const ordersWithoutUserId = orders.map(order => {
-                const { userId, ...orderWithoutUserId } = order.toObject();
-                return orderWithoutUserId;
-            });
-            // Include user data and orders in the response
-            const responseData = {
-                userName: `${first_name} ${last_name}`,
-                orders: ordersWithoutUserId
-            };
-            res.status(200).json({ data: responseData });
-        } catch (error) {
-            console.error('Error fetching history orders:', error.message);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    });
-    
-    export { getHistoryOrderUser };
-    
-    
+ 
