@@ -156,7 +156,6 @@
       align-items:center;
       justify-content: space-evenly;
       background-color: #F5F5F5;
-      opacity: 0.5;
       border-radius: 5px;
       box-shadow: 0px 1px 5px 0px rgba(148, 144, 144, 0.54);
    }
@@ -196,7 +195,6 @@
         display: block;
         position: absolute;
         top: 80px;
-        right: -42px;
       }
       .extended div ul {
          width: 100%;
@@ -204,10 +202,12 @@
          display: flex;
          flex-direction: column;
          align-items: center;
+         justify-content: center;
       }
-  
-      .extended div ul li {
-         margin-left: 16px;
+
+      .extended div ul .item {
+         width: 100%;
+         margin: auto !important;
          padding: 10px 5px;
          width: 100%;
          box-shadow: 0px 1px 5px 0px rgba(148, 144, 144, 0.54);
@@ -222,6 +222,7 @@
          top: 46px;
          cursor: pointer;
        }
+       
        .iconContainer {
          right: -40px;
        }
