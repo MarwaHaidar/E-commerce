@@ -1,22 +1,53 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import styles from './Header.module.css';
 import { Link, useLocation } from 'react-router-dom';
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const NavBar = () => {
     const location = useLocation();
-    const activePath = location.pathname
+    const activePath = location.pathname;
+
+    const [isNavBarExtended, setNavBarExtended] = useState(false);
+
+    const toggleNavBar = () => {
+        setNavBarExtended(!isNavBarExtended);
+    };
+
+    const closeNavBar = () => {
+        setNavBarExtended(false);
+    };
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 791) {
+                setNavBarExtended(false);
+            }
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
-        <nav className={`"bg-white-800 p-4 nav-bar" ${styles.navBar}`}>
-            <div className={"container mx-auto"}>
-                <ul className="flex space-x-4">
-                    <li><Link to="/" className={activePath === "/" ? styles.activeTab : ""}>Home</Link></li>
-                    <li><Link to="/about" className={activePath === "/about" ? styles.activeTab : ""}>About</Link></li>
-                    <li><Link to="/contact" className={activePath === "/contact" ? styles.activeTab : ""}>Contact</Link></li>
-                    <li><Link to="/login" className={activePath === "/login" ? styles.activeTab : ""}>Login</Link></li>
-                </ul>
-            </div>
-        </nav>
-    )
+        <>
+            <nav className={`bg-white-800 p-4 nav-bar ${isNavBarExtended ? styles.extended : styles.navBar}`}>
+                <div className="container mx-auto">
+                    <ul className="flex space-x-4">
+                        <Link to="/" className={`${styles.item} ${activePath === "/" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Home</li></Link>
+                        <Link to="/about" className={`${styles.item} ${activePath === "/about" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>About</li></Link>
+                        <Link to="/contact" className={`${styles.item} ${activePath === "/contact" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Contact</li></Link>
+                        <Link to="/login" className={`${styles.item} ${activePath === "/login" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Login</li></Link>
+                    </ul>
+                </div>
+            </nav>
+            <GiHamburgerMenu className={styles.hamburger} onClick={toggleNavBar} />
+        </>
+    );
 }
 
-export default NavBar
+export default NavBar;

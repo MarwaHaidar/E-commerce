@@ -46,7 +46,7 @@
     margin-top: 10px;
     
 }
-.Exclusive input::placeholder{
+input::placeholder{
     font-size: 17px;
     padding-left: 7px;
 
