@@ -35,7 +35,7 @@
     transition: transform 0.1s ease;
     
 }
-input{
+.Exclusive input{
     border-radius: 10px;
     width: 250px;
     background-color: transparent;
@@ -47,7 +47,7 @@ input{
     margin-top: 10px;
     
 }
-input::placeholder{
+.Exclusive input::placeholder{
     font-size: 17px;
     padding-left: 7px;
 
@@ -120,9 +120,9 @@ input::placeholder{
    
 }
 p:hover{
-    /* padding-left: 20px; */
-    transform:scale(1.1) ;
-    text-decoration: underline;
+    padding-left: 20px;
+    font-size: 17px;
+
 }
 @media screen and (max-width: 600px) {
     .footer-section {
