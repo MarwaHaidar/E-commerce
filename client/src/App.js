@@ -6,11 +6,10 @@ import Contact from './Pages/Contact.js'
 import Login from './Pages/Login.js'
 import Cart from './Pages/Cart.js'
 import Wishlist from './Pages/Wishlist.js'
-import Register from './Pages/Register.js'
 import Header from './Components/Header/Header.js';
 import Footer from './Components/Footer/Footer.js';
 import Signup from './Pages/Signup.js';
-
+import ForgetPass from './Pages/ForgetPass.js';
 
 export default function App() {
   return (
@@ -24,8 +23,8 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/register" element={<Register />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/forgetpassword' element={<ForgetPass/>} />
         </Routes>
        
         <Footer />

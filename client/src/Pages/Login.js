@@ -1,8 +1,10 @@
 import React from 'react'
-
+import LoginComponent from '../Components/loginSign/loginComponent';
 const Login = () => {
   return (
-    <div className="text-3xl font-bold underline test" >Login page</div>
+    <div>
+    <LoginComponent />
+    </div>
   )
 }
 export default Login;
