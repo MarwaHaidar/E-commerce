@@ -1,0 +1,37 @@
+.backgroudFlex{
+    width: 50%;
+    margin: auto;
+    display: flex;
+    height: inherit;
+    border-radius: 10%;
+
+   }
+.box{
+    background-color:#2C666E ;
+    width:90%;
+    height: inherit;
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+}
+
+.rightImage{
+    border-bottom: 3px solid #2C666E;
+    border-top: 3px solid #2C666E;
+    border-left: 3px solid #2C666E;
+    width: 100%;
+}
+.rightImage img{
+    width: 100%;
+    height: 100%;
+   
+}
+.inputText::placeholder{
+    font-size: medium;
+}
+
+.buttonSignup{
+    background-color: #07393C;
+}
+
+/* #579AD3  */
+

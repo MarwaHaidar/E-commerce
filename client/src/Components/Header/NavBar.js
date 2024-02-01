@@ -13,6 +13,7 @@ const NavBar = () => {
                     <li><Link to="/about" className={activePath === "/about" ? styles.activeTab : ""}>About</Link></li>
                     <li><Link to="/contact" className={activePath === "/contact" ? styles.activeTab : ""}>Contact</Link></li>
                     <li><Link to="/login" className={activePath === "/login" ? styles.activeTab : ""}>Login</Link></li>
+                    <li><Link to="/signup" className={activePath === "/signup" ? styles.activeTab : ""}>signup</Link></li>
                 </ul>
             </div>
         </nav>
