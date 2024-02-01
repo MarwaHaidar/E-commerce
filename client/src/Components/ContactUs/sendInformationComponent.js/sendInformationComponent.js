@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./sendInformationComponent.module.css";
 import contactImage from "../../Assets/contactus.gif";
+import { IoSend } from "react-icons/io5";
 
 const SendInformationComponent = () => {
   const [formData, setFormData] = useState({
@@ -89,7 +90,7 @@ const SendInformationComponent = () => {
               className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${styles.contactButton}`}
               type="submit"
             >
-              Send Message
+              Send Message <IoSend className="mt-1 ml-3" />
             </button>
           </div>
         </form>

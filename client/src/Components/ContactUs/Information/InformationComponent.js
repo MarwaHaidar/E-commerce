@@ -1,12 +1,16 @@
 import React from "react";
 import Styles from "./InformationComponent.module.css";
+import { IoCall } from "react-icons/io5";
+import { TfiWrite } from "react-icons/tfi";
+import { MdEmail } from "react-icons/md";
+
 
 const InformationComponent = () => {
   return (
     <div className={Styles.mainBox}>
       <div className={`${Styles.box} container mx-auto p-4`}>
         <h2 className={`text-xl font-bold mb-4 ${Styles.topictext}`}>
-          Call To Us
+          <IoCall className="mt-1" /> <div className="ml-2 ">Call To Us</div>
         </h2>
         <p
           className={`${Styles.textBlue} mb-6 appearance-none  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -15,7 +19,8 @@ const InformationComponent = () => {
         </p>
 
         <h2 className={`text-xl font-bold mb-4 ${Styles.topictext}`}>
-          Write To Us
+          <TfiWrite className="mt-1" />{" "}
+          <div className="ml-2 "> Write To Us</div>
         </h2>
         <p
           className={`${Styles.textBlue} mb-6 appearance-none  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -25,7 +30,7 @@ const InformationComponent = () => {
 
         <div className={`${Styles.mb8}`}>
           <h3 className={`text-xl font-bold mb-4  ${Styles.topictext} `}>
-            Emails:
+            <MdEmail className="mt-1" /> <div className="ml-2 "> Emails</div>
           </h3>
           <p
             className={`${Styles.textBlue} appearance-none  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
