@@ -6,6 +6,7 @@
     flex-direction: row;
     justify-content: center;
     gap: 150px;
+    /* position: fixed; */
     bottom: 0;
     left: 0;
     color: white;
@@ -31,6 +32,7 @@
     padding:10px 0;
     display: flex;
     flex-direction: row;
+    transition: transform 0.1s ease;
     
 }
 .Exclusive input{
@@ -102,12 +104,13 @@ input::placeholder{
 } */
 
 .copyright {
+    
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #07393C;
-    color: white;
-    /* opacity: 0.3; */
+   background-color: #07393C;
+    color: lightgrey;
+    
     text-align: center;
     padding: 10px 0;
 }
@@ -116,17 +119,13 @@ input::placeholder{
     border-top: 1px solid grey;
    
 }
-.Footer p:hover{
-    padding-left: 20px;
-    font-size: 17px;
+p:hover{
+    /* padding-left: 20px; */
+    transform: scale(1.1);
 
 }
-@media screen and (max-width: 768px) {
-    .footer-section {
-        flex-basis: 100%;
-    }
 
-    .input-container {
-        max-width: 100%;
-    }
-}
+
+
+
+

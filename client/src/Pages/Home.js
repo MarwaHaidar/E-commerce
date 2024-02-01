@@ -1,11 +1,23 @@
 import React from 'react'
-import ProductDetailsCard from '../Components/Products/ProductDetails.js'
+import Slider from '../Components/slider/slider';
+import Timer from '../Components/section2/timer/timer';
+
+
+
 
 const Home = () => {
   return (
-    <div  >
-    home page
-    </div>
+    <>
+    <Slider />
+     <Timer/>
+
+
+
+
+
+
+     
+     </>
   )
 }
 export default Home;
