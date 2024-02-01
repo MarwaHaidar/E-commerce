@@ -1,5 +1,5 @@
 import React from 'react'
-import zara1 from '../../Assets/zara1.png'
+import zara1 from '../../../Assets/zara1.png'
 import styles from './flashsale.module.css'
 const products = [
     {
