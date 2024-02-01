@@ -59,7 +59,6 @@
 .inputText::placeholder,
 .TextArea::placeholder {
   font-size: medium;
-
 }
 
 /* --------------button ----------------- */
@@ -81,6 +80,8 @@
   -moz-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   margin-left: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .contactButton:hover {

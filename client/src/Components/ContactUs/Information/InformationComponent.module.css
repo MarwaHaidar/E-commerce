@@ -18,6 +18,8 @@
   color: white;
   font-size: large;
   font-weight: 700;
+  display: flex;
+  margin-left: 3px;
 }
 
 .textBlue {
