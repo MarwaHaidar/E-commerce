@@ -6,7 +6,7 @@
     flex-direction: row;
     justify-content: center;
     gap: 150px;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     left: 0;
     color: white;
@@ -32,9 +32,10 @@
     padding:10px 0;
     display: flex;
     flex-direction: row;
+    transition: transform 0.1s ease;
     
 }
-input{
+.Exclusive input{
     border-radius: 10px;
     width: 250px;
     background-color: transparent;
@@ -103,13 +104,13 @@ input::placeholder{
 } */
 
 .copyright {
-    position: fixed;
+    
     bottom: 0;
     left: 0;
     width: 100%;
    background-color: #07393C;
-    color: white;
-    opacity: 0.3;
+    color: lightgrey;
+    
     text-align: center;
     padding: 10px 0;
 }
@@ -119,16 +120,12 @@ input::placeholder{
    
 }
 p:hover{
-    padding-left: 20px;
-    font-size: 17px;
+    /* padding-left: 20px; */
+    transform: scale(1.1);
 
 }
-@media screen and (max-width: 768px) {
-    .footer-section {
-        flex-basis: 100%;
-    }
 
-    .input-container {
-        max-width: 100%;
-    }
-}
+
+
+
+
