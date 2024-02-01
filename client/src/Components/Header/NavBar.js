@@ -42,6 +42,7 @@ const NavBar = () => {
                         <Link to="/about" className={`${styles.item} ${activePath === "/about" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>About</li></Link>
                         <Link to="/contact" className={`${styles.item} ${activePath === "/contact" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Contact</li></Link>
                         <Link to="/login" className={`${styles.item} ${activePath === "/login" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Login</li></Link>
+                        <Link to="/signup" className={`${styles.item} ${activePath === "/signup" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Signup</li></Link>
                     </ul>
                 </div>
             </nav>

@@ -9,7 +9,7 @@ import Wishlist from './Pages/Wishlist.js'
 import Register from './Pages/Register.js'
 import Header from './Components/Header/Header.js';
 import Footer from './Components/Footer/Footer.js';
-
+import Signup from './Pages/Signup.js';
 
 
 export default function App() {
@@ -25,6 +25,7 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/register" element={<Register />} />
+          <Route path='/signup' element={<Signup />} />
         </Routes>
        
         <Footer />
