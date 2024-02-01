@@ -6,7 +6,7 @@
     flex-direction: row;
     justify-content: center;
     gap: 150px;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     left: 0;
     color: white;
@@ -104,13 +104,13 @@
 } */
 
 .copyright {
-    position: fixed;
+    
     bottom: 0;
     left: 0;
     width: 100%;
    background-color: #07393C;
-    color: white;
-    opacity: 0.3;
+    color: lightgrey;
+    
     text-align: center;
     padding: 10px 0;
 }
@@ -120,21 +120,12 @@
    
 }
 p:hover{
-    padding-left: 20px;
-    font-size: 17px;
+    /* padding-left: 20px; */
+    transform: scale(1.1);
 
 }
-@media screen and (max-width: 600px) {
-    .footer-section {
-        flex-basis: 100%;
-    }
 
-    .input-container {
-        max-width: 100%;
-    }
-    .Footer{
-        flex-direction: row;
-        justify-content: center;
-    }
-    
-}
+
+
+
+
