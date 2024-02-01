@@ -1,6 +1,7 @@
 import React from 'react'
-import Slider from '../Components/slider/slider';
-import Timer from '../Components/section2/timer/timer';
+import Slider from '../Components/Home/slider/slider';
+import Timer from '../Components/Home/Sale/timer/timer';
+import Flashsale from '../Components/Home/Sale/flashsales/flashsale';
 
 
 
@@ -10,6 +11,8 @@ const Home = () => {
     <>
     <Slider />
      <Timer/>
+     <Flashsale/>
+
 
 
 

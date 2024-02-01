@@ -1,0 +1,50 @@
+.saleheader{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 130px;
+   
+}
+.txt{
+    font-size: 50px;
+    margin-top: -10px;
+    font-family: poppins;
+    font-weight:1000;
+    margin-left: 10px;
+}
+.digital-clock {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction:row;
+}
+
+.time {
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    font-size: 20px; /* Adjust font size as needed */
+    font-weight: bold; /* Make text bold */
+    color: #333; /* Set text color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
+    /* Additional styling can be added here */
+}
+.time-unit {
+    margin: 0 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+} 
+
+ .label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #888;
+} 
+
+ span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+} 
+
