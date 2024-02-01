@@ -119,7 +119,7 @@
     border-top: 1px solid grey;
    
 }
-p:hover{
+.Footer p:hover{
     /* padding-left: 20px; */
     transform: scale(1.1);
 
