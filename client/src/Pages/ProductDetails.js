@@ -1,11 +1,11 @@
 import React from 'react'
 import ProductDetailsCard from '../Components/Products/ProductDetails.js'
 
-const Home = () => {
+const ProductDetails = () => {
   return (
     <div  >
-    home page
+    <ProductDetailsCard />
     </div>
   )
 }
-export default Home;
+export default ProductDetails;

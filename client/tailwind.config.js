@@ -2,6 +2,9 @@
 export const content = ["./src/**/*.{html,js}"];
 export const theme = {
   extend: {
+    gridTemplateRows: {
+      '[auto,auto,1fr]': 'auto auto 1fr',
+    },
     maxWidth: {
       container: "1440px"
     },
@@ -21,6 +24,8 @@ export const theme = {
     //colors
   },
 };
-export const plugins = [];
+export const plugins = [
+  require('@tailwindcss/aspect-ratio'),
+];
 
 

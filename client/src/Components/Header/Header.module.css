@@ -147,6 +147,7 @@
 
    @media screen and (max-width: 1340px) {
    .iconContainer {
+      z-index: 1;
       position: absolute;
       height: 200px;
       right: -50px;
@@ -195,6 +196,7 @@
         display: block;
         position: absolute;
         top: 80px;
+        z-index: 2;
       }
       .extended div ul {
          width: 100%;

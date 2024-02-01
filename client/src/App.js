@@ -16,6 +16,7 @@ export default function App() {
     <div>
       <Router>
         <Header/>
+    
         <Routes>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/register" element={<Register />} />
         </Routes>
+
        
         <Footer />
       
