@@ -27,6 +27,7 @@ export const theme = {
     },
     colors: {
       'greenish-blue': '#07393C',
+      'lightgreenish-blue':'#2C666E'
     },
   },
 };
