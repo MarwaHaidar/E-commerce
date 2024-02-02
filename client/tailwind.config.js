@@ -2,6 +2,9 @@
 export const content = ["./src/**/*.{html,js}"];
 export const theme = {
   extend: {
+    backgroundColor: {
+      'custom': '#07393c',
+    },
     gridTemplateRows: {
       '[auto,auto,1fr]': 'auto auto 1fr',
     },
