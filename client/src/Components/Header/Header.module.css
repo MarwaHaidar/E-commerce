@@ -40,7 +40,7 @@
     align-items: center;
     margin-right: 150px;
     width: 400px;
-    font-weight: 600;
+    font-weight: 400;
  } 
 
 
@@ -55,7 +55,7 @@
  .activeTab {
    border-bottom: 2px solid #07393C;
    padding-bottom: 2px;
-   font-weight: 700;
+   font-weight: 600;
  }
  
 .iconContainer {
