@@ -10,13 +10,15 @@ import Header from './Components/Header/Header.js';
 import Footer from './Components/Footer/Footer.js';
 import Signup from './Pages/Signup.js';
 import ForgetPass from './Pages/ForgetPass.js';
+import ProductDetails from './Pages/ProductDetails.js';
 import NotFound from './Pages/NotFound.js';
 
 export default function App() {
   return (
     <div>
       <Router>
-        <Header/>
+        <Header />
+
         <Routes>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -25,12 +27,14 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path='/signup' element={<Signup />} />
-          <Route path='/forgetpassword' element={<ForgetPass/>} />
+          <Route path='/forgetpassword' element={<ForgetPass />} />
+          <Route path='/products/' element={<ProductDetails />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
-       
+
+
         <Footer />
-      
+
       </Router>
     </div>
   )

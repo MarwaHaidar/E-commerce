@@ -1,36 +1,57 @@
 .container1 {
+    /* border: 1px solid red; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
+    width: 84%;
+    margin: auto;
     box-sizing: border-box;
     margin-bottom: 30px;
+    margin-top: 70px;
+    padding: 5px 0;
 }
 
 .ctg {
-    width: 25%;
-    height: 400px;
+    width: 20%;
+    height: 420px;
     border-right: 3px solid lightgrey;
-    margin-top: -40px;
-    text-align: center;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    overflow-y: scroll;
+    margin-top: 10px;
 }
 
-.ctg p {
+.ctg details {
     color: black;
-    font-family: poppins;
-    font-size: 20px;
-    font-weight: 700;
-    padding: 15px 0;
+    font-family: poppins, sans-serif;
+    font-size: 17px;
+    width: 250px;
+    padding: 10px 0 15px;
+}
+
+.ctg::-webkit-scrollbar {
+    display: none;
+}
+
+.ctg details p {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.097);
+    color: rgba(0, 0, 0, 0.835);
+    font-size: 16px;
+    padding: 10px 0 5px 0;
+}
+
+.ctg details p:hover {
+    color: black;
 }
 
 .slider {
     width: 70%;
     height: 400px;
-    margin-right: 35px;
-    margin-top: -25px;
-    box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    margin-left: 25px;
+    box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.367);
+    border-radius: 5px;
+    margin-right: 80px;
+    margin-top: 18px;
     overflow: hidden;
 }
 

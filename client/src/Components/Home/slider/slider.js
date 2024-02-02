@@ -5,23 +5,55 @@ import Swiper from './Swiper'
 const Slider = () => {
   return (
     <div>
-        <div className={styles.container1}>
-            <div className={styles.ctg}>
-                <p>Men's Collection</p>
-                <p>Women's Collection</p>
-                <p>Kid's Collection</p>
-                <p>Accessories</p>
-                <p>Perfumes</p>
+      <div className={styles.container1}>
+        <div className={styles.ctg}>
+          <details>
+            <summary>Men's Collection</summary>
+            <p>Shirts</p>
+            <p>Pants</p>
+            <p>Trousers</p>
+            <p>Shoes</p>
+          </details>
+          <details>
+            <summary>Women's Collection</summary>
+            <p>Shirts</p>
+            <p>Pants</p>
+            <p>Trousers</p>
+            <p>Shoes</p>
+          </details>
+          <details>
+            <summary>Kid's Collection</summary>
+            <p>Shirts</p>
+            <p>Pants</p>
+            <p>Trousers</p>
+            <p>Shoes</p>
+          </details>
+          <details>
+            <summary>Accessories</summary>
+            <p>Laces</p>
+            <p>Bags</p>
+            <p>Earings</p>
+            <p>Rings</p>
+          </details>
+          <details>
+            <summary>Perfumes</summary>
+            <p>Men's Perfumes</p>
+            <p>women's Perfumes</p>
+          </details>
+          <details>
+            <summary>Self Care</summary>
+            <p>Skincare</p>
+            <p>Hair Care</p>
+            <p>Bath and Bod</p>
+          </details>
 
-
-
-            </div>
-            <div className={styles.slider}>
-            <Swiper/>
-
-            </div>
         </div>
-      
+        <div className={styles.slider}>
+          <Swiper />
+
+        </div>
+      </div>
+
     </div>
   )
 }
