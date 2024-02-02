@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import zara1 from '../../Assets/zara2.jpg'
+import zara1 from '../../Assets/swiper.jpg'
 import zara2 from '../../Assets/zara3.jpg'
 
 import './slider.module.css'

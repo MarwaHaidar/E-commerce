@@ -24,7 +24,9 @@ export const theme = {
       title: ["Roboto", "sans-serif"],
       body: ["Poppins", "sans-serif"],
     },
-    //colors
+    colors: {
+      'greenish-blue': '#07393C',
+    },
   },
 };
 export const plugins = [
