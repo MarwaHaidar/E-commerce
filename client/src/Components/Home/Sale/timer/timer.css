@@ -1,11 +1,27 @@
-.saleheader{
+.saleheader {
     display: flex;
+    padding: 20px 0;
     flex-direction: row;
+    width: 60%;
     justify-content: center;
-    margin-top: 130px;
-    
-   
+    margin: auto;
+    margin-top: 150px;
+    background: linear-gradient(45deg,#f5f5f5,#07393c,#f5f5f5);
+    background-size: 180% 180%;
+    animation: gradient-animation 8s ease infinite;
 }
+
+@keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 .txt{
     font-size: 50px;
     margin-top: -10px;
