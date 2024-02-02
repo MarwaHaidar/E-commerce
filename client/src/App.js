@@ -10,6 +10,7 @@ import Header from './Components/Header/Header.js';
 import Footer from './Components/Footer/Footer.js';
 import Signup from './Pages/Signup.js';
 import ForgetPass from './Pages/ForgetPass.js';
+import NotFound from './Pages/NotFound.js';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/forgetpassword' element={<ForgetPass/>} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
        
         <Footer />
