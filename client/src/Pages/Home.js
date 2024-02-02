@@ -7,12 +7,57 @@ import zara2 from '../Components/Assets/zara7.png'
 import zara3 from '../Components/Assets/zara8.png'
 import zara4 from '../Components/Assets/zara9.png'
 import zara5 from '../Components/Assets/zara12.png'
+import woman from '../Components/Assets/woman.png'
+import man from '../Components/Assets/men.png'
+import kids from '../Components/Assets/kids2.png'
+import shoes from '../Components/Assets/shoes.png'
+import perfume from '../Components/Assets/perfume3.png'
 import Banner from '../Components/Home/Banners/banner'
+import Featured from '../Components/Home/Featuredproducts/featured'
+ import Browsecategory from '../Components/Home/Browsecategory/browsecategory'
+
+
 
 
 
 
 const Home = () => {
+  const categories = [
+    {
+      id: 1,
+      name: "Man's Collection",
+      imageSrc:man,
+      imageAlt: "Clothing Category",
+      href: "/clothing",
+    },
+    {
+      id: 2,
+      name: "Women's Collection",
+      imageSrc:woman,
+      imageAlt: "Shoes Category",
+      href: "/shoes",
+    },   {
+      id: 3,
+      name: "Shoes",
+      imageSrc: shoes,
+      imageAlt: "Shoes Category",
+      href: "/shoes",
+    },   {
+      id: 4,
+      name: "Perfume",
+      imageSrc: perfume,
+      imageAlt: "Shoes Category",
+      href: "/shoes",
+    },   {
+      id: 5,
+      name: "Kid's Collection",
+      imageSrc: kids,
+      imageAlt: "Shoes Category",
+      href: "/shoes",
+    },];
+
+
+    
   const products = [
     {
       id: 1,
@@ -101,7 +146,10 @@ const Home = () => {
     <Slider />
      <Timer/>
      <Flashsale products={products} />
+     <Browsecategory categories={categories}/>
+     
      <Banner/>
+     <Featured products={products}/>
 
 
 
