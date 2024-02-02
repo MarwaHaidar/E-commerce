@@ -10,7 +10,7 @@ import Header from './Components/Header/Header.js';
 import Footer from './Components/Footer/Footer.js';
 import Signup from './Pages/Signup.js';
 import ForgetPass from './Pages/ForgetPass.js';
-import ProductDetails from './Components/Products/ProductDetails.js';
+import ProductDetails from './Pages/ProductDetails.js';
 import NotFound from './Pages/NotFound.js';
 
 export default function App() {

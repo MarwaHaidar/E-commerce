@@ -4,6 +4,7 @@ export const theme = {
   extend: {
     backgroundColor: {
       'custom': '#07393c',
+      'customHover': '#0B5C61'
     },
     gridTemplateRows: {
       '[auto,auto,1fr]': 'auto auto 1fr',

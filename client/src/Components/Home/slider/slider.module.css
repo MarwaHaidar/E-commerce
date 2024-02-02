@@ -24,9 +24,8 @@
 
 .ctg details {
     color: black;
-    font-family: poppins;
+    font-family: poppins, sans-serif;
     font-size: 17px;
-    font-weight: 700;
     width: 250px;
     padding: 10px 0 15px;
 }

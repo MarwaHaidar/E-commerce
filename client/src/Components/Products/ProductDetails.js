@@ -279,7 +279,7 @@ const ProductDetails = () => {
 
               <button
                 type="submit"
-                className="mt-20 flex w-full items-center justify-center rounded-md border border-transparent bg-custom px-8 py-3 text-base font-medium text-white hover:bg-yellow-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="mt-20 flex w-full items-center justify-center rounded-md border border-transparent bg-custom px-8 py-3 text-base font-medium text-white hover:bg-customHover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to Cart
               </button>
