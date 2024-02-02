@@ -1,8 +1,9 @@
 .saleheader{
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     margin-top: 130px;
+    
    
 }
 .txt{
