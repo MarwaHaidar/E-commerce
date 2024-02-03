@@ -18,8 +18,13 @@
     text-align: left;
     cursor: pointer;
     user-select: none;
-    overflow-y: scroll;
     margin-top: 10px;
+}
+
+.filterBox{
+    height: fit-content;
+    max-height: 350px;
+    overflow-y: scroll;
 }
 
 .ctg details {
@@ -29,8 +34,11 @@
     width: 250px;
     padding: 10px 0 15px;
 }
+.ctg details p input {
+  margin-right: 10px;
+}
 
-.ctg::-webkit-scrollbar {
+.filterBox::-webkit-scrollbar {
     display: none;
 }
 
@@ -40,9 +48,50 @@
     font-size: 16px;
     padding: 10px 0 5px 0;
 }
+.ctg details label {
+    cursor: pointer;
+}
+
 
 .ctg details p:hover {
     color: black;
+    font-weight: 500;
+}
+.filterBtn {
+    font-family: poppins, sans-serif;
+    width: 300px; 
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.filterBtn input {
+    margin-right: 20px;
+    margin-bottom: 10px;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    background-color:beige;
+    box-shadow: 2px 1px 5px 0px rgba(128, 128, 128, 0.393) inset;
+    border-radius: 5px;
+    color: #07393c;
+}
+.filterBtn span {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.filterBtn button {
+    box-shadow: 1px 5px 5px 0px rgba(197, 196, 196, 0.905);
+    width: 190px;
+    border-radius: 10px;
+    color: #F5F5F5;
+    height: 30px;
+    font-size: 13px;
+    margin-top: 5px;
+    background-color: #07393c;
+}
+.filterBtn button:hover, .filterBtn button:active  {
+    background-color: #0B5C61;
 }
 
 .slider {

@@ -76,6 +76,7 @@
 
  .searchIconSmall {
    display: none;
+   cursor: pointer;
  }
 
  .searchIcon {
@@ -88,12 +89,14 @@
 
 
  .wishIcon {
+   cursor: pointer;
    scale: 1.6;
    margin-left: 50px;
  }
 
 
  .shopCartIcon {
+   cursor: pointer;
    scale: 1.6;
    margin-left: 50px;
    margin-right: 10%;

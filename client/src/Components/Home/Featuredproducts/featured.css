@@ -2,13 +2,14 @@
     margin-left: 40px;
 }
 .exploreproducts p{
-    font-size: 50px;
+    font-size: 40px;
   
     font-family: poppins;
-    font-weight:1000;
+    font-weight:900;
     margin-left: 10px; 
   }
   .exploreproducts{
     text-align: center;
-    margin-top: 40px;
+    margin-top: 80px;
   }
+  
