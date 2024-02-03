@@ -14,6 +14,7 @@ import shoes from '../Components/Assets/shoes.png'
 import perfume from '../Components/Assets/perfume3.png'
 import Banner from '../Components/Home/Banners/banner'
 import Featured from '../Components/Home/Featuredproducts/featured'
+import Newarrival from '../Components/Home/Newarrivals/newarrival'
  import Browsecategory from '../Components/Home/Browsecategory/browsecategory'
 
 
@@ -150,6 +151,7 @@ const Home = () => {
      
      <Banner/>
      <Featured products={products}/>
+     <Newarrival/>
 
 
 
