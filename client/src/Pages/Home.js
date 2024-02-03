@@ -16,6 +16,7 @@ import Banner from '../Components/Home/Banners/banner'
 import Featured from '../Components/Home/Featuredproducts/featured'
 import Newarrival from '../Components/Home/Newarrivals/newarrival'
  import Browsecategory from '../Components/Home/Browsecategory/browsecategory'
+ import Properties from '../Components/Home/properties/properties'
 
 
 
@@ -152,6 +153,7 @@ const Home = () => {
      <Banner/>
      <Featured products={products}/>
      <Newarrival/>
+     <Properties/>
 
 
 
