@@ -12,6 +12,8 @@ import Signup from './Pages/Signup.js';
 import ForgetPass from './Pages/ForgetPass.js';
 import ProductDetails from './Pages/ProductDetails.js';
 import NotFound from './Pages/NotFound.js';
+import AllCategories from './Pages/AllCategories.js';
+import SubCategories from './Pages/SubCategories.js';
 
 export default function App() {
   return (
@@ -29,7 +31,10 @@ export default function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/forgetpassword' element={<ForgetPass />} />
           <Route path='/products/' element={<ProductDetails />} />
+          <Route path='/allcategories' element={<AllCategories/>} />
+          <Route path='/allsubcategories' element={<SubCategories/>} />
           <Route path='*' element={<NotFound />} />
+
         </Routes>
 
 
