@@ -1,12 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import styles from './Header.module.css';
 import Banner from './Banner';
 import Logo from './Logo';
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
-import { LuSearch } from "react-icons/lu";
-
+//import { LuSearch } from "react-icons/lu";
 
 const Header = () => {
   return (
@@ -17,12 +17,18 @@ const Header = () => {
         <NavBar />
         <div className={styles.iconContainer}>
           <SearchBar />
-          <FiHeart className={styles.wishIcon} />
+          {/* Wrap the FiHeart icon with a Link component */}
+          <Link to="/wishlist" className={styles.link}>
+            <FiHeart className={styles.wishIcon} />
+          </Link>
+          <Link to="/cart" className={styles.link}>
           <FiShoppingCart className={styles.shopCartIcon} />
+        </Link>
         </div>
       </div>
     </div>
   )
 }
 
-export default Header
+export default Header;
+

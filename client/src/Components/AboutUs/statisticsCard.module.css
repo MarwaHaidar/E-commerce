@@ -1,0 +1,32 @@
+.card{
+    width: 16%;
+    height: 200px;
+    border:1px solid black;
+    margin-top: 4%;
+    margin-left:5%;
+    background-color: #2C666E;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.circle {
+    width: 100px; /* Set the width and height to create a circular shape */
+    height: 100px;
+    border-radius: 50%; /* Make the div circular */
+    background-color: #6B9499; /* Set your desired background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  .smallCircle{
+    width: 70px; /* Set the width and height to create a circular shape */
+    height: 70px;
+    border-radius: 50%; /* Make the div circular */
+    background-color: whitesmoke; /* Set your desired background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
