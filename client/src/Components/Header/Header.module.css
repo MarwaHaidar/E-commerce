@@ -34,6 +34,7 @@
     margin-left: 10%;
 
   }
+  
 
  .navBar {
     display: flex;
@@ -46,6 +47,9 @@
 
  .navBar div ul {
     justify-content: space-around;
+ }
+ .navBar div ul li:hover{
+    font-weight: 600;
  }
 
  .hamburger {
@@ -72,6 +76,7 @@
 
  .searchIconSmall {
    display: none;
+   cursor: pointer;
  }
 
  .searchIcon {
@@ -82,16 +87,26 @@
     cursor: pointer;
  }
 
+
  .wishIcon {
+   cursor: pointer;
    scale: 1.6;
    margin-left: 50px;
  }
 
+
  .shopCartIcon {
+   cursor: pointer;
    scale: 1.6;
    margin-left: 50px;
    margin-right: 10%;
  }
+
+ .searchIcon:hover, .wishIcon:hover, .shopCartIcon:hover, .searchIconSmall:hover {
+   scale: 1.9;
+ }
+
+
 
 
 
@@ -185,6 +200,9 @@
    }
 
    @media screen and (max-width: 791px) {
+      .banner {
+         font-size: 12px;
+      }
       .logo {
          padding-left: 20px;
       }
