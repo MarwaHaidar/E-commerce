@@ -1,6 +1,5 @@
 import React from "react";
 import SubCategoryCard from "../Components/Home/SubCategory/SubCategoryCard";
-import { Link } from "react-router-dom";
 import woman from "../Components/Assets/woman.png";
 import man from "../Components/Assets/men.png";
 import kids from "../Components/Assets/kids2.png";
@@ -67,3 +66,47 @@ function SubCategories() {
 }
 
 export default SubCategories;
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import SubCategoryCard from "../Components/Home/SubCategory/SubCategoryCard";
+// import { Link, useParams } from "react-router-dom";
+
+// function SubCategories() {
+//   const { categoryId } = useParams();
+//   const [subcategories, setSubcategories] = useState([]);
+//   console.log(categoryId);
+//   useEffect(() => {
+//     // Fetch subcategories based on the selected category's ID
+//     axios
+//       .get(`http://localhost:5000/categories/${categoryId}/subcategories`)
+//       .then((response) => setSubcategories(response.data.data))
+//       .catch((error) => console.error("Error fetching subcategories:", error));
+//   }, [categoryId]);
+
+//   return (
+//     <div className="browsecategory">
+//       <div className="brosewcategories">
+//         <p>All Subcategories</p>
+//       </div>
+//       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 relative">
+//         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 mt-[-50px] ml-[-50px] relative">
+//           {subcategories.map((subcategory) => (
+//             <div key={subcategory._id}>
+//               <Link to={`/subcategory/${subcategory._id}`}>
+//                 <SubCategoryCard subcategory={subcategory} />
+//               </Link>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default SubCategories;

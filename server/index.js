@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 import connection from "./config/connection.js";
 import categoryroute from './routes/categoryRoute.js';
 import subcategoryroute from './routes/subcategoryRoute.js';
@@ -16,7 +17,7 @@ import messageroute from './routes/messageRoute.js';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-
+app.use(cors());
 // parser
 app.use(express.json());
 

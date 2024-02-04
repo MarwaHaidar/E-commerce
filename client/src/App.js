@@ -31,8 +31,8 @@ export default function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/forgetpassword' element={<ForgetPass />} />
           <Route path='/products/' element={<ProductDetails />} />
-          <Route path='/allcategories' element={<AllCategories/>} />
-          <Route path='/allsubcategories' element={<SubCategories/>} />
+          <Route path='/categories' element={<AllCategories/>} />
+          <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
           <Route path='*' element={<NotFound />} />
 
         </Routes>
