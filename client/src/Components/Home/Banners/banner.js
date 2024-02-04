@@ -10,7 +10,7 @@ const Banner = () => {
           <img  src={banner} alt="Banner" />
         </div>
         <div className={Styles.bantxt}>
-          <p className={Styles.banpar}>Enhance your Style</p>
+          <p className={Styles.banpar}>ENHANCE YOUR STYLE</p>
         </div>
         <div className={Styles.banimg}>
           <img  src={banner} alt="Banner" />

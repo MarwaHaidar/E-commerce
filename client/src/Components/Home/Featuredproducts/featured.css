@@ -1,0 +1,14 @@
+.featured{
+    margin-left: 40px;
+}
+.exploreproducts p{
+    font-size: 40px;
+    font-family: poppins;
+    font-weight:900;
+    margin-left: 10px; 
+  }
+  .exploreproducts{
+    text-align: center;
+    margin-top: 80px;
+  }
+  

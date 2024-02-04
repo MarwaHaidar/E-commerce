@@ -6,7 +6,7 @@ import Logo from './Logo';
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
-//import { LuSearch } from "react-icons/lu";
+
 
 const Header = () => {
   return (

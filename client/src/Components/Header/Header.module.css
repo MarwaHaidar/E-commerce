@@ -34,18 +34,22 @@
     margin-left: 10%;
 
   }
+  
 
  .navBar {
     display: flex;
     align-items: center;
     margin-right: 150px;
     width: 400px;
-    font-weight: 600;
+    font-weight: 400;
  } 
 
 
  .navBar div ul {
     justify-content: space-around;
+ }
+ .navBar div ul li:hover{
+    font-weight: 600;
  }
 
  .hamburger {
@@ -55,7 +59,7 @@
  .activeTab {
    border-bottom: 2px solid #07393C;
    padding-bottom: 2px;
-   font-weight: 700;
+   font-weight: 600;
  }
  
 .iconContainer {
@@ -72,6 +76,7 @@
 
  .searchIconSmall {
    display: none;
+   cursor: pointer;
  }
 
  .searchIcon {
@@ -82,16 +87,26 @@
     cursor: pointer;
  }
 
+
  .wishIcon {
+   cursor: pointer;
    scale: 1.6;
    margin-left: 50px;
  }
 
+
  .shopCartIcon {
+   cursor: pointer;
    scale: 1.6;
    margin-left: 50px;
    margin-right: 10%;
  }
+
+ .searchIcon:hover, .wishIcon:hover, .shopCartIcon:hover, .searchIconSmall:hover {
+   scale: 1.9;
+ }
+
+
 
 
 
@@ -185,6 +200,9 @@
    }
 
    @media screen and (max-width: 791px) {
+      .banner {
+         font-size: 12px;
+      }
       .logo {
          padding-left: 20px;
       }
