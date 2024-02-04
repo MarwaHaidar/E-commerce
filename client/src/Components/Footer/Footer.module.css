@@ -126,7 +126,7 @@ input::placeholder{
 }
 
 
-/* @media screen and (max-width: 900px) {
+ @media screen and (max-width: 600px) {
     .Footer {
         display: flex;
         flex-direction: column;
@@ -161,4 +161,4 @@ input::placeholder{
         
     }
   
-} */
+} 
