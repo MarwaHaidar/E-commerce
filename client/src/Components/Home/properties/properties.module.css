@@ -55,9 +55,11 @@
 .para{
     font-size: 15px;
     font-weight: 500;
+    white-space: nowrap;
 }
 .para2{
     font-size: 10px;
     font-weight: 400;
     text-align: center;
+    white-space: nowrap;
 }
