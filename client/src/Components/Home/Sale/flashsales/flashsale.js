@@ -44,7 +44,6 @@ const FlashSale = ({ products }) => {
             </div>
           </div>
         </div>
-      </div>
       <Viewproductbtn text="View All Products" />
     </>
   );
