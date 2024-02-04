@@ -115,5 +115,42 @@
     height: 100%;
     object-fit: cover;
 }
-
- 
+/* @media screen and (max-width: 900px){
+    
+    .container1{
+        margin-top: -30px;
+       
+        margin-bottom: -50px;
+        
+    }
+    .slider{
+        width: 90%;
+        margin-left: 20px;
+        height: 150px;
+        overflow: hidden;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+}
+.ctg{
+    height: 180px;
+    width: 60%;
+    overflow-y: scroll;
+    margin-left: -20px;
+}
+.ctg details{
+    padding: 0 10px;
+    margin-left: -12px;
+    font-size: 17px;
+}
+.ctg details p {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.097);
+    color: rgba(0, 0, 0, 0.835);
+    font-weight: 700;
+    font-size: 10px;
+    padding: 5px;
+    overflow: visible;
+}
+}
+  */
