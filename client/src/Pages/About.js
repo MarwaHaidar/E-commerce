@@ -1,9 +1,11 @@
 import React from 'react';
 import OurStory from '../Components/AboutUs/ourStory'
-import OurStoryImage from '../Components/AboutUs/ourStoryImage';
+//import OurStoryImage from '../Components/AboutUs/ourStoryImage';
+import Slider from '../Components/AboutUs/ourStoryImage';
 import StatisticsCard from '../Components/AboutUs/statisticsCards';
 import CrewImageCard from '../Components/AboutUs/crewImageCard';
-import WebsiteFeatures from '../Components/AboutUs/websiteFeatures';
+//import WebsiteFeatures from '../Components/AboutUs/websiteFeatures';
+import Properties from '../Components/Home/properties/properties'
 
 import zara1 from '../Components/Assets/zara11.png';
 import rayan from '../Components/Assets/rayan.JPG';
@@ -24,7 +26,7 @@ const About = () => {
     <div style={{display:'flex',justifyContent:'space-between'}}>
     <OurStory
     />
-    <OurStoryImage
+    <Slider
     />
     </div>
     <div style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
@@ -39,11 +41,7 @@ const About = () => {
     <CrewImageCard image={marwa} name="Marwa Haidar" position="Full Stack Developer" />
     <CrewImageCard image={oussama} name="Wassim Youness" position="Full Stack Developer" />
     </div>
-    <div style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
-    <WebsiteFeatures icon={faDollar} feature="33K" desc="Monthly Product Sale" />
-    <WebsiteFeatures icon={faUsers} feature="45.5K" desc="Active Customer in our website" />
-    <WebsiteFeatures icon={faStore} feature="5K" desc="Active Sallers in our website" />
-    </div>
+    <Properties/>
    
     </div>
 

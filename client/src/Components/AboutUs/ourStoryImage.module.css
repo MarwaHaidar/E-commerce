@@ -1,4 +1,4 @@
-.container {
+/*.container {
     width: 600px; 
     height: 400px;
     overflow: hidden; 
@@ -11,5 +11,123 @@
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
-  }
+  }*/
+
+  .container1 {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    margin-top: 70px;
+    padding: 5px 0;
+}
+
+.ctg {
+    width: 20%;
+    height: 420px;
+    border-right: 3px solid lightgrey;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    margin-top: 10px;
+}
+
+.filterBox{
+    height: fit-content;
+    max-height: 350px;
+    overflow-y: scroll;
+}
+
+.ctg details {
+    color: black;
+    font-family: poppins, sans-serif;
+    font-size: 17px;
+    width: 250px;
+    padding: 10px 0 15px;
+}
+.ctg details p input {
+  margin-right: 10px;
+}
+
+
+.ctg details p {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.097);
+    color: rgba(0, 0, 0, 0.835);
+    font-size: 16px;
+    padding: 10px 0 5px 0;
+}
+.ctg details label {
+    cursor: pointer;
+}
+
+
+.ctg details p:hover {
+    color: black;
+    font-weight: 500;
+}
+
+.slider {
+    width: 200%;
+    height: 300px;
+    box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.367);
+    border-radius: 5px;
+    margin-top: -70px;
+    margin-right: 100px;
+    overflow: hidden;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* @media screen and (max-width: 900px){
+    
+    .container1{
+        margin-top: -30px;
+       
+        margin-bottom: -50px;
+        
+    }
+    .slider{
+        width: 90%;
+        margin-left: 20px;
+        height: 150px;
+        overflow: hidden;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+}
+.ctg{
+    height: 180px;
+    width: 60%;
+    overflow-y: scroll;
+    margin-left: -20px;
+}
+.ctg details{
+    padding: 0 10px;
+    margin-left: -12px;
+    font-size: 17px;
+}
+.ctg details p {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.097);
+    color: rgba(0, 0, 0, 0.835);
+    font-weight: 700;
+    font-size: 10px;
+    padding: 5px;
+    overflow: visible;
+}
+}
+  */
   

@@ -36,8 +36,8 @@ const StatisticsCard = ({ icon, value, text }) => {
           <FontAwesomeIcon icon={icon} style={{ color: "#6B9499", fontSize: '30px' }} />
         </div>
       </div>
-      <div><span style={{ color: 'whitesmoke', fontSize: '40px'}}>{value}</span></div>
-      <div style={{ color: 'whitesmoke' }}>{text}</div>
+      <div><span style={{ color: 'whitesmoke', fontSize: '30px'}}>{value}</span></div>
+      <div style={{ color: 'whitesmoke',whiteSpace:'nowrap',fontSize:'15px' }}>{text}</div>
     </div>
   );
 };

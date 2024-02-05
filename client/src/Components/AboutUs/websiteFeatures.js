@@ -11,7 +11,7 @@ const WebsiteFeatures = ({ icon, feature, desc}) => {
         </div>
       </div>
       <div><span style={{ color: 'black', fontSize: '40px'}}>{feature}</span></div>
-      <div style={{ color: 'black' }}>{desc}</div>
+      <div style={{ color: 'black',whiteSpace: 'nowrap' }}>{desc}</div>
     </div>
   );
 };
