@@ -39,3 +39,65 @@
     border-radius: 5px;
   }
   
+
+  /* filter box */
+  .filter-box {
+    box-shadow: 1px 2px 5px 1px rgba(15,11,11,0.29);
+    border-radius: 5px;
+    padding: 10px;
+    left: 8.5%;
+    top: 150px;
+    z-index: 10;
+    background-color: #fff;
+    width: 300px;
+    position: absolute;
+    height: fit-content;
+    opacity: 1;
+    height: auto; 
+    overflow: hidden;
+    transition: opacity 0.3s ease, height 0.3s ease; 
+}
+
+.filter-box-hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+  .filter-box div {
+    padding: 20px;
+    margin: auto;
+    height: fit-content;
+    width: 300px;
+    border: none;
+  }
+
+  .filter-icon {
+    border: 1px solid rgba(0, 0, 0, 0.59);
+    color: rgba(0, 0, 0, 0.59);
+    padding: 1px;
+    left: 9%;
+    position: absolute;
+    top: 160px;
+    scale: 1.8;
+  }
+
+  .filter-icon:hover {
+    scale: 2;
+    border: 1px solid #07393c;
+    color: #07393c;
+    transition: all .2s ease;
+  }
+
+  .boxClose {
+    top: 20px;
+    color: rgba(0, 0, 0, 0.59);
+    scale: 2;
+  }
+  .boxClose:hover {
+    scale: 2.2;
+    color: #07393c;
+    transition: all .2s ease;
+  }
+
+

@@ -17,7 +17,6 @@ const Header = () => {
         <NavBar />
         <div className={styles.iconContainer}>
           <SearchBar />
-          {/* Wrap the FiHeart icon with a Link component */}
           <Link to="/wishlist" className={styles.link}>
             <FiHeart className={styles.wishIcon} />
           </Link>
