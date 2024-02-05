@@ -1,6 +1,7 @@
 import React from 'react';
 import OurStory from '../Components/AboutUs/ourStory'
-import OurStoryImage from '../Components/AboutUs/ourStoryImage';
+//import OurStoryImage from '../Components/AboutUs/ourStoryImage';
+import Slider from '../Components/AboutUs/ourStoryImage';
 import StatisticsCard from '../Components/AboutUs/statisticsCards';
 import CrewImageCard from '../Components/AboutUs/crewImageCard';
 import WebsiteFeatures from '../Components/AboutUs/websiteFeatures';
@@ -26,7 +27,7 @@ const About = () => {
     <div style={{display:'flex',justifyContent:'space-between'}}>
     <OurStory
     />
-    <OurStoryImage
+    <Slider
     />
     </div>
     {/* <div style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>

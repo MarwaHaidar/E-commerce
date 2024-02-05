@@ -4,7 +4,7 @@ const OurStory = () => {
   return (
     <div>
       <span style={{fontSize:'300%',marginLeft:'9%'}}>Our Story</span>
-      <pre> 
+      <pre style={{fontFamily:'poppins'}}> 
         {`
         Launched in 2015, Exclusive is South Asia’s premier online shopping
         marketplace with an active presence in Bangladesh.
