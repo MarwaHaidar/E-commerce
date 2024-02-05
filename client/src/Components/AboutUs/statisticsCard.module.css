@@ -1,4 +1,4 @@
-.card{
+/* .card{
     width: 16%;
     height: 200px;
     border:1px solid black;
@@ -11,22 +11,105 @@
     align-items: center;
 }
 .circle {
-    width: 100px; /* Set the width and height to create a circular shape */
+    width: 100px;
     height: 100px;
-    border-radius: 50%; /* Make the div circular */
-    background-color: #6B9499; /* Set your desired background color */
+    border-radius: 50%; 
+    background-color: #6B9499; 
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
   }
   .smallCircle{
-    width: 70px; /* Set the width and height to create a circular shape */
+    width: 70px;
     height: 70px;
-    border-radius: 50%; /* Make the div circular */
-    background-color: whitesmoke; /* Set your desired background color */
+    border-radius: 50%; 
+    background-color: whitesmoke; 
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+   */
+   .stcontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+   margin-bottom: 90px;
+    
+  }
+  
+  .stcard {
+    display: flex;
+    flex-direction: column;
+   
+    padding: 0px;
+  }
+  
+  .st_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    text-align: center; 
+    margin-top: -120px;
+    margin-left: -30px;
+  }
+
+  
+  .stimg {
+    position: relative; /* Set position relative for absolute positioning */
+    display: inline-block; /* Ensure inline-block for child absolute positioning */
+   
+    
+    
+  }
+  .stimg::after {
+    content: ''; 
+    position: absolute;
+    top: 0;
+    margin-left: 28.8%;
+    margin-top: 37%;
+    left: 0;
+    width: 34%; 
+    height: 22%; 
+    background-color:#07393c ;
+    z-index: -1;
+}
+  
+  
+  .sticon {
+    position: absolute;
+    bottom: 50%; 
+    right: 50%; 
+    
+    border-radius: 50%; 
+    
+    text-align: center;
+    
+  }
+  .nb{
+    position: absolute;
+    bottom: 40%; 
+    right: 52%; 
+     font-size: 20px;
+     font-family: poppins;
+     font-weight: 500;
+    color: white;
+    text-align: center;
+
+  }
+  
+  .st_title{
+    font-family: poppins;
+    font-weight: 500;
+    white-space: nowrap;
+    font-size: 25px;
+    margin-top: -10px;
+    color: #07393c;
+  }
+  
+  .sticon svg {
+    font-size: 50px; 
+    color: white;
   }
   
