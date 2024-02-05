@@ -27,7 +27,7 @@ const FeaturedProduct = ({ product, onClick }) => {
           <img
             src={product.imageSrc}
             alt={product.imageAlt}
-            className="h-full w-full object-cover object-center group-hover:opacity-0.8 lg:h-full lg:w-full"
+            className="h-full w-full object-contain object-center group-hover:opacity-0.8 lg:h-60 lg:w-80 my-5"
           />
           {/* ADD to card */}
           <div className='absolute bottom-20 left-1/2 transform -translate-x-1/2 z-10 invisible group-hover:visible'>
