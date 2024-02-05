@@ -15,6 +15,7 @@ import NotFound from "./Pages/NotFound.js";
 import AllCategories from "./Pages/AllCategories.js";
 import SubCategories from "./Pages/SubCategories.js";
 import Admin from "./Pages/Admin.js";
+import ProductsView from './Components/Home/BrowseProducts/ProductsView.js'
 
 export default function App() {
   return (
@@ -31,7 +32,9 @@ export default function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgetpassword" element={<ForgetPass />} />
-          <Route path="/products/" element={<ProductDetails />} />
+          <Route path="/products/product-slug" element={<ProductDetails />} />
+          {/* temoporary route to test products render. */}
+          <Route path="/products" element={<ProductsView />} />
           <Route path="/categories" element={<AllCategories />} />
           <Route
             path="/categories/:categoryId/subcategories"

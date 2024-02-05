@@ -4,13 +4,14 @@ export const theme = {
   extend: {
     backgroundColor: {
       'custom': '#07393c',
-      'customHover': '#0B5C61'
+      'customHover': '#0B5C61',
+      'custom-white': '#F5F5F5'
     },
     gridTemplateRows: {
       '[auto,auto,1fr]': 'auto auto 1fr',
     },
     maxWidth: {
-      container: "1440px"
+      '7xl': '86.4%'
     },
     screens: {
       xs: "320px",
@@ -18,8 +19,8 @@ export const theme = {
       small: "500px",
       md: "768px",
       lg: "960px",
-      large: "1024px",
-      xl: "1280px",
+      large: "1200px",
+      xl: "1680px",
     },
     fontFamily: {
       title: ["Roboto", "sans-serif"],
@@ -27,7 +28,7 @@ export const theme = {
     },
     colors: {
       'greenish-blue': '#07393C',
-      'lightgreenish-blue':'#2C666E'
+      'lightgreenish-blue': '#2C666E'
     },
   },
 };
