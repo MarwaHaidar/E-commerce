@@ -50,15 +50,15 @@ const StatisticsCard = ({ icon, value, text }) => {
         <div className={styles.sticon}><IoStorefrontOutline /></div>
         <p className={styles.nb}>33K</p></div>
         <div className={styles.st_text}>
-          <p className={styles.st_title}>Monthly Product Sale</p>
+          <span className={styles.st_title}>Monthly Product Sale</span>
         </div>
       </div>
       <div className={styles.stcard}>
         <div className={styles.stimg}><img className={styles.bagimg} src={Bag}/>
         <div className={styles.sticon}><CiDollar /> </div>
-        <p className={styles.nb}>45.5K</p></div>
+        <p className={styles.nb}>45K</p></div>
         <div className={styles.st_text}>
-          <p className={styles.st_title}>Active Sallers in our website</p>
+          <span className={styles.st_title}>Active Sallers in our website</span>
         </div>
       </div>
 
@@ -68,16 +68,16 @@ const StatisticsCard = ({ icon, value, text }) => {
         <div className={styles.sticon}><BiSolidShoppingBags /></div>
         <p className={styles.nb}>5K</p></div>
         <div className={styles.st_text}>
-          <p className={styles.st_title}>Active Customer in our website</p>
+          <span className={styles.st_title}>Active Customer in our website</span>
         </div>
       </div>
 
       <div className={styles.stcard}>
         <div className={styles.stimg}><img className={styles.bagimg} src={Bag}/>
         <div className={styles.sticon}><FaSackDollar /></div>
-        <p className={styles.nb}>45.5K</p></div>
+        <p className={styles.nb}>45K</p></div>
         <div className={styles.st_text}>
-          <p className={styles.st_title}>Anual gross sale in our site</p>
+          <span className={styles.st_title}>Anual gross sale in our site</span>
         </div>
       </div>
     </div>
