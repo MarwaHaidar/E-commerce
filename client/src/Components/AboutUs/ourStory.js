@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './ourStoryImage.module.css';
 
 const OurStory = () => {
   return (
     <div>
-      <span style={{fontSize:'300%',marginLeft:'9%'}}>Our Story</span>
-      <pre style={{fontFamily:'poppins'}}> 
+      <span className={styles.story}>Our Story</span>
+      <pre className={styles.storypara}> 
         {`
         Launched in 2015, Exclusive is South Asia’s premier online shopping
         marketplace with an active presence in Bangladesh.

@@ -89,8 +89,8 @@
   }
   .nb{
     position: absolute;
-    bottom: 40%; 
-    right: 52%; 
+    bottom: 42%; 
+    right: 51%; 
      font-size: 20px;
      font-family: poppins;
      font-weight: 500;
@@ -100,16 +100,17 @@
   }
   
   .st_title{
-    font-family: poppins;
+    font-family:poppins;
     font-weight: 500;
     white-space: nowrap;
-    font-size: 25px;
+    font-size: 1.5rem;
     margin-top: -10px;
-    color: #07393c;
+    color: black;
+    
   }
   
   .sticon svg {
-    font-size: 50px; 
+    font-size: 3rem; 
     color: white;
   }
   
