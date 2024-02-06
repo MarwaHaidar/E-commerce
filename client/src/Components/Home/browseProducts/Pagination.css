@@ -65,11 +65,24 @@
 }
 
   .filter-box div {
-    padding: 20px;
+    padding: 20px 5px;
     margin: auto;
     height: fit-content;
     width: 300px;
     border: none;
+    box-shadow: none;
+  }
+  .filter-box div:nth-child(2) {
+    padding: 10px 10px;
+  }
+  .filter-box div:nth-child(2) input {
+    margin-left: 10px;
+  }
+
+
+  .filter-box button {
+    margin-left: 8px;
+    width: 80%;
   }
 
   .filter-icon {
