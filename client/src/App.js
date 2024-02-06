@@ -17,7 +17,7 @@ import NotFound from "./Pages/NotFound.js";
 import AllCategories from "./Pages/AllCategories.js";
 import SubCategories from "./Pages/SubCategories.js";
 import Admin from "./Pages/Admin.js";
-import ProductsView from './Components/Home/browseProducts/ProductsView.js'
+import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 
 export default function App() {
   return (

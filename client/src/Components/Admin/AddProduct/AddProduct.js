@@ -1,8 +1,25 @@
-import React, { useState } from "react";
-import { SketchPicker } from 'react-color';
+import React, { useState, useEffect } from "react";
+import { SketchPicker } from "react-color";
 import axios from "axios";
 
 const AddProduct = () => {
+  const [subcategories, setSubcategories] = useState([]);
+
+  useEffect(() => {
+    // Fetch subcategories from your API endpoint
+    const fetchSubcategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/subcategories");
+        setSubcategories(response.data.data); // Assuming the response contains an array of subcategories
+        console.log(response.data.data);
+      } catch (error) {
+        console.error("Error fetching subcategories:", error);
+      }
+    };
+
+    fetchSubcategories();
+  }, []);
+
   const [productData, setProductData] = useState({
     name: "",
     desc: "",
@@ -57,7 +74,7 @@ const AddProduct = () => {
       const variations = [...prevProduct.variations];
       const newColor = {
         color: "",
-        quantity: 0,
+        quantity: "",
         sizes: [
           { size: "small", quantitySizes: 0 },
           { size: "medium", quantitySizes: 0 },
@@ -92,24 +109,31 @@ const AddProduct = () => {
     });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log("Product:", productData); // Log the state to debug
+  //   // Implement API call here
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Product:", productData); // Log the state to debug
-    // Implement API call here
+    try {
+      console.log('Product Data to be Sent:', productData); // Add this line
+      const response = await axios.post(
+        'http://localhost:5000/admin/product',
+        JSON.stringify(productData),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('Product created successfully:', response.data);
+      // You can redirect the user or perform other actions after successful creation
+    } catch (error) {
+      console.error('Error creating product:', error.response.data.error);
+    }
   };
-
-
-  //   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-
-//         const response = await axios.post('http://your-backend-url/api/products', productData);
-//         console.log('Product created successfully:', response.data);
-//       // You can redirect the user or perform other actions after successful creation
-//     } catch (error) {
-//       console.error("Error creating product:", error.response.data.error);
-//     }
-//   };
 
   return (
     <div className="max-w-2xl mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
@@ -173,22 +197,22 @@ const AddProduct = () => {
               Variation {variationIndex}
             </label>
             <div className="space-y-2">
-            {variation.colors.map((color, colorIndex) => (
-            <div key={colorIndex} className="space-y-2">
-                <label className="block text-sm font-medium text-gray-600">
-                Color {colorIndex + 1}
-                </label>
-                <SketchPicker
-                color={color.color}
-                onChange={(pickedColor) =>
-                    handleVariationChange(
-                    variationIndex,
-                    "color",
-                    pickedColor.hex,
-                    colorIndex
-                    )
-                }
-    />
+              {variation.colors.map((color, colorIndex) => (
+                <div key={colorIndex} className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-600">
+                    Color {colorIndex + 1}
+                  </label>
+                  <SketchPicker
+                    color={color.color}
+                    onChange={(pickedColor) =>
+                      handleVariationChange(
+                        variationIndex,
+                        "color",
+                        pickedColor.hex,
+                        colorIndex
+                      )
+                    }
+                  />
                   {/* <input
                     type="number"
                     value={color.quantity}
@@ -278,15 +302,21 @@ const AddProduct = () => {
           >
             Subcategory
           </label>
-          <input
-            type="text"
+          <select
             id="subcategory"
             name="subcategory"
             value={productData.subcategory}
             onChange={handleChange}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             required
-          />
+          >
+            <option value="">Select Subcategory</option>
+            {subcategories.map((subcategory) => (
+              <option key={subcategory.id} value={subcategory._id}>
+                {subcategory.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="flex items-center">
           <input
@@ -316,6 +346,7 @@ const AddProduct = () => {
             Add Product
           </button>
         </div>
+        
       </form>
     </div>
   );
