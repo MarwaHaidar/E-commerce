@@ -18,13 +18,16 @@ import AllCategories from "./Pages/AllCategories.js";
 import SubCategories from "./Pages/SubCategories.js";
 import Admin from "./Pages/Admin.js";
 import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
+import AdminHeader from "./Components/Admin/AdminHeader/AdminHeader.js";
+import AdminCharts from "./Pages/AdminCharts.js";
 
 export default function App() {
+  const isAdmin = true;
   return (
     <div>
       <Router>
-        <Header />
-
+        {isAdmin ? <AdminHeader /> : <Header />}
+          
         <Routes>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -41,13 +44,14 @@ export default function App() {
             path="/categories/:categoryId/subcategories"
             element={<SubCategories />}
           />
-          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/adminCharts" element={<AdminCharts />} />
         </Routes>
         <Routes>
           <Route path="/registerverify/:token" element={<VerificationComponent />} />
           <Route path="/register" element={<Signup />} /></Routes>
-
+        
         <Footer />
       </Router>
     </div>
