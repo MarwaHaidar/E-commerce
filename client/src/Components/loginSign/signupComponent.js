@@ -1,30 +1,58 @@
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styles from './loginSign.module.css';
 import imageecom from '../Assets/ecom.gif';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 function SignupComponent() {
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: ''
   });
-  const handleChange = (e) => {
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    console.log('Form:', formData);
+}, [formData]); // Log the form data whenever it changes
+
+const handleChange = (e) => {
     setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+        ...formData,
+        [e.target.name]: e.target.value
     });
-    // console.log('e target name '+ e.target.name);
-    // console.log('e target value '+ e.target.value);
-  };
-  const handleSubmit = (e) => {
+};
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //send data to the serve
-    console.log('Form submitted:', formData);
-  };
-  // console.log('Form ', formData);
+
+    try {
+        // Send form data to the backend
+        const response = await axios.post('http://localhost:5000/author/register', formData);
+        console.log('Response:', response.data);
+        setSuccessMessage('Registration successful!'); // Display success message to the user
+        setFormData({ // Clear form fields after successful registration
+            first_name: '',
+            last_name: '',
+            email: '',
+            password: ''
+        });
+        setErrorMessage(''); // Clear any previous error messages
+    } catch (error) {
+        console.error('Error:', error.response.data);
+        setErrorMessage(error.response.data.message); // Display error message to the user
+        setSuccessMessage(''); // Clear any previous success messages
+    }
+};
+   console.log('Form ', formData);
+
+
+
   return (
+    
+            
     <div className={styles.backgroudFlex}>
       <div className={styles.rightImage}>
         <img src={imageecom} alt="App Store" />
@@ -32,14 +60,16 @@ function SignupComponent() {
 
       <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
         <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Create an account</h2>
+        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+        {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
-            <label htmlFor="firstname" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Firstname</label>
+            <label htmlFor="first_name" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Firstname</label>
             <input
               type="text"
               id="firstname"
-              name="firstname"
-              value={formData.firstname}
+              name="first_name"
+              value={formData.first_name}
               onChange={handleChange}
               className={`w-full p-1 border rounded-md ${styles.inputText}`}
               placeholder="Enter your firstname"
@@ -47,12 +77,12 @@ function SignupComponent() {
             />
           </div>
           <div className="mb-2">
-            <label htmlFor="lastname" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Lastname</label>
+            <label htmlFor="last_name" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Lastname</label>
             <input
               type="text"
               id="lastname"
-              name="lastname"
-              value={formData.lastname}
+              name="last_name"
+              value={formData.last_name}
               onChange={handleChange}
               className={`w-full p-1 border rounded-md ${styles.inputText}`}
               placeholder="Enter your lastname"
@@ -104,5 +134,6 @@ function SignupComponent() {
     </div>
   );
 };
+
 
 export default SignupComponent
