@@ -22,7 +22,7 @@ import AdminHeader from "./Components/Admin/AdminHeader/AdminHeader.js";
 import AdminCharts from "./Pages/AdminCharts.js";
 
 export default function App() {
-  const isAdmin = true;
+  const isAdmin = false;
   return (
     <div>
       <Router>
