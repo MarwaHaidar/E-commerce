@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import styles from './Header.module.css';
 import { LuSearch } from "react-icons/lu";
 
-const SearchBar = () => {
+
+const SearchBar = ({ onSearchQueryChange }) => {
+    const handleChange = (event) => {
+        const query = event.target.value;
+        onSearchQueryChange(query);
+    }
     const [isSearchBarVisible, setSearchBarVisible] = useState(false);
 
     const toggleSearchBar = () => {
@@ -18,6 +23,7 @@ const SearchBar = () => {
                     id="search"
                     className="rounded-md py-2 pl-3 pr-20 w-full text-gray-900 ring-1 ring-gray-100 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-m sm:leading-6"
                     placeholder="Search a product..."
+                    onChange={handleChange}
                 />
                 <LuSearch className={styles.searchIcon} onClick={toggleSearchBar} />
             </div>

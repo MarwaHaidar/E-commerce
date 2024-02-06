@@ -16,7 +16,7 @@ const products = [
     },
     {
         id: generateRandomId(),
-        name: 'Nomad Tumbler',
+        name: 'specific search',
         href: '#',
         price: '$35',
         rating: '4',

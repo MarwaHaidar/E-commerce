@@ -1,13 +1,24 @@
 import React, { useState } from "react";
-import ProductCard from "./productcard.js";
+import ProductCard from "./ProductCard.js";
 import Pagination from './Pagination.js';
-import FilterBox from '../slider/FilterableMenu.js'
+import FilterBox from '../slider/FilterableMenu.js';
 import { FaFilter } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
-import products from './temp/ProductsData'; // temporary import for testing
+// import products from './temp/ProductsData'; // temporary import for testing
 
 
+const products = [
+    {
+        id: 1,
+        name: 'specific search',
+        href: '#',
+        price: '$35',
+        rating: '4',
+        imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
+        imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.'
+    }
 
+]
 
 
 const ProductsView = () => {
@@ -33,10 +44,7 @@ const ProductsView = () => {
         setFilterBoxVisible(false);
         setFilterIconVisible(true);
     };
-    // const products = [
-    //     // axios to retrieve the real data
 
-    // ]
 
 
 
