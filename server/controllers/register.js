@@ -13,7 +13,7 @@ function sendVerificationEmail(email, verificationToken) {
         service: 'gmail',
         auth: {
             user: 'globalimpactglobalimpact@gmail.com',
-            pass: 'hubi ltcu olxs tmli',
+            pass: 'elqm kewq ajrr qhej',
         },
     });
 
@@ -22,7 +22,7 @@ function sendVerificationEmail(email, verificationToken) {
         to: email,
         subject: 'Verify Your Email',
         text: 'Click the following link to verify your email: ',
-        html: `<a href="https://localhost:3000/author/registerverify?token=${verificationToken}">Verify email</a>`,
+        html: `<a href="https://localhost:5000/author/registerverify?token=${verificationToken}">Verify email</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
