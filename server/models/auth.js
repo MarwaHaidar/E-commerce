@@ -23,7 +23,7 @@ const authorSchema=new Schema({
              enum: ['user', 'admin'], 
              default: 'user' },
     verificationToken: { type: String },
-verifyStatus: { type: Boolean, 
+    verifyStatus: { type: Boolean, 
                 default: false },
 },{timestamps:true});
 
