@@ -1,10 +1,11 @@
 import React from 'react'
-import AddProduct from '../Components/Admin/AddProduct/AddProduct'
+import SiteBar from '../Components/Admin/SiteBar/SiteBar'
 
 function Admin() {
   return (
     <div>
-      <AddProduct />
+      {/* <AddProduct /> */}
+      <SiteBar />
     </div>
   )
 }
