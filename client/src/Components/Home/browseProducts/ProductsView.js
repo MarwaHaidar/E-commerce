@@ -9,7 +9,7 @@ import products from './temp/ProductsData'; // temporary import for testing
 
 const ProductsView = () => {
     const productsPerPage = 30;
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0); 
 
     // const products = [
     //     // axios to retrieve the real data
