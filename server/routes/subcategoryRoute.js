@@ -8,7 +8,7 @@ router.post('/admin/subcategories', upload.single("image"), createsubcategory)
 router.put('/admin/subcategories/:id', upload.single("image"), updatesubcategory)
 router.get('/subcategories', getsubcategories)
 router.get('/subcategories/:id', getsubcategory)
-router.delete('/subcategories/:id', deletesubcategory)
+router.delete('/admin/subcategories/:id', deletesubcategory)
 
 
 export default router;

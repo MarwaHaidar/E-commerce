@@ -1,5 +1,6 @@
 .siteBarBackground{
-    background-color: white;
+    background-color: red;
+    width: 20%;
 }
 .siteBarMainTopic{
     color: black;
@@ -8,10 +9,17 @@
     color: black;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 .siteBarIcons{
     margin-top: 5px;
     margin-right: 5px;
+}
+.crudoperationSiteBar{
+    display: flex;
+    justify-content: space-around;
+    width: 80px;
+    margin-left: 5px;
 }
 .siteBarsubTopic{
     color: black; 

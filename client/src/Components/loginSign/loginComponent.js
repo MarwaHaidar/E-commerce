@@ -28,7 +28,7 @@ function LoginComponent(){
         // Set the access token in the Authorization header
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         // Set the refresh token in a cookie
-        document.cookie = `refreshToken=${refreshToken}; Secure; Max-Age=${7 * 24 * 60 * 60};`;
+        document.cookie = `refreshToken=${refreshToken}; Secure; Max-Age=${ 5 * 60};`;
 
 
 
@@ -52,7 +52,13 @@ function LoginComponent(){
         setError(response.data.message);
       }
     } catch (error) {
-      setError('An error occurred. Please try again.'); // Handle generic errors
+      // Handle errors
+      if (error.response && error.response.status === 401) {
+        // Redirect the user to the login page if the refresh token is expired
+        navigate('/login');
+      } else {
+        setError('An error occurred. Please try again.'); // Handle generic errors
+      }
     }
   };
   // console.log('Form ', formData);

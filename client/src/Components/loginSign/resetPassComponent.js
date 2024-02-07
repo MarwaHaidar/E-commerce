@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 
 function ResetPasswordComponent(){
+  
     const navigate = useNavigate();
     const location = useLocation();
     const [email, setEmail] = useState('');
@@ -34,6 +35,7 @@ function ResetPasswordComponent(){
       const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form data:', formData);
+        console.log(email)
         if (formData.password !== formData.verifyPassword) {
           console.error("Passwords do not match");
           return;

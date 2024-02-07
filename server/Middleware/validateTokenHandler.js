@@ -93,6 +93,7 @@ const validateToken = asyncHandler(async (req, res, next) => {
                 jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (refreshErr, refreshDecoded) => {
                     if (refreshErr) {
                         res.status(401).json({ message: "Invalid refresh token" });
+                        redirect("localhost:3000/login")
                     } else {
                         // Generate a new access token
                         const newAccessToken = jwt.sign({
@@ -143,7 +144,9 @@ const validateTokenForAdmin = asyncHandler(async (req, res, next) => {
             res.status(403).json({ message: 'Admin permissions required' });
         } else {
             // User has admin permissions, proceed to the next middleware/route
+            redirect("localhost:3000/login")
             next();
+            
         }
     });
 });

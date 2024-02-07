@@ -20,6 +20,13 @@ import Admin from "./Pages/Admin.js";
 import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import AdminHeader from "./Components/Admin/AdminHeader/AdminHeader.js";
 import AdminCharts from "./Pages/AdminCharts.js";
+import CategoryAdminEdit from "./Components/Admin/CategoryAdmin/CategoryAdminEdit.js";
+import CategoryAdminDelete from "./Components/Admin/CategoryAdmin/CategoryAdminDelete.js";
+import SubCategoryAdminEdit from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminEdit.js";
+import SubCategoryAdminDelete from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminDelete.js";
+import SubCategoryAdminGetAll from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminGetAll.js";
+import CategoryProvider from "./Components/Admin/CategoryAdmin/CategoryProvider.js";
+
 
 export default function App() {
   const isAdmin = false;
@@ -47,6 +54,11 @@ export default function App() {
           />
           <Route path="*" element={<NotFound />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/editCat/:id" element={<CategoryAdminEdit/>} />
+          <Route path="/admin/deleteCat/:id" element={<CategoryAdminDelete/>} />
+          <Route path="/admin/editsubCat/:id" element={<SubCategoryAdminEdit />} />
+          <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
+          <Route path="/admin/allproducts/" element={<SubCategoryAdminGetAll />} />
           <Route path="/adminCharts" element={<AdminCharts />} />
         </Routes>
         <Routes>
