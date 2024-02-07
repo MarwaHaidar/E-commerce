@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import styles from './loginSign.module.css';
 import imageecom from '../Assets/ecom.gif';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
+
 function ResetPasswordComponent(){
-  const { email } = useParams(); // Extract the token from the URL
   
     const navigate = useNavigate();
+    const location = useLocation();
+    const [email, setEmail] = useState('');
     const [formData, setFormData] = useState({
         password: '',
         verifyPassword: ''
       });
     
+      useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const userEmail = searchParams.get('email');
+        setEmail(userEmail);
+      }, [location]);
+
+
       const handleChange = (e) => {
         setFormData({
           ...formData,
@@ -32,7 +42,8 @@ function ResetPasswordComponent(){
         }
         
         try {
-          const response = await axios.post(`http://localhost:5000/author/resetpass?email=${email}`, {
+          const response = await axios.post('http://localhost:5000/author/resetpass', {
+            email: email,
             password: formData.password,
             verifyPassword: formData.verifyPassword
           });
@@ -42,7 +53,7 @@ function ResetPasswordComponent(){
             // Password reset was successful
             alert(response.data.message); // Display success message to the user
             // Optionally, redirect the user to a different page or perform any other action
-            navigate('localhost:3000/login');
+            navigate('/login');
 
           } else {
             navigate('/resetPassword');

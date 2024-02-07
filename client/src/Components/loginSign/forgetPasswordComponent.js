@@ -30,7 +30,8 @@
 // };
   
 //   //for sending the reset pass email
-//   const handleSubmit= async () => {
+//   const handleSubmit= async (e) => {
+//     e.preventDefault(); // Prevent default form submission
 //     try {
 //         // Get the refresh token from the cookie
 //         const cookieValue = document.cookie.match('(^|;)\\s*refreshToken\\s*=\\s*([^;]+)');
@@ -98,6 +99,9 @@
 //     </div>
 //   );
 // };
+
+// export default ForgetPasswordComponent
+
 
 // export default ForgetPasswordComponent
 import React, { useState } from 'react';
