@@ -59,15 +59,6 @@
 }
 
 .slider {
-<<<<<<< HEAD
-    width: 200%;
-    height: 283px;
-    box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.367);
-    border-radius: 5px;
-    margin-top: -70px;
-    margin-right: 100px;
-    overflow: hidden;
-=======
   width: 200%;
   height: 300px;
   box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.367);
@@ -75,7 +66,6 @@
   margin-top: -70px;
   margin-right: 100px;
   overflow: hidden;
->>>>>>> d5c92d96e69ca000c42bbcf3ff9910a75cb88b57
 }
 
 .swiper-container {

@@ -5,11 +5,11 @@ import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
   
-const sendResetEmail = (userEmail) => {
+const sendResetEmail = (email) => {
     // Send an email containing the reset link with the token
     // You can use nodemailer or any other email sending library
     // Include the reset token in the link, e.g., /reset-password?token=yourTokenHere
-    console.log(`Sending reset email to ${userEmail}`);
+    console.log(`Sending reset email to ${email}`);
     const transporter = nodemailer.createTransport({
         // Set up your email transport configuration (e.g., SMTP, Gmail, etc.)
         // Example for using Gmail:
@@ -22,10 +22,10 @@ const sendResetEmail = (userEmail) => {
 
     const mailOptions = {
         from: 'globalimpactglobalimpact@gmail.com',
-        to: userEmail,
+        to: email,
         subject: 'reset your password',
         text: 'Click the following link to reset your password: ',
-        html:`<a href="http://localhost:3000/resetpassword">Reset password</a>`,
+        html:`<a href="http://localhost:3000/resetpassword?email=${email}">Reset password</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -70,12 +70,12 @@ export { requestPasswordReset };
         const { password, verifyPassword } = req.body;
 
         // Access the user ID from the decoded information attached by the middleware
-        const userEmail = req.user.email;
+        const {email} = req.query;
 
         // Find the user based on the user ID
-        const user = await User.findOne({ email: userEmail });
+        const user = await User.findOne({ email: email });
         // Find the auth based on the user ID
-        const auth = await Author.findOne({ email: req.user.email });
+        const auth = await Author.findOne({ email: email});
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
