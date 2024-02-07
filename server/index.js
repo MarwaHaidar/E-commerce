@@ -18,7 +18,13 @@ import accesstoken from './controllers/accessTokenController.js'
 import cookieParser from 'cookie-parser';
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'OPTIONS'], // Add other HTTP methods if needed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Add other allowed headers if needed
+    credentials: true // Allow cookies to be sent with the request
+  }));
+  
 // parser
 app.use(express.json());
 

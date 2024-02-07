@@ -25,7 +25,7 @@ const sendResetEmail = (userEmail) => {
         to: userEmail,
         subject: 'reset your password',
         text: 'Click the following link to reset your password: ',
-        html:`<a href="http://localhost:3000/resetpassword">Reset password</a>`,
+        html:`<a href="http://localhost:3000/resetpassword?email=${userEmail}">Reset Password</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -65,17 +65,17 @@ export { requestPasswordReset };
 
   //==================================reset the password=================================================================
 
-  const resetPassword = async (req, res) => {
+const resetPassword = async (req, res) => {
     try {
-        const { password, verifyPassword } = req.body;
+        const { email, password, verifyPassword } = req.body;
 
-        // Access the user ID from the decoded information attached by the middleware
-        const userEmail = req.user.email;
+        // // Access the user ID from the decoded information attached by the middleware
+        // const {email} = req.query;
 
         // Find the user based on the user ID
-        const user = await User.findOne({ email: userEmail });
+        const user = await User.findOne({ email: email });
         // Find the auth based on the user ID
-        const auth = await Author.findOne({ email: req.user.email });
+        const auth = await Author.findOne({ email: email });
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
