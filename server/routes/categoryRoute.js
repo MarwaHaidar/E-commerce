@@ -23,7 +23,7 @@ router.post(
   createcategory
 );
 router.put("/admin/categories/:id", upload.single("image"), updatecategory);
-router.get("/categories", validateToken, getcategories);
+router.get("/categories", getcategories);
 router.get("/categories/:id", getcategory);
 router.delete(
   "/admin/categories/:id",

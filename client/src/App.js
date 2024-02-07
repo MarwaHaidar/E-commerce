@@ -17,12 +17,20 @@ import AllCategories from "./Pages/AllCategories.js";
 import SubCategories from "./Pages/SubCategories.js";
 import Admin from "./Pages/Admin.js";
 import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
+import AdminHeader from "./Components/Admin/AdminHeader/AdminHeader.js";
+import AdminCharts from "./Pages/AdminCharts.js";
 
 export default function App() {
+  const isAdmin = false;
   return (
     <div>
       <Router>
+<<<<<<< HEAD
         <Header />
+=======
+        {isAdmin ? <AdminHeader /> : <Header />}
+          
+>>>>>>> 02c33a92e43d3079f59cf9538bd0918369efbc57
         <Routes>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -39,14 +47,23 @@ export default function App() {
             path="/categories/:categoryId/subcategories"
             element={<SubCategories />}
           />
-          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
+<<<<<<< HEAD
           {/* Place the VerificationComponent route inside the Routes */}
           <Route path="/registerverify" element={<Registerverify />} />
 
 
           <Route path="/register" element={<Signup />} />
         </Routes>
+=======
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/adminCharts" element={<AdminCharts />} />
+        </Routes>
+        <Routes>
+          <Route path="/registerverify/:token" element={<VerificationComponent />} />
+          <Route path="/register" element={<Signup />} /></Routes>
+        
+>>>>>>> 02c33a92e43d3079f59cf9538bd0918369efbc57
         <Footer />
       </Router>
     </div>
