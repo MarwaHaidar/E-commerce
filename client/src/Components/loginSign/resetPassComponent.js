@@ -4,7 +4,10 @@ import imageecom from '../Assets/ecom.gif';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 function ResetPasswordComponent(){
+  const { email } = useParams(); // Extract the token from the URL
+  
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         password: '',
@@ -22,13 +25,14 @@ function ResetPasswordComponent(){
       const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form data:', formData);
+        console.log(email)
         if (formData.password !== formData.verifyPassword) {
           console.error("Passwords do not match");
           return;
         }
         
         try {
-          const response = await axios.post('http://localhost:5000/author/resetpass', {
+          const response = await axios.post(`http://localhost:5000/author/resetpass?email=${email}`, {
             password: formData.password,
             verifyPassword: formData.verifyPassword
           });
@@ -38,7 +42,7 @@ function ResetPasswordComponent(){
             // Password reset was successful
             alert(response.data.message); // Display success message to the user
             // Optionally, redirect the user to a different page or perform any other action
-            navigate('/login');
+            navigate('localhost:3000/login');
 
           } else {
             navigate('/resetPassword');

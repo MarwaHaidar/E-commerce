@@ -18,7 +18,7 @@ const VerificationComponent = () => {
       } catch (error) {
         // If verification fails or there's an error, set validUrl to false
         console.error('Error verifying token:', error);
-        setValidUrl(false);
+        // setValidUrl(false);
       }
     };
 
