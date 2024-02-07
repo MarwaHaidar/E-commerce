@@ -1,0 +1,9 @@
+.AdminEditMainBoxSub{
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    border: 2px solid red;
+    width: 80%;
+    margin-bottom: 10%;
+    padding: 5%;
+}
