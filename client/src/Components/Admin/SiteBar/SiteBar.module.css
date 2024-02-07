@@ -1,0 +1,19 @@
+.siteBarBackground{
+    background-color: white;
+}
+.siteBarMainTopic{
+    color: black;
+}
+.siteBarTopic{
+    color: black;
+    display: flex;
+    flex-direction: row;
+}
+.siteBarIcons{
+    margin-top: 5px;
+    margin-right: 5px;
+}
+.siteBarsubTopic{
+    color: black; 
+    margin-left: 5px;
+}
