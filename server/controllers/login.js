@@ -56,7 +56,11 @@ const loginuser = asyncHandler(async (req, res) => {
 
             await existingUser.save();
 
-            res.status(201).json({ user: existingUser, });
+            res.status(200).json({
+                user: existingUser, // Send either existing user or new user data
+                success: true,
+                message: "Login successful!"
+              });
         } else {
             // If the user does not exist, create a new user entry
         const newUser = await User.create({
@@ -91,7 +95,11 @@ const loginuser = asyncHandler(async (req, res) => {
         // Save the refresh token in a secure cookie
         res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days in milliseconds
 
-        res.status(201).json({ newUser });
+        res.status(200).json({
+            user: newUser, // Send either existing user or new user data
+            success: true,
+            message: "Login successful!"
+          });
 
         }
     } else {

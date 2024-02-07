@@ -13,11 +13,8 @@ router.post('/register', registeruser)
 router.get('/registerverify', registerverification)
 router.post('/login', loginuser)
 // router.get('/current', validateToken, currentuser)
-router.post('/resetpassverify', validateToken, requestPasswordReset)
-router.post('/resetpass', validateToken, resetPassword)
-
-
-
+router.post('/resetpassverify',validateToken,requestPasswordReset)
+router.post('/resetpass',validateToken,resetPassword)
 
 
 export default router;

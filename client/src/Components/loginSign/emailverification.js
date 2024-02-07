@@ -16,10 +16,9 @@ const VerificationComponent = () => {
         console.log('Verification successful');
         navigate('http://localhost:3000/login'); // Redirect to the login page
       } catch (error) {
-        // If verification fails or there's an error, handle it accordingly
+        // If verification fails or there's an error, set validUrl to false
         console.error('Error verifying token:', error);
-        // Redirect to an error page or display an error message
-        // navigate('/error');
+        setValidUrl(false);
       }
     };
 
