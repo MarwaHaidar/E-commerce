@@ -12,6 +12,7 @@ import Footer from "./Components/Footer/Footer.js";
 import Signup from "./Pages/Signup.js";
 
 import ForgetPass from "./Pages/ForgetPass.js";
+import ResetPass from "./Pages/ResetPass.js";
 import ProductDetails from "./Pages/ProductDetails.js";
 import NotFound from "./Pages/NotFound.js";
 import AllCategories from "./Pages/AllCategories.js";
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/forgetpassword" element={<ForgetPass />} />
+          <Route path="/resetpassword" element={<ResetPass />} />
           <Route path="/products/product-slug" element={<ProductDetails />} />
           {/* temoporary route to test products render. */}
           <Route path="/products" element={<ProductsView />} />
@@ -45,8 +47,9 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Routes>
-          <Route path="/registerverify/:token" element={<VerificationComponent />} />
-          <Route path="/register" element={<Signup />} /></Routes>
+          <Route path="/registerverify/?token" element={<VerificationComponent />} />
+          <Route path="/register" element={<Signup />} />
+        </Routes>
 
         <Footer />
       </Router>

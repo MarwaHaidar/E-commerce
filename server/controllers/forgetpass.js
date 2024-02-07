@@ -16,7 +16,7 @@ const sendResetEmail = (userEmail) => {
         service: 'gmail',
         auth: {
             user: 'globalimpactglobalimpact@gmail.com',
-            pass: 'hubi ltcu olxs tmli',
+            pass: 'elqm kewq ajrr qhej',
         },
     });
 
@@ -25,7 +25,7 @@ const sendResetEmail = (userEmail) => {
         to: userEmail,
         subject: 'reset your password',
         text: 'Click the following link to reset your password: ',
-        html:`<a href="https://localhost:3000/author/resetpassword">Reset password</a>`,
+        html:`<a href="http://localhost:3000/resetpassword">Reset password</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -67,7 +67,7 @@ export { requestPasswordReset };
 
   const resetPassword = async (req, res) => {
     try {
-        const { newPassword, confirmPassword } = req.body;
+        const { password, verifyPassword } = req.body;
 
         // Access the user ID from the decoded information attached by the middleware
         const userEmail = req.user.email;
@@ -82,12 +82,12 @@ export { requestPasswordReset };
         }
 
         // Check if newPassword and confirmPassword match
-        if (newPassword !== confirmPassword) {
+        if (password !== verifyPassword) {
             return res.status(400).json({ message: 'Passwords do not match' });
         }
 
         // Hash the new password
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         // Update the user's password in the database
         await User.updateOne(
@@ -110,7 +110,7 @@ export { requestPasswordReset };
             }
         );
 
-        res.status(200).json({ message: 'Password reset successfully' });
+        res.status(200).json({ success : true, message: 'Password reset successfully' });
     } catch (error) {
         console.error('Error resetting password:', error);
         if (error.name === 'TokenExpiredError') {

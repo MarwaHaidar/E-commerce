@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import styles from './loginSign.module.css';
 import imageecom from '../Assets/ecom.gif';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; 
+
+
 function ForgetPasswordComponent(){
+
   const [formData, setFormData] = useState({
     email: ''
   });
@@ -15,10 +19,42 @@ function ForgetPasswordComponent(){
   // console.log('e target name '+ e.target.name);
   // console.log('e target value '+ e.target.value);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    //send data to the serve
-    console.log('Form submitted:', formData);
+
+  const cookieValue = document.cookie.match('(^|;)\\s*refreshToken\\s*=\\s*([^;]+)');
+  console.log(cookieValue);
+
+  // Function to get a specific cookie by name
+const getCookie = (name) => {
+  const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return cookieValue ? cookieValue.pop() : '';
+};
+  
+  //for sending the reset pass email
+  const handleSubmit= async () => {
+    try {
+        // Get the refresh token from the cookie
+        const cookieValue = document.cookie.match('(^|;)\\s*refreshToken\\s*=\\s*([^;]+)');
+        console.log(cookieValue);
+        const tokenResponse = await axios.get('http://localhost:5000/getAccessToken', {
+          params: {
+            email: formData.email // Include the user's email as a query parameter
+          }
+        });
+        const accessToken = tokenResponse.data.accessToken;
+        console.log(accessToken);
+      // Send a POST request to the server with the email
+      const response = await axios.post('http://localhost:5000/author/resetpassverify', formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        // Set withCredentials to true to send cookies in the request
+        withCredentials: true
+      });
+      console.log(response.data); // Handle response as needed
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle errors
+    }
   };
   // console.log('Form ', formData);
   return (
