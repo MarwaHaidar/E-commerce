@@ -1,26 +1,20 @@
 import React, { useEffect } from 'react';
-import { useParams} from 'react-router-dom';
-
-
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
-
-import { useNavigate } from 'react-router-dom';
-
 const VerificationComponent = () => {
-  const { token } = useParams(); // Extract the token from the URL
+  const { verificationToken } = useParams(); // Extract the token from the URL
   const navigate = useNavigate();
 
   useEffect(() => {
     const verifyToken = async () => {
       try {
         // Send the token to the backend for verification
-        const response = await axios.get(`http://localhost:5000/author/registerverify?token=${token}`);
-
+        const response = await axios.post(`http://localhost:5000/author/registerverify?token=${verificationToken}`);
+        
         // If verification is successful, redirect to the login page
         console.log('Verification successful');
-        navigate('/author/login');
+        navigate('http://localhost:3000/login'); // Redirect to the login page
       } catch (error) {
         // If verification fails or there's an error, handle it accordingly
         console.error('Error verifying token:', error);
@@ -30,7 +24,7 @@ const VerificationComponent = () => {
     };
 
     verifyToken();
-  }, [token, navigate]);
+  }, [verificationToken, navigate]);
 
   return (
     <div>
@@ -39,4 +33,5 @@ const VerificationComponent = () => {
     </div>
   );
 };
+
 export default VerificationComponent;
