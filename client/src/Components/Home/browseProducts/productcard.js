@@ -22,12 +22,12 @@ const ProductCard = ({ products }) => {
   return (
     <div className="grid grid-cols-1 mb-20 gap-x-6 gap-y-8 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 large:grid-cols-4 xl:grid-cols-5 xl:gap-x-6">
       {products.map((product) => (
-        <a key={product.id} href={product.href} className="group relative">
+        <a key={product._id} href={product._id} className="group relative">
           <div className="bg-white p-3 w-79 rounded-lg shadow-md transition-transform transform-gpu hover:scale-105 relative">
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 transform-gpu hover:scale-105 transition-transform">
               <img
-                src={product.imageSrc}
-                alt={product.imageAlt}
+                src={product.imageCover}
+                alt={`image of ${product.name}`}
                 className="h-full w-full object-cover object-center group-hover:opacity-75"
               />
             </div>
