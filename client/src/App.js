@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DataContext from './Components/Context.js';
+import React, { useState } from "react";
 import "./App.css";
 import Home from "./Pages/Home.js";
 import About from "./Pages/About.js";
@@ -25,16 +27,21 @@ import CategoryAdminDelete from "./Components/Admin/CategoryAdmin/CategoryAdminD
 import SubCategoryAdminEdit from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminEdit.js";
 import SubCategoryAdminDelete from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminDelete.js";
 import SubCategoryAdminGetAll from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminGetAll.js";
-import CategoryProvider from "./Components/Admin/CategoryAdmin/CategoryProvider.js";
+import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
+import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
+import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
+
 
 
 export default function App() {
   const isAdmin = false;
+  const [products,setProducts] = useState([]);
+  {isAdmin ? <AdminHeader /> : <Header />}
+  
   return (
     <div>
       <Router>
-        {isAdmin ? <AdminHeader /> : <Header />}
-          
+        <DataContext.Provider value={{ products, setProducts }}>
         <Routes>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -54,6 +61,9 @@ export default function App() {
           />
           <Route path="*" element={<NotFound />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/addcategories" element={<AddCategories />} />
+          <Route path="/admin/addsubcategories" element={<AddSubCategories />} />
+          <Route path="/admin/addproduct" element={<AddProduct />} />
           <Route path="/admin/editCat/:id" element={<CategoryAdminEdit/>} />
           <Route path="/admin/deleteCat/:id" element={<CategoryAdminDelete/>} />
           <Route path="/admin/editsubCat/:id" element={<SubCategoryAdminEdit />} />
@@ -66,8 +76,8 @@ export default function App() {
           <Route path="/register" element={<Signup />} /></Routes>
         
         <Footer />
+        </DataContext.Provider>
       </Router>
     </div>
   );
 }
-

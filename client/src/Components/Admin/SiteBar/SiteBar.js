@@ -64,12 +64,30 @@ function SiteBar() {
       window.location.href = `/admin/deletesubCat/${subcategoryID}`;
     }
   };
-  return (
+  
+return (
     <div className="flex h-screen bg-gray-200">
       <aside className={`w-64 bg-gray-800 text-white ${styles.siteBarBackground}`}>
         <div className="p-4">
-          <h2 className={`text-2xl font-bold ${styles.siteBarMainTopic}`}>Main Topics</h2>
+
+          <h2 className={`text-xl font-bold  ${styles.siteBarMainTopic}`}>Additions </h2>
+
+          <div className={styles.Adddropdown}>
+            <Link to="/admin/addcategories" className={`text-lg ${styles.subtopicbtn}`}>
+              Add Category
+            </Link>
+            <Link to="/admin/addsubcategories" className={`text-lg ${styles.subtopicbtn}`}>
+              Add Subcategory
+            </Link>
+            <Link to="/admin/addproduct" className={`text-lg ${styles.subtopicbtn}`}>
+              Add Product
+            </Link>
+          </div>
         </div>
+
+         
+            <h2 className={`text-xl font-bold ml-4 ${styles.siteBarMainTopic}`}>Main Topics</h2>
+        
         <ul>
           {categories &&
             categories.map((category) => (
@@ -79,9 +97,9 @@ function SiteBar() {
                   {category.name}
                   <div className={styles.crudoperationSiteBar}>
                     {/* Link to the edit page with the category ID */}
-                    <Link to={`/admin/editCat/${category._id}`}><FaRegEdit /></Link>
+                    <Link to={`/admin/editCat/${category._id}`}><FaRegEdit className={styles.iconSize} /></Link>
                     <Link to={`/admin/`}
-                    onClick={() => handleDeleteClick(category._id)}><MdDeleteForever /> </Link>
+                    onClick={() => handleDeleteClick(category._id)}><MdDeleteForever className={styles.iconSize}/> </Link>
 
                   </div>
                 </div>
@@ -93,10 +111,10 @@ function SiteBar() {
                         <li key={subcategory._id} className="py-2 ml-4 flex " >
                           {subcategory.name}
                           <div className={styles.crudoperationSiteBar}>
-                          <Link to={`/admin/allproducts/`}><AiOutlineLogin /></Link>
-                            <Link to={`/admin/editsubCat/${subcategory._id}`}><FaRegEdit /></Link>
+                          <Link to={`/admin/allproducts/`}><AiOutlineLogin className={styles.iconSize} /></Link>
+                            <Link to={`/admin/editsubCat/${subcategory._id}`}><FaRegEdit className={styles.iconSize} /></Link>
                             <Link to={`/admin/`}
-                            onClick={() => handleDeleteClickSub(subcategory._id)}><MdDeleteForever /> </Link> 
+                            onClick={() => handleDeleteClickSub(subcategory._id)}><MdDeleteForever  className={styles.iconSize}/> </Link> 
                           </div>    
                         </li>
                       ))}
