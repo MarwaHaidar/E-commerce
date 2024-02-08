@@ -4,6 +4,7 @@ import './App.css';
 import App from './App';
 import CategoryProvider from './Components/Admin/CategoryAdmin/CategoryProvider';
 import SubCategoryProvider from './Components/Admin/SubCategoryAdmin/SubCategoryProvider';
+import { CartProvider } from './cartcontext'; ;
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -11,9 +12,13 @@ root.render(
 
  <CategoryProvider>
   <React.StrictMode>
+   
   <SubCategoryProvider>
+  <CartProvider>
     <App />
+    </CartProvider>
   </SubCategoryProvider>
+  
   </React.StrictMode>
   </CategoryProvider>
 );
