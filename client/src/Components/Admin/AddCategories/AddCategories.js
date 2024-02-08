@@ -39,7 +39,6 @@ function AddCategories() {
       console.error('Error creating category:', error);
     }
   };
-  
 // const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     console.log("Product:", formData); // Log the state to debug
