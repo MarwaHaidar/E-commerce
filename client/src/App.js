@@ -34,6 +34,7 @@ import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategori
 
 
 export default function App() {
+  const [products, setProducts] = useState([]);
   const isAdmin = false;
   return (
     <div>

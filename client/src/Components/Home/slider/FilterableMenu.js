@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from './slider.module.css';
+import axios from 'axios';
 
 const handleFilter = () => {
     // filtering logic
 };
 
 const FilterableBox = () => {
+    const [categories, setCategories] = useState([]);
     const [selectedSubcategories, setSelectedSubcategories] = useState([]);
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
@@ -21,11 +23,28 @@ const FilterableBox = () => {
         // Add logic to filter products based on the selected subcategories
     };
 
+    useEffect(() => {
+
+
+        axios.get('http://localhost:5000/categories')
+            .then(response => {
+                const categories = response.data.data;
+                console.log(categories)
+                setCategories(categories);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, [])
+
     return (
         <div className={styles.ctg}>
             <div className={styles.filterBox}>
-                <details>
-                    <summary>Men's Collection</summary>
+        
+                    
+            {categories && categories.map(category => (
+                    <details key={category._id}>
+                        <summary>{category.name}</summary>
                     <p>
                         <label>
                             <input
@@ -55,8 +74,10 @@ const FilterableBox = () => {
                             />Shoes
                         </label>
                     </p>
-                </details>
-                <details>
+                    </details>
+                ))}
+               
+                {/* <details>
                     <summary>Health & Well-being</summary>
                     <p>
                         <label>
@@ -141,7 +162,7 @@ const FilterableBox = () => {
                             />Shoes
                         </label>
                     </p>
-                </details>
+                </details> */}
             </div>
             <div className={styles.filterBtn}>
                 <input
