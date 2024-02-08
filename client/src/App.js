@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DataContext from './Components/Context.js';
+import React, { useState } from "react";
 import "./App.css";
 import Home from "./Pages/Home.js";
 import About from "./Pages/About.js";
@@ -20,35 +22,31 @@ import Admin from "./Pages/Admin.js";
 import ProductsView from "./Components/Home/BrowseProducts/ProductsView.js";
 
 export default function App() {
+  const [products, setProducts] = useState([]);
   return (
     <div>
       <Router>
-        <Header />
-
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/forgetpassword" element={<ForgetPass />} />
-          <Route path="/products/product-slug" element={<ProductDetails />} />
-          {/* temoporary route to test products render. */}
-          <Route path="/products" element={<ProductsView />} />
-          <Route path="/categories" element={<AllCategories />} />
-          <Route
-            path="/categories/:categoryId/subcategories"
-            element={<SubCategories />}
-          />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Routes>
-          <Route path="/registerverify/:token" element={<VerificationComponent />} />
-          <Route path="/register" element={<Signup />} /></Routes>
-
-        <Footer />
+        <DataContext.Provider value={{ products, setProducts }}>
+          <Header />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/forgetpassword" element={<ForgetPass />} />
+            <Route path='/products/search' element={<ProductsView />} />
+            <Route path="/products/:productId" element={<ProductDetails />} />
+            <Route path="/categories" element={<AllCategories />} />
+            <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/registerverify/:token" element={<VerificationComponent />} />
+            <Route path="/register" element={<Signup />} />
+          </Routes>
+          <Footer />
+        </DataContext.Provider>
       </Router>
     </div>
   );

@@ -1,55 +1,91 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import DataContext from './../Context';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import styles from './Header.module.css';
 import Banner from './Banner';
 import Logo from './Logo';
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
-import productsData from '../Home/BrowseProducts/temp/ProductsData.js' // temporary for testing
 
 
 const Header = () => {
+  const { products, setProducts } = useContext(DataContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const resultsContainerRef = useRef(null);
   const navigate = useNavigate();
 
-
-  const handleSearchQueryChange = (query) => {
+  // retrieving products on input change
+  const handleSearchQueryChange = async (query) => {
     setSearchQuery(query);
-    if (query.trim() === '') {
-      setShowSuggestions(false);
-    } else {
-      const searchedProducts = productsData.filter(result =>
-        result.name.toLowerCase().includes(query.toLowerCase())
-      );
 
-      setSearchResults(searchedProducts);
-      setShowSuggestions(true);
-      // console.log(searchedProducts)
+    if (query.trim() === '') {
+      setTimeout(() => {
+        setShowSuggestions(false);
+      }, 800)
+    } else {
+      try {
+        const response = await axios.get(`http://localhost:5000/products/search?q=${query}`);
+        const searchedProducts = response.data.products;
+        setSearchResults(searchedProducts);
+        setProducts(searchedProducts); // Update local state
+        setProducts(searchedProducts); // Update global state
+        setShowSuggestions(true);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     }
   };
 
-  const handleSuggestionClick = (resultId) => {
-    // Find the product in searchResults based on resultId
-    const clickedProduct = searchResults.find(product => product.id === resultId);
+  const handleSearchQuery = async (query) => {
+    setSearchQuery(query);
 
-    // Log the clicked product
-    console.log('Product clicked:', clickedProduct);
+    if (searchQuery.trim() === '') {
+      setTimeout(() => {
+        setShowSuggestions(false);
+      }, 800)
+      return
+    } else {
+      try {
+        const response = await axios.get(`http://localhost:5000/products/search?q=${searchQuery}`);
+        const searchedProducts = response.data.products;
+        setSearchResults(searchedProducts);
+        setProducts(searchedProducts);
+        setShowSuggestions(false);
+        navigate(`/products/search?q=${searchQuery}`)
 
-    // Hide suggestions and navigate to product page
-    setShowSuggestions(false);
-    navigate('/products');
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+  };
+  // retrieving products on suggestion click
+  const handleSuggestionClick = async (query) => {
+    try {
+      setSearchQuery(query);
+      const response = await axios.get(`http://localhost:5000/products/search?q=${query}`);
+      const searchedProducts = response.data.products;
+      setSearchResults(searchedProducts);
+      setProducts(searchedProducts);
+      console.log("header component :", searchedProducts) // this could be more than one product in case multiple products have the same name
+      console.log("after fetch (logginf DataContext in header component): ", typeof (DataContext))
+      setShowSuggestions(false);
+      navigate(`/products/search?q=${searchQuery}`)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
+
+
+
   useEffect(() => {
-    console.log("effect running");
-
     const handleClickOutside = (event) => {
-      console.log('Clicked outside'); // Debugging log
-
       const searchBarInput = document.getElementById('search');
       if (
         resultsContainerRef.current &&
@@ -59,58 +95,54 @@ const Header = () => {
       ) {
         setSearchResults([]);
         setSearchQuery('');
-        setShowSuggestions(false); // Reset search query to trigger handleSearchQueryChange
+        setShowSuggestions(false);
       }
     };
-
 
     document.addEventListener('click', handleClickOutside);
 
     return () => {
-      console.log("cleanup");
       document.removeEventListener('click', handleClickOutside);
     };
+
   }, []);
-  const handleSearchBarFocus = () => {
-    if (searchQuery.trim() !== '') {
-      setShowSuggestions(true); // Show suggestions when focusing on the search bar if it's not empty
-    }
-  };
 
   return (
-    <div>
-      <Banner />
-      <div className={styles.header}>
-        <Logo />
-        <NavBar />
-        <div className={styles.iconContainer}>
-          <SearchBar onSearchQueryChange={handleSearchQueryChange} />
-          <ul ref={resultsContainerRef} className={`${styles.suggestionsContainer} ${showSuggestions ? styles.show : ''}`}>
-            {searchResults.length !== 0 ? (
-              searchResults.map(result => (
-                <li
-                  className={styles.suggestion}
-                  key={result.id}
-                  onClick={() => handleSuggestionClick(result.id)}
-                >
-                  {result.name}
-                </li>
-              ))
-            ) : (
-              <li>No matches found</li>
-            )}
-          </ul>
-          <Link to="/wishlist" className={styles.link}>
-            <FiHeart className={styles.wishIcon} />
-          </Link>
-          <Link to="/cart" className={styles.link}>
-            <FiShoppingCart className={styles.shopCartIcon} />
-          </Link>
+    <DataContext.Provider value={{ products, setProducts }}>
+      <div>
+        <Banner />
+        <div className={styles.header}>
+          <Logo />
+          <NavBar />
+          <div className={styles.iconContainer}>
+            <SearchBar onSearchQueryChange={handleSearchQueryChange} onSearchQuery={handleSearchQuery} />
+            <ul ref={resultsContainerRef} className={`${styles.suggestionsContainer} ${showSuggestions ? styles.show : ''}`}>
+              {searchResults.length !== 0 ? (
+                searchResults.map(result => (
+                  <li
+                    className={styles.suggestion}
+                    key={result._id}
+                    onClick={() => handleSuggestionClick(result.name)} // Pass suggestion name as query
+                  >
+                    {result.name}
+                  </li>
+                ))
+              ) : (
+                <li>No matches found</li>
+              )}
+            </ul>
+
+            <Link to="/wishlist" className={styles.link}>
+              <FiHeart className={styles.wishIcon} />
+            </Link>
+            <Link to="/cart" className={styles.link}>
+              <FiShoppingCart className={styles.shopCartIcon} />
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </DataContext.Provider>
+  );
+};
 
 export default Header;
-
