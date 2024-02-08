@@ -5,6 +5,8 @@ import styles from './CategoryAdmin.module.css'
 import axios from 'axios';
 import CategoryAdminGetOne from './CategoryAdminGetOne';
 import { useCategoryContext } from './CategoryContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CategoryAdminEdit() {
   const { id } = useParams();
@@ -51,7 +53,7 @@ function CategoryAdminEdit() {
 
       console.log('Category updated successfully');
       // Redirect or handle success as needed
-
+      toast.success('Category updated successfully');
       // Update category data using the context
       updateCategoryData(id);
   
@@ -61,32 +63,34 @@ function CategoryAdminEdit() {
   };
 
   return (
-    <div className={styles.AdminEditMainBox}>
+    <div>
+      <ToastContainer/>
+    <div className={styles.formcontainerCat}>
       <form onSubmit={handleSubmit}>
-        <h1>{id ? 'Edit' : 'Create'} Category</h1>
+        <h1 className={styles.formheadingCat}>{id ? 'Edit' : 'Create'} Category</h1>
         <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+          <label htmlFor="name" className={styles.formLabelCat}>Name</label>
           <input
             type="text"
             id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className={`mt-1 p-2 w-full border rounded-md ${styles.formInputCat}`}
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="desc" className="block text-sm font-medium text-gray-700">Description</label>
+          <label htmlFor="desc" className={styles.formLabelCat}>Description</label>
           <textarea
             id="desc"
             name="desc"
             value={formData.desc}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className={`mt-1 p-2 w-full border rounded-md ${styles.formInputCat}`}
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="image" className="block text-sm font-medium text-gray-700">Image</label>
+          <label htmlFor="image" className={styles.formLabelCat}  >Image</label>
           <input
             type="file"
             id="image"
@@ -95,11 +99,14 @@ function CategoryAdminEdit() {
             className="mt-1"
           />
         </div>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">
+        <div className={styles.buttonContainer}>
+        <button type="submit" className={`bg-blue-500 text-white p-2 rounded-md ${styles.formButtonCat}`}>
           {id ? 'Update' : 'Create'} Category
         </button>
+        </div>
       </form>
       <CategoryAdminGetOne />
+    </div>
     </div>
   );
 }
