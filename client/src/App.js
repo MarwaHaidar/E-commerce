@@ -39,7 +39,7 @@ export default function App() {
     <div>
       <Router>
         <DataContext.Provider value={{ products, setProducts }}>
-          <Header />
+          {isAdmin ? <AdminHeader /> : <Header />}
           <Routes>
             <Route index element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -59,42 +59,6 @@ export default function App() {
           </Routes>
           <Footer />
         </DataContext.Provider>
-        {isAdmin ? <AdminHeader /> : <Header />}
-          
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/forgetpassword" element={<ForgetPass />} />
-          <Route path="/resetpassword" element={<ResetPass />} />
-          <Route path="/products/product-slug" element={<ProductDetails />} />
-          {/* temoporary route to test products render. */}
-          <Route path="/products" element={<ProductsView />} />
-          <Route path="/categories" element={<AllCategories />} />
-          <Route
-            path="/categories/:categoryId/subcategories"
-            element={<SubCategories />}
-          />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/addcategories" element={<AddCategories />} />
-          <Route path="/admin/addsubcategories" element={<AddSubCategories />} />
-          <Route path="/admin/addproduct" element={<AddProduct />} />
-          <Route path="/admin/editCat/:id" element={<CategoryAdminEdit/>} />
-          <Route path="/admin/deleteCat/:id" element={<CategoryAdminDelete/>} />
-          <Route path="/admin/editsubCat/:id" element={<SubCategoryAdminEdit />} />
-          <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
-          <Route path="/admin/allproducts/" element={<SubCategoryAdminGetAll />} />
-          <Route path="/adminCharts" element={<AdminCharts />} />
-        </Routes>
-        <Routes>
-          <Route path="/registerverify/:token" element={<VerificationComponent />} />
-          <Route path="/register" element={<Signup />} /></Routes>
-        
-        <Footer />
       </Router>
     </div>
   );
