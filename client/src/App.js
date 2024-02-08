@@ -19,7 +19,7 @@ import NotFound from "./Pages/NotFound.js";
 import AllCategories from "./Pages/AllCategories.js";
 import SubCategories from "./Pages/SubCategories.js";
 import Admin from "./Pages/Admin.js";
-import ProductsView from "./Components/Home/BrowseProducts/ProductsView.js";
+import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import AdminHeader from "./Components/Admin/AdminHeader/AdminHeader.js";
 import AdminCharts from "./Pages/AdminCharts.js";
 import CategoryAdminEdit from "./Components/Admin/CategoryAdmin/CategoryAdminEdit.js";
@@ -36,32 +36,49 @@ import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategori
 export default function App() {
   const [products, setProducts] = useState([]);
   const isAdmin = false;
+  const [products,setProducts] = useState([]);
+  {isAdmin ? <AdminHeader /> : <Header />}
+  
   return (
     <div>
       <Router>
         <DataContext.Provider value={{ products, setProducts }}>
-          {isAdmin ? <AdminHeader /> : <Header />}
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/forgetpassword" element={<ForgetPass />} />
-            <Route path='/products/search' element={<ProductsView />} />
-            <Route path="/products/:productId" element={<ProductDetails />} />
-            <Route path="/categories" element={<AllCategories />} />
-            <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/registerverify/:token" element={<VerificationComponent />} />
-            <Route path="/register" element={<Signup />} />
-          </Routes>
-          <Footer />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/forgetpassword" element={<ForgetPass />} />
+          <Route path="/resetpassword" element={<ResetPass />} />
+          <Route path="/products/product-slug" element={<ProductDetails />} />
+          {/* temoporary route to test products render. */}
+          <Route path="/products" element={<ProductsView />} />
+          <Route path="/categories" element={<AllCategories />} />
+          <Route
+            path="/categories/:categoryId/subcategories"
+            element={<SubCategories />}
+          />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/addcategories" element={<AddCategories />} />
+          <Route path="/admin/addsubcategories" element={<AddSubCategories />} />
+          <Route path="/admin/addproduct" element={<AddProduct />} />
+          <Route path="/admin/editCat/:id" element={<CategoryAdminEdit/>} />
+          <Route path="/admin/deleteCat/:id" element={<CategoryAdminDelete/>} />
+          <Route path="/admin/editsubCat/:id" element={<SubCategoryAdminEdit />} />
+          <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
+          <Route path="/admin/allproducts/" element={<SubCategoryAdminGetAll />} />
+          <Route path="/adminCharts" element={<AdminCharts />} />
+        </Routes>
+        <Routes>
+          <Route path="/registerverify/:token" element={<VerificationComponent />} />
+          <Route path="/register" element={<Signup />} /></Routes>
+        
+        <Footer />
         </DataContext.Provider>
       </Router>
     </div>
   );
 }
-
