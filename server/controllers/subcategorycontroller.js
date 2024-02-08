@@ -76,10 +76,14 @@ export { getsubcategory };
 //update specific category:
 
 const updatesubcategory = asyncHandler(async (req, res) => {
-    const image = await uploadImage(req.file.buffer);
-    const { id } = req.params;
-    const { name } = req.body;
-    const { desc } = req.body;
+    try {
+        let image;
+        if (req.file) {
+            image = await uploadImage(req.file.buffer);
+        }
+        const { id } = req.params;
+        const { name, desc } = req.body;
+
     const subcategory = await Subcategory.findOneAndUpdate(
         { _id: id },
         { name, slug: slugify(name), desc, image },
@@ -88,6 +92,10 @@ const updatesubcategory = asyncHandler(async (req, res) => {
         res.status(404).json({ msg: `no category for this is ${id}` })
     }
     res.status(200).json({ data: subcategory })
+    } catch (error) {
+        console.error('Error updating category:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 })
 export { updatesubcategory }
 

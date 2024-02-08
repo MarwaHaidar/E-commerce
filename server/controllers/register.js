@@ -22,7 +22,7 @@ function sendVerificationEmail(email, verificationToken) {
         to: email,
         subject: 'Verify Your Email',
         text: 'Click the following link to verify your email: ',
-        html: `<a href="https://localhost:5000/author/registerverify?token=${verificationToken}">Verify email</a>`,
+        html: `<a href="http://localhost:5000/author/registerverify?token=${verificationToken}">Verify email</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -71,7 +71,7 @@ const registeruser = asyncHandler(async (req, res) => {
     const author = await Author.create({ first_name, last_name, email, password: hashedpass, verificationToken, });
     // Log the verification token and email message (for testing purposes)
     console.log(`Verification Token: ${verificationToken}`);
-    console.log(`Email Message: Click the following link to verify your email: https://your-app.com/verify?token=${verificationToken}`);
+    console.log(`Email Message: Click the following link to verify your email: https://localhost:5000/verify?token=${verificationToken}`);
 
     // Send the verification email
     sendVerificationEmail(email, verificationToken);
@@ -113,7 +113,7 @@ const registerverification = asyncHandler(async (req, res) => {
 
             // Redirect the user to the login page after successful verification
             console.log('verification succeed');
-            res.redirect('/author/login');
+            res.redirect('http://localhost:3000/login');
         } catch (error) {
             // Token verification failed, handle accordingly
             console.error('Error verifying token:', error);

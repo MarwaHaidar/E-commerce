@@ -37,6 +37,24 @@
   margin-bottom: 90px;
 }
 
+
+  
+  .st_title{
+    font-family:poppins;
+    font-weight: 500;
+    white-space: nowrap;
+    font-size: 120%;
+    margin-top: -10px;
+    color: black;
+    
+  }
+  
+  .sticon svg {
+    font-size: 3rem; 
+    color: white;
+  }
+  
+
 .stcard {
   display: flex;
   flex-direction: column;
@@ -109,3 +127,4 @@
   font-size: 3rem;
   color: white;
 }
+
