@@ -4,6 +4,45 @@ import axios from "axios";
 
 const AddProduct = () => {
   const [subcategories, setSubcategories] = useState([]);
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    const imagesArray = files.map((file) => {
+      const reader = new FileReader();
+
+      return new Promise((resolve) => {
+        reader.onload = (e) => {
+          resolve({
+            file,
+            preview: e.target.result,
+          });
+        };
+
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(imagesArray).then((images) => {
+      setSelectedImages(images);
+    });
+  };
+
+  const addImage = () => {
+    setProductData((prevProduct) => {
+      const updatedImages = Array.isArray(prevProduct.images)
+        ? [...prevProduct.images, ...selectedImages]
+        : [...selectedImages];
+
+      return {
+        ...prevProduct,
+        images: updatedImages,
+      };
+    });
+
+    setSelectedImages([]);
+  };
 
   useEffect(() => {
     // Fetch subcategories from your API endpoint
@@ -134,6 +173,68 @@ const AddProduct = () => {
       console.error('Error creating product:', error.response.data.error);
     }
   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  
+  //   try {
+  //     // Extract images from selectedImages array
+  //     const imageFiles = productData.images.map((image) => image.file);
+  //     // console.log(imageFiles)
+  //     // Create a new productData object and include images
+  //     const updatedProductData = {
+  //       ...productData,
+  //       images: imageFiles,
+  //     };
+  
+  //     console.log('Product Data to be Sent:', updatedProductData);
+  
+  //     const response = await axios.post(
+  //       'http://localhost:5000/admin/product',
+  //       JSON.stringify(updatedProductData),
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
+  
+  //     console.log('Product created successfully:', response.data);
+  //     // You can redirect the user or perform other actions after successful creation
+  //   } catch (error) {
+  //     console.error('Error creating product:', error.response.data.error);
+  //   }
+  // };
+  
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     // Extract images from selectedImages array
+  //     const imageFiles = selectedImages.map((image) => image.file);
+  //     console.log(imageFiles)
+  //     // Create a new productData object and include images
+  //     const updatedProductData = {
+  //       ...productData,
+  //       images: imageFiles,
+  //     };
+  
+  //     console.log('Product Data to be Sent:', updatedProductData);
+  
+  //     const response = await axios.post(
+  //       'http://localhost:5000/admin/product',
+  //       JSON.stringify(updatedProductData),
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
+  //     console.log('Product created successfully:', response.data);
+  //     // You can redirect the user or perform other actions after successful creation
+  //   } catch (error) {
+  //     console.error('Error creating product:', error.response.data.error);
+  //   }
+  // };
+  
 
   return (
     <div className="max-w-2xl mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
@@ -318,6 +419,43 @@ const AddProduct = () => {
             ))}
           </select>
         </div>
+        {/* ------------------- */}
+
+
+               {/* Images selection */}
+      <div>
+        <label
+          htmlFor="images"
+          className="block text-sm font-medium text-gray-600"
+        >
+          Images
+        </label>
+        <input
+          type="file"
+          id="images"
+          name="images"
+          onChange={handleImageChange}
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+          multiple
+          accept="image/*"
+        />
+        {/* Display selected images previews */}
+        <div className="mt-2 flex space-x-2">
+          {selectedImages.map((image, index) => (
+            <img
+              key={index}
+              src={image.preview}
+              alt={`Selected ${index + 1}`}
+              className="w-16 h-16 object-cover border border-gray-300 rounded-md"
+            />
+          ))}
+        </div>
+        <button type="button" onClick={addImage}>
+          Add Image
+        </button>
+      </div>
+
+        {/* ------------------- */}
         <div className="flex items-center">
           <input
             type="checkbox"
