@@ -127,22 +127,22 @@ export { getproduct };
 
 const updateproduct = asyncHandler(async (req, res) => {
   //----------------------------------
-  const variations = req.body.variations;
+  // const variations = req.body.variations;
 
-  var sumQuantitySizes;
-  var totalQuantity = [];
-  variations.forEach((variation) => {
-    variation.colors.forEach((color) => {
-      sumQuantitySizes = color.sizes.reduce(
-        (sum, size) => sum + size.quantitySizes,
-        0
-      );
-      color.quantity = sumQuantitySizes; // quantity
-    });
-    totalQuantity.push(sumQuantitySizes);
-  });
-  const sumQuantity = totalQuantity.reduce((acc, current) => acc + current, 0); // totalQuantity
-  console.log(sumQuantity);
+  // var sumQuantitySizes;
+  // var totalQuantity = [];
+  // variations.forEach((variation) => {
+  //   variation.colors.forEach((color) => {
+  //     sumQuantitySizes = color.sizes.reduce(
+  //       (sum, size) => sum + size.quantitySizes,
+  //       0
+  //     );
+  //     color.quantity = sumQuantitySizes; // quantity
+  //   });
+  //   totalQuantity.push(sumQuantitySizes);
+  // });
+  // const sumQuantity = totalQuantity.reduce((acc, current) => acc + current, 0); // totalQuantity
+  // console.log(sumQuantity);
   //----------------------------------
 
   // calculateDiscountedPrice(req, res, () => {});
@@ -172,8 +172,8 @@ const updateproduct = asyncHandler(async (req, res) => {
       desc,
       price,
       priceAfterDiscount,
-      currency,
-      variations,
+      // currency,
+      // variations,
       subcategory,
       imageCover,
       images,

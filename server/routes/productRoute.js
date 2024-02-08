@@ -13,7 +13,8 @@ router.post('/admin/product',
  upload.array("images"),  createProduct);
 router.put('/admin/products/:id',
 // validateToken,validateTokenForAdmin ,
- upload.array("images"), updateproduct);
+ upload.array("images"),
+  updateproduct);
 router.get('/products/search', searchProducts); 
 router.get('/products/filter', filterSortProducts); 
 router.get('/products/:id', getproduct);
