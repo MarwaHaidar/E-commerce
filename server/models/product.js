@@ -44,7 +44,7 @@ const productSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: false,
     },
 
     slug: {
@@ -88,20 +88,7 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
-// // Method to calculate total quantity
-// variationSchema.methods.calculateTotalQuantity = function () {
-//   let totalQuantity = 0;
 
-//   this.colors.forEach(color => {
-//     totalQuantity += color.quantity;
-
-//     color.sizes.forEach(size => {
-//       totalQuantity += size.quantitySizes;
-//     });
-//   });
-
-//   return totalQuantity;
-// };
 
 const Product = model("Product", productSchema);
 export default Product;
