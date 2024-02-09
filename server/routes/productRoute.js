@@ -6,7 +6,7 @@ import { validateToken,validateTokenForAdmin } from '../Middleware/validateToken
 
 
 
-const router = express.Router();
+const router = express.Router({mergeParams: true }); //mergeParms allow to acces parameters on other router
 
 router.post('/admin/product',
 // validateToken,validateTokenForAdmin ,
