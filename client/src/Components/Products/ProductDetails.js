@@ -34,12 +34,16 @@ const ProductDetails = () => {
 
 const [selectedColor, setSelectedColor] = useState(null);
 const [selectedSize, setSelectedSize] = useState(null);
+
+  const handleSizeSelect = (size) => {
+    setSelectedSize(size);
+  };
 let accessToken = getAccessToken();
 const handleAddToCart = async () => {
   
  
   try {
-    console.log('Access Token:', accessToken);
+    console.log('selected size:', selectedSize['enum'][0]);
     const response = await axios.post(
       'http://localhost:5000/user/cart',
       {
@@ -47,7 +51,7 @@ const handleAddToCart = async () => {
         quantity: 1,
         currency:'USD',
         color: selectedColor.color,
-        size: selectedSize.enum.value,
+        size: selectedSize['enum'][0],
       },
       {
         headers: {
@@ -60,6 +64,7 @@ const handleAddToCart = async () => {
     
     console.log('Product added to cart:', response.data);
     console.log(accessToken )
+    console.log(selectedSize['enum'][0])
     console.log(selectedColor.color)
     // console.log(selectedSize.enum)
     
@@ -114,10 +119,10 @@ const handleAddToCart = async () => {
     setSelectedSize(null);
   };
 
-  // Function to handle size selection
-  const handleSizeSelect = (size) => {
-    setSelectedSize(size);
-  };
+  // // Function to handle size selection
+  // const handleSizeSelect = (size) => {
+  //   setSelectedSize(size);
+  // };
 
   return (
 
@@ -243,14 +248,14 @@ const handleAddToCart = async () => {
               .find(c => c.color === selectedColor.color)
               .sizes.map((size, index) => (
                 <div
-                  key={`${size}-${index}`}
-                  className={`group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase ${
-                    size.quantitySizes > 0
-                      ? 'cursor-pointer bg-white text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none'
-                      : 'cursor-not-allowed bg-gray-50 text-gray-200'
-                  } ${selectedSize === size ? 'ring-2 ring-indigo-500' : ''}`}
-                  onClick={() => handleSizeSelect(size)}
-                >
+                key={`${size}-${index}`}
+                className={`group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase ${
+                  size.quantitySizes > 0
+                    ? 'cursor-pointer bg-white text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none'
+                    : 'cursor-not-allowed bg-gray-50 text-gray-200'
+                } ${selectedSize === size ? 'ring-2 ring-indigo-500' : ''}`}
+                onClick={() => handleSizeSelect(size)}
+              >
                   {size.enum}
                   {size.quantitySizes <= 0 && (
                     <span
