@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 const FilterableBox = () => {
-    const { products, setProducts } = useContext(DataContext);
+    const { setProducts } = useContext(DataContext);
     const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
     const [selectedSubcategories, setSelectedSubcategories] = useState([]);

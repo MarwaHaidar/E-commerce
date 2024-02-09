@@ -12,7 +12,7 @@ import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
 
 const Header = () => {
-  const { products, setProducts } = useContext(DataContext);
+  const { setProducts } = useContext(DataContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -32,7 +32,6 @@ const Header = () => {
         const response = await axios.get(`http://localhost:5000/products/search?q=${query}`);
         const searchedProducts = response.data.products;
         setSearchResults(searchedProducts);
-        setProducts(searchedProducts); // Update local state
         setProducts(searchedProducts); // Update global state
         setShowSuggestions(true);
       } catch (error) {

@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io";
 
 
 const ProductsView = () => {
+    console.log("rendered")
     const { products, setProducts } = useContext(DataContext);
     console.log(products)
     const [currentPage, setCurrentPage] = useState(0);
@@ -53,11 +54,11 @@ const ProductsView = () => {
             const parsedData = JSON.parse(retrievedData);
             setProducts(parsedData);
         }
-    }, []); // Empty dependency array ensures this useEffect runs only once on component mount
+    }, []);
 
 
     useEffect(() => {
-        // Save products to localStorage whenever they change
+
         window.localStorage.setItem("retrieved-products", JSON.stringify(products));
         console.log("Products stored in localStorage");
     }, [products]); // This useEffect runs whenever products state changes
