@@ -32,11 +32,11 @@ import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
 
 
-
+const isAdmin = false;
 export default function App() {
   const isAdmin = false;
   const [products,setProducts] = useState([]);
- 
+  
   
   return (
     <div>
@@ -52,9 +52,9 @@ export default function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/forgetpassword" element={<ForgetPass />} />
           <Route path="/resetpassword" element={<ResetPass />} />
-          <Route path="/products/product-slug" element={<ProductDetails />} />
+          <Route path="/products/:productId" element={<ProductDetails />} />
           {/* temoporary route to test products render. */}
-          <Route path="/products" element={<ProductsView />} />
+          <Route path="/products/search" element={<ProductsView />} />
           <Route path="/categories" element={<AllCategories />} />
           <Route
             path="/categories/:categoryId/subcategories"

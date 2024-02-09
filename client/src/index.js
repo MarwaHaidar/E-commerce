@@ -4,7 +4,7 @@ import './App.css';
 import App from './App';
 import CategoryProvider from './Components/Admin/CategoryAdmin/CategoryProvider';
 import SubCategoryProvider from './Components/Admin/SubCategoryAdmin/SubCategoryProvider';
-import { CartProvider } from './cartcontext'; ;
+// import { CartProvider } from './cartcontext'; ;
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,9 +14,9 @@ root.render(
   <React.StrictMode>
    
   <SubCategoryProvider>
-  <CartProvider>
+  
     <App />
-    </CartProvider>
+
   </SubCategoryProvider>
   
   </React.StrictMode>

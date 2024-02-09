@@ -7,11 +7,13 @@ import asyncHandler from 'express-async-handler';
 
 // add to cart
 const addToCart = asyncHandler(async (req, res) => {
-    const userId = user.id;
+    const userId = req.user.id;
     const productId = req.body.productId;
     const product = await Product.findById(productId).exec();
     const productName = product.name;
     const price = product.price;
+    const color=req.body.color;
+    const size=req.body.size;
     const image=product.imageCover;
     const quantity = req.body.quantity;
     const currency = req.body.currency;
@@ -20,6 +22,8 @@ const addToCart = asyncHandler(async (req, res) => {
         productName,
         image,
         quantity,
+        size,
+        color,
         price,
         currency
     }]

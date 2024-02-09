@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
 import styles from './productCart.module.css';
-import { useCart } from '../../../cartcontext'; // Import the useCart hook from the CartProvider file
+//import { useCart } from '../../../cartcontext'; // Import the useCart hook from the CartProvider file
 
 const ProductCard = ({ imageSrc, name, price, initialQuantity, subTotal }) => {
   const [quantity, setQuantity] = useState(initialQuantity);
-  const { cart, setCart } = useCart(); // Use the useCart hook to access cart and setCart functions
+  //const { cart, setCart } = useCart(); // Use the useCart hook to access cart and setCart functions
+
+
+
+
+
+
+
+
+
+
+
 
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value);

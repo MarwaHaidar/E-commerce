@@ -1,56 +1,59 @@
 import React, { useEffect } from 'react';
-import { useCart } from '../../../../cartcontext';
+// import { useCart } from '../../../../cartcontext';
 import './flashsale.module.css';
 import axios from 'axios';
 
+// const getAccessToken = () => {
+//   const getCookie = (name) => {
+//     const cookies = document.cookie.split(';');
+//     for (let i = 0; i < cookies.length; i++) {
+//       const cookie = cookies[i].trim();
+//       if (cookie.startsWith(name + '=')) {
+//         return cookie.substring(name.length + 1);
+//       }
+//     }
+//     return null;
+//   };
+//   return getCookie('accessToken');
+  
+// };
+
 const FlashSaleProduct = ({ product }) => {
-  const { addToCart } = useCart();
+  // const { addToCart } = useCart();
   
   
   // useEffect(() => {
   //   // Your effect logic here
   // }, [product]); // Re-run effect if product changes
 
-  const getAccessToken = () => {
-    const getCookie = (name) => {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(name + '=')) {
-          return cookie.substring(name.length + 1);
-        }
-      }
-      return null;
-    };
-    return getCookie('accessToken');
-    
-  };
+  // const accessToken = getAccessToken();
  
- 
-  const handleAddToCart = async () => {
-    const accessToken = getAccessToken();
-    try {
-      const response = await axios.post(
-        'http://localhost:5000/user/cart',
-        {
-          productId: product._id,
-          quantity: 1
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          },
+  // const handleAddToCart = async () => {
+   
+  //   try {
+  //     const response = await axios.post(
+  //       'http://localhost:5000/user/cart',
+  //       {
+  //         productId: product.id,
+  //         quantity: 1,
+  //         currency:'USD'
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`
+  //         },
+  //         withCredentials: true
           
-        }
-      );
-      console.log('Product added to cart:', response.data);
-      console.log(accessToken )
+  //       }
+  //     );
+  //     console.log('Product added to cart:', response.data);
+  //     console.log(accessToken )
       
-    } catch (error) {
+  //   } catch (error) {
       
-      console.error('Error adding product to cart:', error);
-    }
-  };
+  //     console.error('Error adding product to cart:', error);
+  //   }
+  // };
 
 
   const renderRatingStars = (rating) => {
@@ -83,7 +86,7 @@ const FlashSaleProduct = ({ product }) => {
         {/* ADD to cart */}
         <div className='relative transform-translate-x-1/2 z-10 invisible group-hover:visible lg:relative lg:mt-2'>
           <div className="bg-greenish-blue py-2 text-xs text-white font-bold px-5 text-center lg:py-3 rounded ">
-            <button onClick={handleAddToCart}>Add to Cart</button>
+            <button>Add to Cart</button>
           </div>
         </div>
       </div>

@@ -3,7 +3,10 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import SubCategoryAdminGetOne from './SubCategoryAdminGetOne';
 import { useSubCategoryContext } from './SubCategoryContext';
-import styles from './SubCategoryAdmin.module.css'
+import styles from './SubCategoryAdmin.module.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function SubCategoryAdminEdit() {
   const { id } = useParams();
   const { SubcategoryData, updateSubCategoryData } = useSubCategoryContext ();
@@ -47,38 +50,41 @@ function SubCategoryAdminEdit() {
       await axios.put(`http://localhost:5000/admin/subcategories/${id}`, formDataUpdate);
       console.log('subCategory updated successfully');
       updateSubCategoryData(id);
+      toast.success('SubCategory updated successfully');
     } catch (error) {
       console.error('Error updating subcategory:', error);
     }
   };
   
   return (
-    <div className={styles.AdminEditMainBoxSub}>
-      <h1>{id ? 'Edit' : 'Create'} SubCategory</h1>
+    <div>
+         <ToastContainer/>
+    <div className={styles.formcontainerCat}>
       <form onSubmit={handleSubmit}>
+      <h1 className={styles.formheadingCat}>{id ? 'Edit' : 'Create'} SubCategory</h1>
         <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+          <label htmlFor="name" className={styles.formLabelCat}>Name</label>
           <input
             type="text"
             id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className={`mt-1 p-2 w-full border rounded-md ${styles.formInputCat}`}
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="desc" className="block text-sm font-medium text-gray-700">Description</label>
+          <label htmlFor="desc" className={styles.formLabelCat}>Description</label>
           <textarea
             id="desc"
             name="desc"
             value={formData.desc}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className={`mt-1 p-2 w-full border rounded-md ${styles.formInputCat}`}
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="image" className="block text-sm font-medium text-gray-700">Image</label>
+          <label htmlFor="image" className={styles.formLabelCat}>Image</label>
           <input
             type="file"
             id="image"
@@ -87,12 +93,15 @@ function SubCategoryAdminEdit() {
             className="mt-1"
           />
         </div>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">
-          {id ? 'Update' : 'Create'} subCategory
+        <div className={styles.buttonContainer}>
+        <button type="submit" className={`bg-blue-500 text-white p-2 rounded-md ${styles.formButtonCat}`}>
+          {id ? 'Update' : 'Create'} SubCategory
         </button>
+        </div>
       </form>
       <SubCategoryAdminGetOne />
     </div>
+     </div>
   );
 }
 
