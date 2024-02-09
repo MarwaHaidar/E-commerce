@@ -8,12 +8,14 @@ import { IoMdClose } from "react-icons/io";
 
 
 const ProductsView = () => {
+    console.log("rendered")
     const { products, setProducts } = useContext(DataContext);
-
+    console.log(products)
     const [currentPage, setCurrentPage] = useState(0);
     const [filterBoxVisible, setFilterBoxVisible] = useState(false);
     const [filterIconVisible, setFilterIconVisible] = useState(true);
 
+    console.log("Type of products:", Array.isArray(products));
 
 
     // Check if products is undefined before accessing its properties
@@ -21,7 +23,16 @@ const ProductsView = () => {
     const totalProducts = products ? products.length : 0;
     const startIndex = currentPage * productsPerPage;
     const endIndex = startIndex + productsPerPage;
-    const currentProducts = products ? products.slice(startIndex, endIndex) : [];
+    // const currentProducts = products ? products.slice(startIndex, endIndex) : [];
+    // const currentProducts = products ? products.results.slice(startIndex, endIndex) : [];
+    let currentProducts;
+    if (Array.isArray(products)) {
+        currentProducts = products ? products.slice(startIndex, endIndex) : [];
+    } else {
+        currentProducts = products ? products.results.slice(startIndex, endIndex) : [];
+    }
+
+
 
     const handlePageChange = (selectedPage) => {
         setCurrentPage(selectedPage);
@@ -40,17 +51,14 @@ const ProductsView = () => {
     useEffect(() => {
         const retrievedData = window.localStorage.getItem("retrieved-products");
         if (retrievedData) {
-            // Parse the retrieved data if it exists
             const parsedData = JSON.parse(retrievedData);
-            // Update the products state with the retrieved data
             setProducts(parsedData);
-            console.log("get :", parsedData)
         }
-    }, []); // Empty dependency array ensures this useEffect runs only once on component mount
+    }, []);
 
 
     useEffect(() => {
-        // Save products to localStorage whenever they change
+
         window.localStorage.setItem("retrieved-products", JSON.stringify(products));
         console.log("Products stored in localStorage");
     }, [products]); // This useEffect runs whenever products state changes
