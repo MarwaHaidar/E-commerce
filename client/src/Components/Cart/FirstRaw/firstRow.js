@@ -15,6 +15,8 @@ const FirstRaw = ({ imageSrc, name, price, initialQuantity, subTotal }) => {
     <div className={styles.flashsale}>
     <div style={{ marginTop: '30px',display: 'flex', alignItems: 'center',justifyContent:'space-between', backgroundColor: 'white', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px',width:'83%'}}>
         <div>Product</div>
+        <div>Color</div>
+        <div>Size</div>
         <div>Price</div>
         <div>Quantity</div>
         <div>SubTotal</div>
