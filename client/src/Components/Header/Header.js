@@ -108,7 +108,6 @@ const Header = () => {
   }, []);
 
   return (
-    <DataContext.Provider value={{ products, setProducts }}>
       <div>
         <Banner />
         <div className={styles.header}>
@@ -141,7 +140,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </DataContext.Provider>
   );
 };
 

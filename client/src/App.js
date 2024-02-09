@@ -52,11 +52,9 @@ export default function App() {
             <Route path="/resetpassword" element={<ResetPass />} />
             <Route path="/products/:productId" element={<ProductDetails />} />
             <Route path="/products/search" element={<ProductsView />} />
+            <Route path="/products/filter" element={<ProductsView />} />
             <Route path="/categories" element={<AllCategories />} />
-            <Route
-              path="/categories/:categoryId/subcategories"
-              element={<SubCategories />}
-            />
+            <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/addcategories" element={<AddCategories />} />
@@ -68,8 +66,6 @@ export default function App() {
             <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
             <Route path="/admin/allproducts/" element={<SubCategoryAdminGetAll />} />
             <Route path="/adminCharts" element={<AdminCharts />} />
-          </Routes>
-          <Routes>
             <Route path="/registerverify/:token" element={<VerificationComponent />} />
             <Route path="/register" element={<Signup />} /></Routes>
           <Footer />

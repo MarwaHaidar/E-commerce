@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import DataContext from '../../Context';
 import styles from './slider.module.css';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 
 const FilterableBox = () => {
+    const { products, setProducts } = useContext(DataContext);
     const [categories, setCategories] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
     const [selectedSubcategories, setSelectedSubcategories] = useState([]);
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
-    const [filteredProducts, setFilteredProducts] = useState([])
+    const [noProducts, setNoProducts] = useState(false)
+    const navigate = useNavigate()
+
     const handleSubcategoryChange = (subcategory) => {
         const isSelected = selectedSubcategories.includes(subcategory);
+
 
         if (isSelected) {
             setSelectedSubcategories(selectedSubcategories.filter((item) => item !== subcategory));
@@ -23,6 +29,7 @@ const FilterableBox = () => {
     };
 
     const handleFilter = () => {
+
         // Construct the filter query parameters
         const queryParams = {};
 
@@ -47,9 +54,18 @@ const FilterableBox = () => {
         axios.get(`http://localhost:5000/products/filter?${queryString}`)
             .then(response => {
                 const filteredProducts = response.data;
-                console.log(filteredProducts)
-                setFilteredProducts(filteredProducts)
-                // Handle the filtered products, e.g., update state to display them
+                if (filteredProducts.resultCount > 0) {
+                    console.log(filteredProducts);
+                    setNoProducts(false);
+                    setProducts(filteredProducts);
+                    setProducts(filteredProducts); // Update global state
+                    navigate(`/products/filter?${queryString}`)
+
+                } else {
+                    console.log("No products");
+                    // setFilteredProducts([]);
+                    setNoProducts(true);
+                }
             })
             .catch(error => {
                 console.error('Error fetching filtered products:', error);
@@ -78,6 +94,13 @@ const FilterableBox = () => {
 
     return (
         <div className={styles.ctg}>
+            {noProducts && (
+                <div className="bg-yellow-300 bg-opacity-50  text-gray-600 mr-3 px-4 py-2 rounded-md mt-4">
+                    No products found.
+                </div>
+
+            )}
+
             <div className={styles.filterBox}>
                 {categories.map(category => (
                     <details key={category._id}>
