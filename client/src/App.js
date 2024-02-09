@@ -34,8 +34,10 @@ import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.
 
 const isAdmin = false;
 export default function App() {
-  const [products, setProducts] = useState([]);
-
+  const isAdmin = false;
+  const [products,setProducts] = useState([]);
+  
+  
   return (
     <div>
       <Router>
@@ -52,11 +54,9 @@ export default function App() {
             <Route path="/resetpassword" element={<ResetPass />} />
             <Route path="/products/:productId" element={<ProductDetails />} />
             <Route path="/products/search" element={<ProductsView />} />
+            <Route path="/products/filter" element={<ProductsView />} />
             <Route path="/categories" element={<AllCategories />} />
-            <Route
-              path="/categories/:categoryId/subcategories"
-              element={<SubCategories />}
-            />
+            <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/addcategories" element={<AddCategories />} />
@@ -68,8 +68,6 @@ export default function App() {
             <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
             <Route path="/admin/allproducts/:id" element={<ProductsAdminGet />} />
             <Route path="/adminCharts" element={<AdminCharts />} />
-          </Routes>
-          <Routes>
             <Route path="/registerverify/:token" element={<VerificationComponent />} />
             <Route path="/register" element={<Signup />} /></Routes>
             {isAdmin ? " ":<Footer />}

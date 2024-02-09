@@ -1,7 +1,61 @@
-import React from 'react';
-import './flashsale.module.css'
+import React, { useEffect } from 'react';
+// import { useCart } from '../../../../cartcontext';
+import './flashsale.module.css';
+import axios from 'axios';
 
-const FlashSaleProduct = ({ product, onClick }) => {
+// const getAccessToken = () => {
+//   const getCookie = (name) => {
+//     const cookies = document.cookie.split(';');
+//     for (let i = 0; i < cookies.length; i++) {
+//       const cookie = cookies[i].trim();
+//       if (cookie.startsWith(name + '=')) {
+//         return cookie.substring(name.length + 1);
+//       }
+//     }
+//     return null;
+//   };
+//   return getCookie('accessToken');
+  
+// };
+
+const FlashSaleProduct = ({ product }) => {
+  // const { addToCart } = useCart();
+  
+  
+  // useEffect(() => {
+  //   // Your effect logic here
+  // }, [product]); // Re-run effect if product changes
+
+  // const accessToken = getAccessToken();
+ 
+  // const handleAddToCart = async () => {
+   
+  //   try {
+  //     const response = await axios.post(
+  //       'http://localhost:5000/user/cart',
+  //       {
+  //         productId: product.id,
+  //         quantity: 1,
+  //         currency:'USD'
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`
+  //         },
+  //         withCredentials: true
+          
+  //       }
+  //     );
+  //     console.log('Product added to cart:', response.data);
+  //     console.log(accessToken )
+      
+  //   } catch (error) {
+      
+  //     console.error('Error adding product to cart:', error);
+  //   }
+  // };
+
+
   const renderRatingStars = (rating) => {
     const maxStars = 5;
     const stars = [];
@@ -17,7 +71,7 @@ const FlashSaleProduct = ({ product, onClick }) => {
   };
 
   return (
-    <div key={product.id} className="group relative">
+    <div key={product._id} className="group relative">
       <div className="aspect-h-1 aspect-w-1 mt-5 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80 relative">
         {/* Discount Box */}
         <div className="absolute top-0 left-0 z-10">
@@ -29,9 +83,11 @@ const FlashSaleProduct = ({ product, onClick }) => {
           alt={product.imageAlt}
           className="h-full w-full object-contain object-center group-hover:opacity-0.8 lg:h-60 lg:w-80"
         />
-        {/* ADD to card */}
+        {/* ADD to cart */}
         <div className='relative transform-translate-x-1/2 z-10 invisible group-hover:visible lg:relative lg:mt-2'>
-          <div className="bg-greenish-blue py-2 text-xs text-white font-bold px-5 text-center lg:py-3 rounded ">ADD TO CART</div>
+          <div className="bg-greenish-blue py-2 text-xs text-white font-bold px-5 text-center lg:py-3 rounded ">
+            <button>Add to Cart</button>
+          </div>
         </div>
       </div>
       <div className="mt-4 flex justify-between items-center">
@@ -49,19 +105,9 @@ const FlashSaleProduct = ({ product, onClick }) => {
             {renderRatingStars(product.rating)}
           </div>
         </div>
-        {/* Rating and Button */}
-        {/* <div className='absolute bottom-0 left-1/2  transform -translate-x-1/2 z-10 invisible group-hover:visible'>
-       <div className="bg-greenish-blue text-white font-bold px-5 text-center py-1 rounded ">ADD TO CART</div>
-       </div> */}
       </div>
     </div>
-
-
   );
 };
 
 export default FlashSaleProduct;
-
-
-
-
