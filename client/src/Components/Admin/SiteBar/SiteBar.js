@@ -6,7 +6,8 @@ import { AiOutlineLogin } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { Link, Route, Routes } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SiteBar() {
   const [categories, setCategories] = useState([]);
@@ -49,23 +50,47 @@ function SiteBar() {
   }, [selectedCategoryId, subcategories]);
 
 
-  const handleDeleteClick = (categoryID) => {
-    const confirmed = window.confirm('Are you sure you want to delete this category?');
-    if (confirmed) {
-      // If user confirms, navigate to the deletion page
-      window.location.href = `/admin/deleteCat/${categoryID}`;
+  const handleDeleteClick = async (categoryID) => {
+    try {
+      const confirmed = window.confirm('Are you sure you want to delete this category?');
+      if (confirmed) {
+        await axios.delete(`http://localhost:5000/admin/categories/${categoryID}`);
+        setCategories((prevCategories) =>
+          prevCategories.filter((category) => category._id !== categoryID)
+        );
+        toast.success('Category deleted successfully');
+      }
+    } catch (error) {
+      console.error('Error deleting category:', error);
+      toast.error('Error deleting category');
     }
   };
 
-  const handleDeleteClickSub = (subcategoryID) => {
-    const confirmed = window.confirm('Are you sure you want to delete this Subcategory?');
-    if (confirmed) {
-      // If user confirms, navigate to the deletion page
-      window.location.href = `/admin/deletesubCat/${subcategoryID}`;
+  const handleDeleteClickSub = async (subcategoryID) => {
+    try {
+      const confirmed = window.confirm('Are you sure you want to delete this Subcategory?');
+      if (confirmed) {
+        await axios.delete(`http://localhost:5000/admin/subcategories/${subcategoryID}`);
+        setSubcategories((prevSubcategories) => {
+          const updatedSubcategories = { ...prevSubcategories };
+          if (updatedSubcategories[selectedCategoryId]) {
+            updatedSubcategories[selectedCategoryId] = updatedSubcategories[
+              selectedCategoryId
+            ].filter((subcategory) => subcategory._id !== subcategoryID);
+          }
+          return updatedSubcategories;
+        });
+        toast.success('Subcategory deleted successfully');
+      }
+    } catch (error) {
+      console.error('Error deleting subcategory:', error);
+      toast.error('Error deleting subcategory');
     }
   };
   
 return (
+  <div>
+    <ToastContainer />
     <div className="flex h-screen bg-gray-200">
       <aside className={`w-64 bg-gray-800 text-white ${styles.siteBarBackground}`}>
         <div className="p-4">
@@ -128,6 +153,7 @@ return (
       <div className="flex-1 p-4">
         <h1>Main Content</h1>
       </div>
+    </div>
     </div>
   );
 }

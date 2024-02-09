@@ -36,8 +36,6 @@ const isAdmin = false;
 export default function App() {
   const [products, setProducts] = useState([]);
 
-
-
   return (
     <div>
       <Router>
@@ -53,7 +51,6 @@ export default function App() {
             <Route path="/forgetpassword" element={<ForgetPass />} />
             <Route path="/resetpassword" element={<ResetPass />} />
             <Route path="/products/:productId" element={<ProductDetails />} />
-            {/* temoporary route to test products render. */}
             <Route path="/products/search" element={<ProductsView />} />
             <Route path="/categories" element={<AllCategories />} />
             <Route
@@ -75,7 +72,6 @@ export default function App() {
           <Routes>
             <Route path="/registerverify/:token" element={<VerificationComponent />} />
             <Route path="/register" element={<Signup />} /></Routes>
-
           <Footer />
         </DataContext.Provider>
       </Router>

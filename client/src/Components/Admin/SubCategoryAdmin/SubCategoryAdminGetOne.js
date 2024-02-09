@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSubCategoryContext } from './SubCategoryContext';
+import styles from './SubCategoryAdmin.module.css';
 
 function SubCategoryAdminGetOne() {
     const { id } = useParams();
@@ -8,12 +9,12 @@ function SubCategoryAdminGetOne() {
 
   useEffect(() => { //Use useEffect to fetch category data when the component mounts or when the id changes
     updateSubCategoryData(id);
-  }, [id, updateSubCategoryData]);
+  }, []);
 
   return (
     <div>
       {SubcategoryData ? (
-        <div className="max-w-lg mx-auto bg-white p-8 shadow-md rounded-md">
+        <div className={`max-w-lg mx-auto bg-white p-8 shadow-md rounded-md  ${styles.getonebox}`}>
           <img
             src={SubcategoryData.image}
             alt={SubcategoryData.name}
