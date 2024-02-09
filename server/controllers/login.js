@@ -46,7 +46,7 @@ const loginuser = asyncHandler(async (req, res) => {
                     id: existingUser.id,
                     role: isAdmin ? 'admin' : 'user',
                 }
-            }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7days" });
+            }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
         
             // Save the refresh token in a secure manner (e.g., database, secure cookie)
             existingUser.refresh_token = refreshToken;
@@ -90,7 +90,7 @@ const loginuser = asyncHandler(async (req, res) => {
                 id: newUser.id,
                 role: newUser.role,
             }
-        }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7days" })
+        }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
         // Save the refresh token in a secure cookie
         res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days in milliseconds

@@ -5,7 +5,7 @@ import { validateToken } from '../Middleware/validateTokenHandler.js';
 
 const router = express.Router();
 
-router.post('/user/cart',validateToken,addToCart);
+router.post('/user/cart',addToCart);
 router.get('/user/cart/:id',getCart);
 router.patch('/user/cart/update',validateToken, updateCart);
 router.delete('/user/cart/deleteitem',validateToken, deleteItem);

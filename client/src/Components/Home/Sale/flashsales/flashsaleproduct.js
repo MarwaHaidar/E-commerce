@@ -1,64 +1,57 @@
-import React from 'react';
- import { useCart } from '../../../../cartcontext'; // Import the useCart hook from the CartProvider file
+import React, { useEffect } from 'react';
+import { useCart } from '../../../../cartcontext';
 import './flashsale.module.css';
- import axios from 'axios';
- //import axiossconfig from '../../../axiosconfig'; 
-// import { useNavigate } from 'react-router-dom'; // Import useNavigate
-
-
+import axios from 'axios';
 
 const FlashSaleProduct = ({ product }) => {
-  const { addToCart } = useCart(); // Use the useCart hook to access cart and setCart functions
-  // const navigate = useNavigate();
-  const handleAddToCart = async () => {
-    try {
-      // Make sure you have access to the user's ID in your component
-      // const user_id = user._id; // Assuming user._id is accessible
+  const { addToCart } = useCart();
   
-      // Make a request to add the product to the cart
+  
+  // useEffect(() => {
+  //   // Your effect logic here
+  // }, [product]); // Re-run effect if product changes
+
+  const getAccessToken = () => {
+    const getCookie = (name) => {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+          return cookie.substring(name.length + 1);
+        }
+      }
+      return null;
+    };
+    return getCookie('accessToken');
+    
+  };
+ 
+ 
+  const handleAddToCart = async () => {
+    const accessToken = getAccessToken();
+    try {
       const response = await axios.post(
         'http://localhost:5000/user/cart',
         {
-          //  userId: user_id,
           productId: product._id,
           quantity: 1
         },
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${accessToken}`
-        //   }
-        // }
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          
+        }
       );
-      
-  
-      // Handle the response as needed
       console.log('Product added to cart:', response.data);
-  
-      // You may want to trigger additional actions here after successfully adding to the cart
-  
+      console.log(accessToken )
+      
     } catch (error) {
+      
       console.error('Error adding product to cart:', error);
     }
   };
 
-  // const handleAddToCart = async () => {
-  //   try {
-  //     const response = await axios.post('http//localhost:5000/user/cart', {
-  //       userId: 'user_id', // Replace with actual user ID
-  //       productId: product.id,
-  //       quantity: 1, // You may adjust the quantity as needed
-  //       currency: 'USD', // Replace with the appropriate currency
-  //     });
-      
-  //     // Update the cart state in your React context if needed
-  //     setCart(response.data.cart);
-      
-  //     // You may also show a success message or perform other actions upon successful addition to the cart
-  //     console.log('Product added to cart:', response.data);
-  //   } catch (error) {
-  //     console.error('Error adding product to cart:', error);
-  //   }
-  // }
 
   const renderRatingStars = (rating) => {
     const maxStars = 5;

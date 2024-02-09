@@ -7,7 +7,7 @@ import asyncHandler from 'express-async-handler';
 
 // add to cart
 const addToCart = asyncHandler(async (req, res) => {
-    const userId = User._id;
+    const userId = user.id;
     const productId = req.body.productId;
     const product = await Product.findById(productId).exec();
     const productName = product.name;

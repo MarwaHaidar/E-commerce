@@ -36,12 +36,13 @@ import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategori
 export default function App() {
   const isAdmin = false;
   const [products,setProducts] = useState([]);
-  {isAdmin ? <AdminHeader /> : <Header />}
+ 
   
   return (
     <div>
       <Router>
         <DataContext.Provider value={{ products, setProducts }}>
+        {isAdmin ? <AdminHeader /> : <Header />}
         <Routes>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />

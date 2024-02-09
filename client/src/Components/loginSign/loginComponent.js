@@ -28,6 +28,7 @@ function LoginComponent(){
         // Set the access token in the Authorization header
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         // Set the refresh token in a cookie
+        document.cookie = `accessToken=${accessToken}; Secure; Max-Age=${3 * 60 * 60}; path=/;`;
         document.cookie = `refreshToken=${refreshToken}; Secure; Max-Age=${7 * 24 * 60 * 60 * 1000};`;
 
 
