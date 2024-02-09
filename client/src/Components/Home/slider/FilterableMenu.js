@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import styles from './slider.module.css';
 import axios from 'axios';
 
-const handleFilter = () => {
-    // filtering logic
-};
 
 const FilterableBox = () => {
     const [categories, setCategories] = useState([]);
+    const [subcategories, setSubcategories] = useState([]);
     const [selectedSubcategories, setSelectedSubcategories] = useState([]);
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
+    const [filteredProducts, setFilteredProducts] = useState([])
     const handleSubcategoryChange = (subcategory) => {
         const isSelected = selectedSubcategories.includes(subcategory);
 
@@ -20,149 +19,87 @@ const FilterableBox = () => {
             setSelectedSubcategories([...selectedSubcategories, subcategory]);
         }
 
-        // Add logic to filter products based on the selected subcategories
+
+    };
+
+    const handleFilter = () => {
+        // Construct the filter query parameters
+        const queryParams = {};
+
+        // Add selected subcategories to the query parameters
+        if (selectedSubcategories.length > 0) {
+            queryParams.subcategory = selectedSubcategories.join(',');
+        }
+
+        // Add minPrice and maxPrice to the query parameters
+        if (minPrice !== '') {
+            queryParams.minPrice = minPrice;
+        }
+        if (maxPrice !== '') {
+            queryParams.maxPrice = maxPrice;
+        }
+
+        // Convert the query parameters object into a query string
+        const queryString = new URLSearchParams(queryParams).toString();
+        console.log(queryString)
+
+        // Fetch products with the constructed query string
+        axios.get(`http://localhost:5000/products/filter?${queryString}`)
+            .then(response => {
+                const filteredProducts = response.data;
+                console.log(filteredProducts)
+                setFilteredProducts(filteredProducts)
+                // Handle the filtered products, e.g., update state to display them
+            })
+            .catch(error => {
+                console.error('Error fetching filtered products:', error);
+            });
     };
 
     useEffect(() => {
-
-
         axios.get('http://localhost:5000/categories')
             .then(response => {
-                const categories = response.data.data;
-                console.log(categories)
-                setCategories(categories);
+                const categoriesData = response.data.data;
+                setCategories(categoriesData);
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching categories:', error);
             });
-    }, [])
+
+        axios.get('http://localhost:5000/subcategories')
+            .then(response => {
+                const subcategoriesData = response.data.data;
+                setSubcategories(subcategoriesData);
+            })
+            .catch(error => {
+                console.error('Error fetching subcategories:', error);
+            });
+    }, []);
 
     return (
         <div className={styles.ctg}>
             <div className={styles.filterBox}>
-        
-                    
-            {categories && categories.map(category => (
+                {categories.map(category => (
                     <details key={category._id}>
                         <summary>{category.name}</summary>
-                    <p>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="subcategory"
-                                value="Shirts"
-                                checked={selectedSubcategories.includes('Shirts')}
-                                onChange={() => handleSubcategoryChange('Shirts')}
-                            />Shirts
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Pants" checked={selectedSubcategories.includes('Pants')} onChange={() => handleSubcategoryChange('Pants')}
-                            />Pants
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Trousers" checked={selectedSubcategories.includes('Trousers')} onChange={() => handleSubcategoryChange('Trousers')}
-                            />Trousers
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Shoes" checked={selectedSubcategories.includes('Shoes')} onChange={() => handleSubcategoryChange('Shoes')}
-                            />Shoes
-                        </label>
-                    </p>
+                        {subcategories && subcategories
+                            .filter(subcategory => subcategory.category === category._id)
+                            .map(subcategory => (
+                                <p key={subcategory._id}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            name="subcategory"
+                                            value={subcategory._id}
+                                            checked={selectedSubcategories.includes(subcategory._id)}
+                                            onChange={() => handleSubcategoryChange(subcategory._id)}
+                                        />
+                                        {subcategory.name}
+                                    </label>
+                                </p>
+                            ))}
                     </details>
                 ))}
-               
-                {/* <details>
-                    <summary>Health & Well-being</summary>
-                    <p>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="subcategory"
-                                value="Shirts"
-                                checked={selectedSubcategories.includes('Shirts')}
-                                onChange={() => handleSubcategoryChange('Shirts')}
-                            />Shirts
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Pants" checked={selectedSubcategories.includes('Pants')} onChange={() => handleSubcategoryChange('Pants')}
-                            />Pants
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Trousers" checked={selectedSubcategories.includes('Trousers')} onChange={() => handleSubcategoryChange('Trousers')}
-                            />Trousers
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Shoes" checked={selectedSubcategories.includes('Shoes')} onChange={() => handleSubcategoryChange('Shoes')}
-                            />Shoes
-                        </label>
-                    </p>
-                </details>
-                <details>
-                    <summary>Women's Collection</summary>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Shirts" checked={selectedSubcategories.includes('Shirts')} onChange={() => handleSubcategoryChange('Shirts')}
-                            />Shirts
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Pants" checked={selectedSubcategories.includes('Pants')} onChange={() => handleSubcategoryChange('Pants')}
-                            />Pants
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Trousers" checked={selectedSubcategories.includes('Trousers')} onChange={() => handleSubcategoryChange('Trousers')}
-                            />Trousers
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Shoes" checked={selectedSubcategories.includes('Shoes')} onChange={() => handleSubcategoryChange('Shoes')}
-                            />Shoes
-                        </label>
-                    </p>
-                </details>
-                <details>
-                    <summary>Kids's Collection</summary>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Shirts" checked={selectedSubcategories.includes('Shirts')} onChange={() => handleSubcategoryChange('Shirts')}
-                            />Shirts
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Pants" checked={selectedSubcategories.includes('Pants')} onChange={() => handleSubcategoryChange('Pants')}
-                            />Pants
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Trousers" checked={selectedSubcategories.includes('Trousers')} onChange={() => handleSubcategoryChange('Trousers')}
-                            />Trousers
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" name="subcategory" value="Shoes" checked={selectedSubcategories.includes('Shoes')} onChange={() => handleSubcategoryChange('Shoes')}
-                            />Shoes
-                        </label>
-                    </p>
-                </details> */}
             </div>
             <div className={styles.filterBtn}>
                 <input
@@ -195,42 +132,3 @@ export default FilterableBox;
 
 
 
-
-
-
-/*const Slider = () => {
-  // State to store the category names fetched from the database
-  const [categoryNames, setCategoryNames] = useState([]);
-
-  // Fetch category names from the database when the component mounts
-  useEffect(() => {
-    const fetchCategoryNames = async () => {
-      try {
-        const response = await axios.get('/categories'); // Adjust the URL as per your API endpoint
-        setCategoryNames(response.data); // Assuming the response contains an array of category names
-      } catch (error) {
-        console.error('Error fetching category names:', error);
-      }
-    };
-
-    fetchCategoryNames(); // Call the fetchCategoryNames function when the component mounts
-  }, []); // Empty dependency array ensures the effect runs only once
-
-  return (
-    <div>
-      <div className={styles.container1}>
-        <div className={styles.ctg}>
-          // Map over categoryNames and render each category name 
-          {categoryNames.map((categoryName, index) => (
-            <p key={index}>{categoryName}</p>
-          ))}
-        </div>
-        <div className={styles.slider}>
-          //Your slider content 
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Slider;*/
