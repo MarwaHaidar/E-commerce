@@ -26,7 +26,7 @@ import Newarrival from '../Components/Home/Newarrivals/newarrival'
 const Home = () => {
   const categories = [
     {
-      id: 1,
+      id: '65b3bb8a354c384cc1046e86',
       name: "Man's Collection",
       imageSrc:man,
       imageAlt: "Clothing Category",
@@ -39,7 +39,7 @@ const Home = () => {
       imageAlt: "Shoes Category",
       href: "/shoes",
     },   {
-      id: 3,
+      id: '65b3be169f078945f6e80a8a',
       name: "Shoes",
       imageSrc: shoes,
       imageAlt: "Shoes Category",
@@ -82,8 +82,8 @@ const Home = () => {
       rating:3
     },
     {
-      id: 3,
-      name: "Product 3",
+      id: '65b3be169f078945f6e80a8a',
+      name: "long sleeve t-shirt",
       color: "Green",
       price: "$39.99",
       imageSrc: zara3,

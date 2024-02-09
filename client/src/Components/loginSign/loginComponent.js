@@ -28,7 +28,8 @@ function LoginComponent(){
         // Set the access token in the Authorization header
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         // Set the refresh token in a cookie
-        document.cookie = `refreshToken=${refreshToken}; Secure; Max-Age=${ 5 * 60};`;
+        document.cookie = `accessToken=${accessToken}; Secure; Max-Age=${3 * 60 * 60}; path=/;`;
+        document.cookie = `refreshToken=${refreshToken}; Secure; Max-Age=${7 * 24 * 60 * 60 * 1000};`;
 
 
 
@@ -50,12 +51,13 @@ function LoginComponent(){
       } else {
         // Handle other cases, such as incorrect credentials
         setError(response.data.message);
+       
       }
     } catch (error) {
       // Handle errors
       if (error.response && error.response.status === 401) {
         // Redirect the user to the login page if the refresh token is expired
-        navigate('/login');
+        
       } else {
         setError('An error occurred. Please try again.'); // Handle generic errors
       }

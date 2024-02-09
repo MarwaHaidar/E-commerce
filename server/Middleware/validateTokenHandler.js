@@ -93,7 +93,8 @@ const validateToken = asyncHandler(async (req, res, next) => {
                 jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (refreshErr, refreshDecoded) => {
                     if (refreshErr) {
                         res.status(401).json({ message: "Invalid refresh token" });
-                        redirect("localhost:3000/login")
+                        res.clearCookie('refreshToken'); // Clear the refresh token cookie
+                        res.redirect("localhost:3000/login"); // Redirect to login page
                     } else {
                         // Generate a new access token
                         const newAccessToken = jwt.sign({
