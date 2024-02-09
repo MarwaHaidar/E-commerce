@@ -23,22 +23,16 @@ export const searchProducts = asyncHandler(async (req, res) => {
 
 export const filterSortProducts = asyncHandler(async (req, res) => {
     try {
-        const { categories, subcategories, minPrice, maxPrice, sortBy } = req.query;
+        const { subcategory, minPrice, maxPrice } = req.query;
 
         const query = {};
 
-        if (categories && Array.isArray(categories)) {
-            query.category = { $in: categories.slug };
-        }
+        if (subcategory) {
+            // Assuming subcategory is provided as a string with comma-separated values
+            const subcategoryIds = subcategory.split(',');
 
-        if (subcategories && Array.isArray(subcategories)) {
-            query.subcategories = { $in: subcategories.slug };
-            const products = await Product.find(query).populate({
-                path: 'subcategories', populate: { path: 'category' }
-            });
-
-            res.status(200).json(products);
-            return;
+            // Assuming subcategory is the field containing the category IDs in the product schema
+            query.subcategory = { $in: subcategoryIds };
         }
 
         if (minPrice || maxPrice) {
@@ -47,21 +41,8 @@ export const filterSortProducts = asyncHandler(async (req, res) => {
             if (maxPrice) query.price.$lte = parseFloat(maxPrice);
         }
 
-        let results = await Product.find(query);
-        let resultCount = await Product.countDocuments(query);
-        if (sortBy) {
-            switch (sortBy) {
-                case 'price-asc':
-                    results = results.sort((a, b) => a.price - b.price);
-                    break;
-                case 'price-desc':
-                    results = results.sort((a, b) => b.price - a.price);
-                    break;
-                default:
-                    results = await Product.find()
-                    break;
-            }
-        }
+        const results = await Product.find(query);
+        const resultCount = await Product.countDocuments(query);
 
         res.status(200).json({ results, resultCount });
     } catch (error) {
