@@ -32,7 +32,6 @@ import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
 
 
-const isAdmin = false;
 export default function App() {
   const isAdmin = false;
   const [products,setProducts] = useState([]);
