@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styles from './ProductCardAdmin.module.css';
 
-const ProductCardAdmin = ({ name, desc, price, priceAfterDiscount, images, variations, subcategory, isFeatured, totalQuantityProducts, createdAt, imageCover }) => {
+
+const ProductCardAdmin = ({ name, desc, price, priceAfterDiscount, images, variations, subcategory, isFeatured, totalQuantityProducts, createdAt, imageCover,onDelete}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showVariations, setShowVariations] = useState(false);
+
 
   const openOverlay = (index) => {
     setSelectedImage(index);
@@ -29,6 +31,9 @@ const ProductCardAdmin = ({ name, desc, price, priceAfterDiscount, images, varia
         return sizeEnum;
     }
   };
+
+
+
 
   return (
     <div className={styles.productcard}>
@@ -133,6 +138,13 @@ const ProductCardAdmin = ({ name, desc, price, priceAfterDiscount, images, varia
             />
           </div>
         )}
+      </div>
+      <div className={styles.editDelteCon}>
+      <button  className={styles.btnEditAdmin}>edit</button>
+      <button onClick={onDelete} className={styles.btnDeleteAdmin}>
+        delete
+      </button>
+
       </div>
     </div>
   );

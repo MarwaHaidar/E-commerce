@@ -116,10 +116,12 @@ function SiteBar() {
     }
   };
   
+
+
 return (
   <div>
     <ToastContainer />
-    <div className="flex h-screen bg-gray-200">
+    <div className={`flex h-screen bg-gray-200" ${styles.SiteBarAdmin}`}>
       <aside className={`w-64 bg-gray-800 text-white ${styles.siteBarBackground}`}>
         <div className="p-4">
 
@@ -141,10 +143,10 @@ return (
          
             <h2 className={`text-xl font-bold ml-4 ${styles.siteBarMainTopic}`}>Main Topics</h2>
         
-        <ul>
+        <ul className={styles.sitBarBox}>
           {categories &&
             categories.map((category) => (
-              <li key={category._id} className="py-2 px-4 cursor-pointer">
+              <li key={category._id} className={`py-2 px-4 cursor-pointer `}>
                 <div onClick={() => toggleDropdown(category._id)} className={styles.siteBarTopic}>
                   <IoIosArrowDropdown className={styles.siteBarIcons} />
                   {category.name}
@@ -177,10 +179,6 @@ return (
             ))}
         </ul>
       </aside>
-
-      <div className="flex-1 p-4">
-        <h1>Main Content</h1>
-      </div>
     </div>
     </div>
   );
