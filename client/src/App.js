@@ -19,20 +19,19 @@ import NotFound from "./Pages/NotFound.js";
 import AllCategories from "./Pages/AllCategories.js";
 import SubCategories from "./Pages/SubCategories.js";
 import Admin from "./Pages/Admin.js";
-import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import AdminHeader from "./Components/Admin/AdminHeader/AdminHeader.js";
 import AdminCharts from "./Pages/AdminCharts.js";
 import CategoryAdminEdit from "./Components/Admin/CategoryAdmin/CategoryAdminEdit.js";
 import CategoryAdminDelete from "./Components/Admin/CategoryAdmin/CategoryAdminDelete.js";
 import SubCategoryAdminEdit from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminEdit.js";
 import SubCategoryAdminDelete from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminDelete.js";
-import SubCategoryAdminGetAll from "./Components/Admin/SubCategoryAdmin/SubCategoryAdminGetAll.js";
 import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
 import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
+import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
+import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
 
 
-const isAdmin = false;
 export default function App() {
   const isAdmin = false;
   const [products,setProducts] = useState([]);
@@ -66,11 +65,12 @@ export default function App() {
             <Route path="/admin/deleteCat/:id" element={<CategoryAdminDelete />} />
             <Route path="/admin/editsubCat/:id" element={<SubCategoryAdminEdit />} />
             <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
-            <Route path="/admin/allproducts/" element={<SubCategoryAdminGetAll />} />
+            <Route path="/admin/allproducts/:id" element={<ProductsAdminGet />} />
             <Route path="/adminCharts" element={<AdminCharts />} />
             <Route path="/registerverify/:token" element={<VerificationComponent />} />
             <Route path="/register" element={<Signup />} /></Routes>
-          <Footer />
+            {isAdmin ? " ":<Footer />}
+          
         </DataContext.Provider>
       </Router>
     </div>
