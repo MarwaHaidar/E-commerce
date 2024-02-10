@@ -17,20 +17,24 @@ const router = express.Router();
 
 router.post(
   "/admin/categories",
-  // validateToken,
-  // validateTokenForAdmin,
+  validateToken,
+  validateTokenForAdmin,
   upload.single("image"),
   createcategory
-);//router.put("/admin/categories/:id", upload.single("image"), updatecategory);
-router.put("/admin/categories/:id", upload.single("image"), updatecategory);
-router.get("/categories", getcategories);
-router.get("/categories/:id", getcategory);
+)
+router.put("/admin/categories/:id", validateToken,
+validateTokenForAdmin, upload.single("image"), updatecategory);
+
 router.delete(
   "/admin/categories/:id",
-  // validateToken,
-  // validateTokenForAdmin,
+  validateToken,
+  validateTokenForAdmin,
   deletecategory
 );
+
+router.get("/categories", getcategories);
+router.get("/categories/:id", getcategory);
+
 // Assuming createcategory is a function defined in your controllers/categorycontroller.js file
 // router.post('/',createcategory);
 

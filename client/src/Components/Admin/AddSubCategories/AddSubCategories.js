@@ -4,6 +4,21 @@ import styles from './AddSubCategories.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+};
+
+
 function AddSubCategories() {
   const [formData, setFormData] = useState({
     name: '',
@@ -29,7 +44,7 @@ function AddSubCategories() {
       [name]: name === 'image' ? files[0] : value,
     }));
   };
-
+  let accessToken = getAccessToken();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,7 +55,13 @@ function AddSubCategories() {
       formDataCreate.append('image', formData.image);
       formDataCreate.append('category', formData.category);
 
-      const response = await axios.post('http://localhost:5000/admin/subcategories', formDataCreate);
+      const response = await axios.post('http://localhost:5000/admin/subcategories', formDataCreate,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        withCredentials: true
+      });
 
       console.log('Subcategory created successfully:', response.data);
       toast.success('Category created successfully!');

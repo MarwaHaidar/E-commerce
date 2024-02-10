@@ -4,6 +4,20 @@ import axios from "axios";
 import styles from './AddProduct.module.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+};
 const AddProduct = () => {
   const [subcategories, setSubcategories] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
@@ -118,7 +132,7 @@ const AddProduct = () => {
   //   console.log("Product:", productData); // Log the state to debug
   //   // Implement API call here
   // };
-
+  let accessToken = getAccessToken();
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -129,7 +143,9 @@ const AddProduct = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`
           },
+          withCredentials: true
         }
       );
   
@@ -250,7 +266,9 @@ const updateProduct = async () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`
         },
+        withCredentials: true
       }
     );
     toast.success('Product added successfully');

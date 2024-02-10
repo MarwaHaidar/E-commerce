@@ -7,6 +7,20 @@ import styles from './SubCategoryAdmin.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+};
+
 function SubCategoryAdminEdit() {
   const { id } = useParams();
   const { SubcategoryData, updateSubCategoryData } = useSubCategoryContext ();
@@ -34,7 +48,7 @@ function SubCategoryAdminEdit() {
       [name]: name === 'image' ? e.target.files[0] : value,
     }));
   };
-  
+  let accessToken = getAccessToken();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,7 +61,13 @@ function SubCategoryAdminEdit() {
         formDataUpdate.append('image', formData.image);
       }
 
-      await axios.put(`http://localhost:5000/admin/subcategories/${id}`, formDataUpdate);
+      await axios.put(`http://localhost:5000/admin/subcategories/${id}`, formDataUpdate,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        withCredentials: true
+      });
       console.log('subCategory updated successfully');
       updateSubCategoryData(id);
       toast.success('SubCategory updated successfully');
