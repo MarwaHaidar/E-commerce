@@ -136,7 +136,7 @@ return (
                         <li key={subcategory._id} className="py-2 ml-4 flex " >
                           {subcategory.name}
                           <div className={styles.crudoperationSiteBar}>
-                          <Link to={`/admin/allproducts/`}><AiOutlineLogin className={styles.iconSize} /></Link>
+                          <Link to={`/admin/allproducts/${subcategory._id}`}><AiOutlineLogin className={styles.iconSize} /></Link>
                             <Link to={`/admin/editsubCat/${subcategory._id}`}><FaRegEdit className={styles.iconSize} /></Link>
                             <Link to={`/admin/`}
                             onClick={() => handleDeleteClickSub(subcategory._id)}><MdDeleteForever  className={styles.iconSize}/> </Link> 

@@ -7,59 +7,71 @@ import asyncHandler from 'express-async-handler';
 
 // add to cart
 const addToCart = asyncHandler(async (req, res) => {
-    const userId = req.user.id;
-    const productId = req.body.productId;
-    const product = await Product.findById(productId).exec();
-    const productName = product.name;
-    const price = product.price;
-    const color=req.body.color;
-    const size=req.body.size;
-    const image=product.imageCover;
-    const quantity = req.body.quantity;
-    const currency = req.body.currency;
-    const items = [{
-        productId,
-        productName,
-        image,
-        quantity,
-        size,
-        color,
-        price,
-        currency
-    }]
-    let cart = await Cart.findOne({ userId });
-    try {
-        if (!cart) {
-            cart = await Cart.create({ userId, items });
-            res.status(201).json({ cart: cart });
-            console.log("Created :", cart)
-        }
-        else {
-            const productExists = cart.items.some(item => item.productId.equals(productId));
+  const userId = req.user.id;
+  const productId = req.body.productId;
+  const product = await Product.findById(productId).exec();
+  const productName = product.name;
+  const price = product.price;
+  const color = req.body.color;
+  const size = req.body.size;
+  const image = product.imageCover;
+  const quantity = req.body.quantity;
+  const currency = req.body.currency;
+  const items = [{
+      productId,
+      productName,
+      image,
+      quantity,
+      size,
+      color,
+      price,
+      currency
+  }];
+  
+  let cart = await Cart.findOne({ userId });
+  try {
+      if (!cart) {
+          cart = await Cart.create({ userId, items });
+          res.status(201).json({ cart });
+          console.log("Created :", cart);
+      } else {
+          const productExists = cart.items.some(item =>
+              item.productId.equals(productId) &&
+              item.color === color &&
+              item.size === size
+          );
 
-            if (productExists) {
-              const existingItem = cart.items.find(item => item.productId.equals(productId));
-              let newQuantity = existingItem.quantity += 1;
+          if (productExists) {
+              const existingItem = cart.items.find(item =>
+                  item.productId.equals(productId) &&
+                  item.color === color &&
+                  item.size === size
+              );
+              existingItem.quantity += 1; // Increment quantity
               await cart.save();
-              const message = `${newQuantity} of ${productName} added to your cart`;
-              res.status(200).json({ message: message, cart: cart });
-            } else {
-                cart.items.push(...items);
-                await cart.save();
-                res.json({ "new item added": cart });
-            }
-        }
-    } catch (error) {
-        console.error(error)
-    }
+              const message = `${existingItem.quantity} of ${productName} added to your cart`;
+              res.status(200).json({ message, cart });
+          } else {
+              cart.items.push(...items);
+              await cart.save();
+              res.json({ message: "New item added", cart });
+          }
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+  }
 });
+
 export { addToCart };
+
 
 
 // get user cart
 const getCart = asyncHandler(async (req, res) => {
 try {
       const { userId } = req.params;
+      console.log(userId);
       let cart = await Cart.findOne({ id: userId });
       let count = cart.items.length
       res.status(200).json({result: count, data: cart });

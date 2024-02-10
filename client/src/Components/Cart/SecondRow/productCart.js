@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './productCart.module.css';
+import axios from 'axios';
 //import { useCart } from '../../../cartcontext'; // Import the useCart hook from the CartProvider file
 
-const ProductCard = ({ imageSrc, name, price, initialQuantity, subTotal }) => {
+const ProductCard = ({ cartItem }) => {
+  const { imageSrc, name, color, size, price, initialQuantity, subTotal } = cartItem;
   const [quantity, setQuantity] = useState(initialQuantity);
   //const { cart, setCart } = useCart(); // Use the useCart hook to access cart and setCart functions
-
-
-
-
-
-
-
-
-
-
-
 
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value);
@@ -25,6 +16,22 @@ const ProductCard = ({ imageSrc, name, price, initialQuantity, subTotal }) => {
       setQuantity(newQuantity);
     }
   };
+
+  // const [items, setCartItems] = useState(null);
+  // useEffect(() => {
+  //   axios({
+  //     method: 'get',
+  //     url: `http://localhost:5000/user/cart`
+  //   })
+  //     .then((response) => {
+  //       const itemsData = response.data.items;
+  //       setCartItems(itemsData);
+       
+  //     })
+      
+  //     .catch(error => console.error("Error: no such product Id", error));
+  // },[]);
+
 
   // const handleAddToCart = () => {
   //   // Create a new product object
@@ -43,11 +50,13 @@ const ProductCard = ({ imageSrc, name, price, initialQuantity, subTotal }) => {
       <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'white', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', width: '83%' }}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           {imageSrc && <img src={imageSrc} alt={name} style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }} />}
-          <div>{name}</div>
+          <div style={{ marginTop:'30px'}}>{name}</div>
         </div>
-        <div>Price: ${Number(price).toFixed(2)}</div>
+        <div>{color}</div>
+        <div>{size}</div>
+        <div>${Number(price).toFixed(2)}</div>
 
-        <div>Quantity:
+        <div>
           <input
             style={{ width: '50px', textAlign: 'center', marginLeft: '10px', border: '2px solid black' }}
             type="number"
@@ -56,7 +65,7 @@ const ProductCard = ({ imageSrc, name, price, initialQuantity, subTotal }) => {
             onChange={handleQuantityChange}
           />
         </div>
-        <div>SubTotal: ${Number(subTotal).toFixed(2)}</div>
+        <div>${Number(subTotal).toFixed(2)}</div>
         <div>
           {/* <button onClick={handleAddToCart}>Add to Cart</button> */}
         </div>
