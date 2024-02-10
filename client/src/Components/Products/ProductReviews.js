@@ -1,33 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios'
 import { FaStar } from 'react-icons/fa';
 import styles from './Product.module.css';
 
 
+// for posting reviews
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
 
-
-let ratingScore = 3 // comes from database
-const renderStars = () => {
-  const stars = [];
-  const fullStars = Math.round(ratingScore);
-
-  for (let i = 0; i < 5; i++) {
-    stars.push(
-      <FaStar
-        key={i}
-        className={`${styles.fstar} ${i < fullStars ? styles.etar : styles.estar}`}
-      />
-    );
-  }
-
-  return stars;
 };
+
+
 
 
 const ProductReviews = () => {
   const [isAddingReview, setIsAddingReview] = useState(false);
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
+  const [review, setReview] = useState([]);
+  const { productId } = useParams();
+  console.log(productId)
+  const accessToken = getAccessToken(); // to post reviews
 
+
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.round(rating);
+
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <FaStar
+          key={i}
+          className={`${styles.fstar} ${i < fullStars ? styles.etar : styles.estar}`}
+        />
+      );
+    }
+
+    return stars;
+  };
+
+  // dom manipulations
   const handleAddReviewClick = () => {
     setIsAddingReview(true);
   };
@@ -36,50 +59,60 @@ const ProductReviews = () => {
     setRating(selectedRating);
   };
 
+
+
+
   const handleReviewSubmit = (e) => {
+
     e.preventDefault();
-    const reviewsContainer = document.querySelector(`.${styles.reviews}`);
-    const reviewBox = document.createElement('div');
-    reviewBox.className = styles.singleReview;
-
-    const user = document.createElement('p');
-    user.className = styles.reviewer;
-
-    const ratingElement = document.createElement('p');
-    ratingElement.className = styles.reviewerRating;
-    ratingElement.textContent = `Rating: ${rating}`;
-
-    const reviewTextElement = document.createElement('div');
-    reviewTextElement.className = styles.reviewText;
-    reviewTextElement.textContent = `Review: ${reviewText}`;
-
-    const review = {
-      userId: 'someone else',
-      text: reviewText,
+    const userReview = {
+      productId,
+      userId: "65bcfbfd28d92d66cf80c50c",// should be equal to user id in database / should be got from the token
+      rating,
+      reviewText: reviewText
     };
-    console.log(review)
+    axios.post('http://localhost:5000/user/review', userReview)
+      .then(response => {
+        console.log('Review added successfully:', response.data);
+        setReview(review);
+        setIsAddingReview(false);
+        setReviewText('');
+        setRating(0);
+      })
+      .catch(error => {
+        console.error('Error adding review:', error);
+        // Handle error
+      });
 
-    user.textContent = review.userId;
 
-    reviewBox.appendChild(user);
-    reviewBox.appendChild(ratingElement);
-    reviewBox.appendChild(reviewTextElement);
 
-    console.log(review);
 
-   
-    reviewsContainer.appendChild(reviewBox);
-
-    setIsAddingReview(false);
-    setReviewText('');
-    setRating(0);
   };
+
+  useEffect(() => {
+    if (productId) {
+      axios.get(`http://localhost:5000/reviews/product-reviews/${productId}`)
+        .then(response => {
+          const reviews = response.data.data[0];
+          const reversedReviews = reviews.reviews.slice().reverse(); 
+          const updatedReviews = { ...reviews, reviews: reversedReviews }; 
+          setReview(updatedReviews); 
+        })
+        .catch(error => console.error("Error: no such product Id", error));
+    }
+  }, [productId, isAddingReview]);
+  
+
+
+  
+
+
 
 
 
   return (
     <div className={styles.main}>
-      <p>Product Reviews</p>
+      <p key={review.productId} >Product Reviews</p>
       {isAddingReview ? (
         <form onSubmit={handleReviewSubmit}>
           <div className={styles.starRating}>
@@ -107,23 +140,14 @@ const ProductReviews = () => {
         </a>
       )}
       <div className={styles.reviews}>
-        <div className={styles.singleReview}>
-          <p className={styles.reviewer}>Someone</p>
-          <p className={styles.reviewerRating}> {renderStars()} </p>
-          <div>The product is very good</div>
-        </div>
-        <div className={styles.singleReview}>
-          <p className={styles.reviewer}>Someone</p>
-          <p className={styles.reviewerRating}> {renderStars()} </p>
-          <div>Recommended</div>
-        </div>
-        <div className={styles.singleReview}>
-          <p className={styles.reviewer}>Someone</p>
-          <p className={styles.reviewerRating}> {renderStars()} </p>
-          <div>Amazing!</div>
-        </div>
+        {review.reviews && review.reviews.map((rev, index) => (
+          <div key={index} className={styles.singleReview}>
+            <p className={styles.reviewer}>{rev.fullName}</p>
+            <p className={styles.reviewerRating}>{renderStars(rev.rating)}</p>
+            <div>{rev.reviewText}</div>
+          </div>
+        ))}
       </div>
-
     </div>
   );
 };

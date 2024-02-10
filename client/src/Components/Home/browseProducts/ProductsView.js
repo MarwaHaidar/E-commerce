@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import DataContext from '../../Context.js';
-import ProductCard from "./productcard.js";
+import ProductCard from "./ProductCard.js";
 import Pagination from './Pagination.js';
 import FilterBox from '../slider/FilterableMenu.js';
 import { FaFilter } from "react-icons/fa6";
@@ -23,8 +23,7 @@ const ProductsView = () => {
     const totalProducts = products ? products.length : 0;
     const startIndex = currentPage * productsPerPage;
     const endIndex = startIndex + productsPerPage;
-    // const currentProducts = products ? products.slice(startIndex, endIndex) : [];
-    // const currentProducts = products ? products.results.slice(startIndex, endIndex) : [];
+
     let currentProducts;
     if (Array.isArray(products)) {
         currentProducts = products ? products.slice(startIndex, endIndex) : [];
