@@ -3,10 +3,91 @@ import styles from './productCart.module.css';
 import axios from 'axios';
 //import { useCart } from '../../../cartcontext'; // Import the useCart hook from the CartProvider file
 
-const ProductCard = ({ cartItem }) => {
-  const { imageSrc, name, color, size, price, initialQuantity, subTotal } = cartItem;
+// const storedUserId = JSON.parse(localStorage.getItem('userid'));
+
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+  
+};
+
+
+
+
+
+
+
+
+
+let accessToken = getAccessToken();
+
+let storedUserId = localStorage.getItem('userId');
+
+if (storedUserId) {
+    // Data is not null or empty, parse it as JSON
+    storedUserId = JSON.parse(storedUserId);
+} else {
+    // Data is null or empty, handle it appropriately
+    console.error('No userId data found in localStorage.');
+}
+
+const ProductCard = ({ imageSrc, name, color, size, price, initialQuantity, subTotal }) => {
+  const [items, setCartItems] = useState([]);
+
+  async function getCard()
+  {
+    await axios({
+      method: 'get',
+      url: `${process.env.REACT_APP_BASE_URL}/user/getcart/${storedUserId}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      },
+      withCredentials: true
+    })
+    .then((response) => {
+      const itemsData = response.data;
+      setCartItems(itemsData);
+      console.log(accessToken);
+    })
+    .catch(error => console.error("Error fetching cart data:", error));
+    
+  }
+
+  useEffect(() => {
+    getCard();
+  }, []); // Use cartItem as a dependency for useEffect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const [quantity, setQuantity] = useState(initialQuantity);
   //const { cart, setCart } = useCart(); // Use the useCart hook to access cart and setCart functions
+
 
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value);

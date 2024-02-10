@@ -62,15 +62,19 @@ const handleAddToCart = async () => {
       }
     );
     
-    console.log('Product added to cart:', response.data);
-    console.log(accessToken )
-    console.log(selectedSize['enum'][0])
-    console.log(selectedColor.color)
-    // console.log(selectedSize.enum)
+    //  console.log('Product added to cart:', response.data);
+    // console.log(accessToken )
+    // console.log(selectedSize['enum'][0])
+    // console.log(selectedColor.color)
+    // console.log(response.data.userId)
+    let userrid=response.data.cart.userId
+    console.log("user id " ,userrid)
     
+    localStorage.setItem('userId',userrid);
+
   } catch (error) {
  
-    console.log(selectedColor)
+   
     console.error('Error adding product to cart:', error);
   }
 };

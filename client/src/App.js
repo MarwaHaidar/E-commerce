@@ -19,7 +19,7 @@ import NotFound from "./Pages/NotFound.js";
 import AllCategories from "./Pages/AllCategories.js";
 import SubCategories from "./Pages/SubCategories.js";
 import Admin from "./Pages/Admin.js";
-import ProductsView from "./Components/Home/BrowseProducts/ProductsView.js";
+import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import AdminHeader from "./Components/Admin/AdminHeader/AdminHeader.js";
 import AdminCharts from "./Pages/AdminCharts.js";
 import CategoryAdminEdit from "./Components/Admin/CategoryAdmin/CategoryAdminEdit.js";
@@ -48,7 +48,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/cart/" element={<Cart />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/forgetpassword" element={<ForgetPass />} />
             <Route path="/resetpassword" element={<ResetPass />} />

@@ -1,6 +1,10 @@
+//import { ObjectId } from "mongodb";
 import Cart from "../models/cart.js";
 import Product from '../models/product.js';
 import asyncHandler from 'express-async-handler';
+import { Types } from 'mongoose';
+
+const { ObjectId } = Types;
 // import { validateToken } from '../Middleware/validateTokenHandler.js';
 
 
@@ -69,17 +73,28 @@ export { addToCart };
 
 // get user cart
 const getCart = asyncHandler(async (req, res) => {
-try {
-      const { userId } = req.params;
-      console.log(userId);
-      let cart = await Cart.findOne({ id: userId });
-      let count = cart.items.length
-      res.status(200).json({result: count, data: cart });
-} catch (error) {
-    console.error(error)
-}
-});
+  try {
+    // Extract the user ID from the request
+    const userid = req.user.id;
+    // const id = new ObjectId(userid);
+    console.log(id); // Log the user ID to ensure it's correct
 
+    // Find the cart for the user
+    let cart = await Cart.findOne({ userId:userid }); // No need for additional conversion
+
+    if (!cart) {
+      // Handle case where cart is not found for the user
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    let count = cart.items.length;
+    res.status(200).json({ result: count, data: cart });
+  } catch (error) {
+    console.error(error);
+    console.log(userid)
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 export { getCart };
 
