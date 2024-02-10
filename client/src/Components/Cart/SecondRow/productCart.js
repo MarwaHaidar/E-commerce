@@ -30,15 +30,8 @@ const getAccessToken = () => {
 
 let accessToken = getAccessToken();
 
-let storedUserId = localStorage.getItem('userId');
 
-if (storedUserId) {
-    // Data is not null or empty, parse it as JSON
-    storedUserId = JSON.parse(storedUserId);
-} else {
-    // Data is null or empty, handle it appropriately
-    console.error('No userId data found in localStorage.');
-}
+
 
 const ProductCard = ({ imageSrc, name, color, size, price, initialQuantity, subTotal }) => {
   const [items, setCartItems] = useState([]);
@@ -47,10 +40,7 @@ const ProductCard = ({ imageSrc, name, color, size, price, initialQuantity, subT
   {
     await axios({
       method: 'get',
-      url: `${process.env.REACT_APP_BASE_URL}/user/getcart/${storedUserId}`,
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      },
+      url: `${process.env.REACT_APP_BASE_URL}/user/getcart`,
       withCredentials: true
     })
     .then((response) => {

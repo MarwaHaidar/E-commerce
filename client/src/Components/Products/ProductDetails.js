@@ -70,7 +70,7 @@ const handleAddToCart = async () => {
     let userrid=response.data.cart.userId
     console.log("user id " ,userrid)
     
-    localStorage.setItem('userId',userrid);
+  
 
   } catch (error) {
  
