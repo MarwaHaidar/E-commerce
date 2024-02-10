@@ -75,14 +75,15 @@
 
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
-
+import {parse} from "cookie";
 const validateToken = asyncHandler(async (req, res, next) => {
-    let token;
-    let authHeader = req.headers.authorization || req.headers.Authorization;
-
-    if (authHeader && authHeader.startsWith("Bearer ")) {
+   
+const cookies=req.headers.cookie;
+return console.log(cookies);
+const accessToken=parse(cookies).accessToken;
+    if (accessToken) {
         // Extract the token from the Authorization header
-        token = authHeader.split(" ")[1];
+        token = accessToken;
 
         // Verify the token
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {

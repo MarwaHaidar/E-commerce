@@ -74,21 +74,18 @@ export { addToCart };
 // get user cart
 const getCart = asyncHandler(async (req, res) => {
   try {
-    // Extract the user ID from the request
-    const userid = req.user.id;
-    // const id = new ObjectId(userid);
-    console.log(id); // Log the user ID to ensure it's correct
-
+    console.log("Hekll world")
+    // console.log(req);
     // Find the cart for the user
-    let cart = await Cart.findOne({ userId:userid }); // No need for additional conversion
+    // let cart = await Cart.findOne({ userId:userid }); // No need for additional conversion
 
-    if (!cart) {
-      // Handle case where cart is not found for the user
-      return res.status(404).json({ message: "Cart not found" });
-    }
+    // if (!cart) {
+    //   // Handle case where cart is not found for the user
+    //   return res.status(404).json({ message: "Cart not found" });
+    // }
 
-    let count = cart.items.length;
-    res.status(200).json({ result: count, data: cart });
+    // let count = cart.items.length;
+    // res.status(200).json({ result: count, data: cart });
   } catch (error) {
     console.error(error);
     console.log(userid)

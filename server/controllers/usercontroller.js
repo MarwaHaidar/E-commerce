@@ -58,6 +58,7 @@ const createUserValidation = [
 
 
    const getuser=asyncHandler(async(req,res)=>{
+    return;
     const {id}=req.params;
     const user=await User.findById(id);
     if(!user){
@@ -70,23 +71,23 @@ const createUserValidation = [
 
 //update specific category:
 
-const updateuser=asyncHandler(async(req,res)=>{
-    const {id}=req.params;
-    const {first_name}=req.body;
-    const {last_name}=req.body;
-    const {address}=req.body;
-    const {password}=req.body;
-    const {phone_number}=req.body;
-    const updateduser=await User.findOneAndUpdate(
-        {_id:id},
-        {first_name,last_name,address,password,phone_number},
-        {new:true})// return update it category after update
-        if(!updateduser){
-            res.status(404).json({msg:`no user for this is ${id}`})
-        }
-        res.status(200).json({data:updateduser})
-})
-export {updateuser}
+// const updateuser=asyncHandler(async(req,res)=>{
+//     const {id}=req.params;
+//     const {first_name}=req.body;
+//     const {last_name}=req.body;
+//     const {address}=req.body;
+//     const {password}=req.body;
+//     const {phone_number}=req.body;
+//     const updateduser=await User.findOneAndUpdate(
+//         {_id:id},
+//         {first_name,last_name,address,password,phone_number},
+//         {new:true})// return update it category after update
+//         if(!updateduser){
+//             res.status(404).json({msg:`no user for this is ${id}`})
+//         }
+//         res.status(200).json({data:updateduser})
+// })
+// export {updateuser}
 
 
 // delete specific category
