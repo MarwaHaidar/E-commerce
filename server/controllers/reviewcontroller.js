@@ -70,7 +70,7 @@ export { getreviews };
 // get product review
 
 const getProductreview = asyncHandler(async (req, res) => {
-    const {productId} = req.body;
+    const { productId } = req.params;
     console.log(productId)
     const reviews = await Review.find({ productId: productId })
     console.log(reviews)

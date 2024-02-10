@@ -95,7 +95,7 @@ const FilterableBox = () => {
     return (
         <div className={styles.ctg}>
             {noProducts && (
-                <div className="bg-yellow-300 bg-opacity-50  text-gray-600 mr-3 px-4 py-2 rounded-md mt-4">
+                <div className="bg-yellow-300 bg-opacity-50 text-gray-600  mx-auto px-4 py-2 rounded-md mt-4 mr-2">
                     No products found.
                 </div>
 
@@ -145,7 +145,7 @@ const FilterableBox = () => {
                 />
                 <span>USD Max Price</span><br />
 
-                <button onClick={handleFilter}>Filter Products</button>
+                <button onClick={ ()=> {handleFilter() }}>Filter Products</button>
             </div>
         </div>
     );
