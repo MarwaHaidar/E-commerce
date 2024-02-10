@@ -19,7 +19,7 @@ validateToken,validateTokenForAdmin ,
   updateproduct);
 
   router.delete('/admin/products/:id',
-  // validateToken,validateTokenForAdmin,
+  validateToken,validateTokenForAdmin,
    deleteproduct);
 
    

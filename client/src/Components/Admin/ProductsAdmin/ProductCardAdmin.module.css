@@ -1,8 +1,4 @@
-.producAdminMain{
-    display: flex;
-    gap: 'rem';
-    flex-wrap:wrap;
-}
+
 .productcard {
     width: 28rem;
     height: 100%;
@@ -12,6 +8,7 @@
     box-shadow: 10px 10px 30px #2C666E;
     border: 2px solid #07393C ;
     margin-left: 45px;
+    margin-bottom: 50px;
   }
   
   .coverimage {
@@ -124,6 +121,12 @@
     margin-top: 1rem;
     display: flex;
     gap: 0.5rem;
+    width: 100%;
+  }
+  .imagescontainer img {
+    width: 100px;
+    height: 100px;
+
   }
   
   .productimage {
@@ -142,8 +145,8 @@
   }
   
   .overlayimage {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 500px;
+    max-height: 500px;
     border-radius: 0.5rem;
   }
   .colorBox {
@@ -152,3 +155,36 @@
     height: 20px;
     border: 1px solid #000; /* Add border for better visibility */
   }
+  .editDelteCon{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .btnEditAdmin, .btnDeleteAdmin {
+    width: 100px;
+    height: 40px;
+    margin-left: 15px;
+    padding: 10px;
+    background-color: #2d612f; /* Green color, you can change this */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  
+  }
+  
+  .btnEditAdmin:hover, .btnDeleteAdmin:hover {
+    background-color: #45a049; /* Darker green on hover, you can change this */
+  }
+  
+  .btnDeleteAdmin {
+    background-color: #742721; /* Red color for delete button, you can change this */
+  }
+  
+  .btnDeleteAdmin:hover {
+    background-color: #d32f2f; /* Darker red on hover, you can change this */
+  }
+  
