@@ -4,7 +4,23 @@ import styles from './AddCategories.module.css';
 import { FaImage } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+};
+
 function AddCategories() {
+  
   const [formData, setFormData] = useState({
     name: '',
     desc: '',
@@ -19,7 +35,7 @@ function AddCategories() {
       [name]: name === 'image' ? files[0] : value,
     }));
   };
-
+  let accessToken = getAccessToken();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -28,9 +44,18 @@ function AddCategories() {
       formDataCreate.append('name', formData.name);
       formDataCreate.append('desc', formData.desc);
       formDataCreate.append('image', formData.image);
-
-      const response = await axios.post('http://localhost:5000/admin/categories', formDataCreate);
-
+  
+      const response = await axios.post(
+        'http://localhost:5000/admin/categories',
+        formDataCreate,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+        }
+      );
+  
       console.log('Category created successfully:', response.data);
       toast.success('Category created successfully!');
       
@@ -39,6 +64,7 @@ function AddCategories() {
       console.error('Error creating category:', error);
     }
   };
+  
 // const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     console.log("Product:", formData); // Log the state to debug

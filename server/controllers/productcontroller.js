@@ -105,7 +105,7 @@ export { createProduct };
 // get all products
 const getproducts = asyncHandler(async (req, res) => {
   const page = req.query.page * 1 || 1;
-  const limit = req.query.limit * 1 || 20;
+  const limit = req.query.limit * 1 || 18;
   const skip = (page - 1) * limit;
 
   let filterObject = {};
