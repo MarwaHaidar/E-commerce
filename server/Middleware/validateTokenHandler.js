@@ -145,7 +145,7 @@ const validateTokenForAdmin = asyncHandler(async (req, res, next) => {
             res.status(403).json({ message: 'Admin permissions required' });
         } else {
             // User has admin permissions, proceed to the next middleware/route
-            redirect("localhost:3000/login")
+            // redirect("localhost:3000/login")
             next();
             
         }

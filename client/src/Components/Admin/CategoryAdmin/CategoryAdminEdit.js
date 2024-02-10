@@ -8,6 +8,22 @@ import { useCategoryContext } from './CategoryContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+};
+
+
 function CategoryAdminEdit() {
   const { id } = useParams();
   const { categoryData, updateCategoryData } = useCategoryContext();
@@ -36,7 +52,7 @@ function CategoryAdminEdit() {
       [name]: name === 'image' ? e.target.files[0] : value,
     }));
   };
-
+  let accessToken = getAccessToken();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -49,7 +65,14 @@ function CategoryAdminEdit() {
         formDataUpdate.append('image', formData.image);
       }
 
-      await axios.put(`http://localhost:5000/admin/categories/${id}`, formDataUpdate);
+      await axios.put(`http://localhost:5000/admin/categories/${id}`, formDataUpdate,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        withCredentials: true
+      }
+      );
 
       console.log('Category updated successfully');
       // Redirect or handle success as needed

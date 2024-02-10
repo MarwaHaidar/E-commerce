@@ -9,6 +9,20 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+};
+
 function SiteBar() {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState({});
@@ -49,12 +63,19 @@ function SiteBar() {
     }
   }, [selectedCategoryId, subcategories]);
 
-
+  let accessToken = getAccessToken();
   const handleDeleteClick = async (categoryID) => {
     try {
       const confirmed = window.confirm('Are you sure you want to delete this category?');
       if (confirmed) {
-        await axios.delete(`http://localhost:5000/admin/categories/${categoryID}`);
+        await axios.delete(`http://localhost:5000/admin/categories/${categoryID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+        }
+        );
         setCategories((prevCategories) =>
           prevCategories.filter((category) => category._id !== categoryID)
         );
@@ -70,7 +91,14 @@ function SiteBar() {
     try {
       const confirmed = window.confirm('Are you sure you want to delete this Subcategory?');
       if (confirmed) {
-        await axios.delete(`http://localhost:5000/admin/subcategories/${subcategoryID}`);
+        await axios.delete(`http://localhost:5000/admin/subcategories/${subcategoryID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+        }
+        );
         setSubcategories((prevSubcategories) => {
           const updatedSubcategories = { ...prevSubcategories };
           if (updatedSubcategories[selectedCategoryId]) {
