@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { FaStar } from 'react-icons/fa';
 import styles from './Product.module.css';
+
 
 
 // for posting reviews
@@ -30,8 +31,8 @@ const ProductReviews = () => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState([]);
   const { productId } = useParams();
-  console.log(productId)
-  const accessToken = getAccessToken(); // to post reviews
+  // console.log(productId)
+  const navigate = useNavigate()
 
 
   const renderStars = (rating) => {
@@ -61,28 +62,40 @@ const ProductReviews = () => {
 
 
 
-
+  // const accessToken = true; 
+  const accessToken = getAccessToken(); // to post reviews
   const handleReviewSubmit = (e) => {
-
     e.preventDefault();
-    const userReview = {
-      productId,
-      userId: "65bcfbfd28d92d66cf80c50c",// should be equal to user id in database / should be got from the token
-      rating,
-      reviewText: reviewText
-    };
-    axios.post('http://localhost:5000/user/review', userReview)
-      .then(response => {
-        console.log('Review added successfully:', response.data);
-        setReview(review);
-        setIsAddingReview(false);
-        setReviewText('');
-        setRating(0);
-      })
-      .catch(error => {
-        console.error('Error adding review:', error);
-        // Handle error
-      });
+    if (accessToken && accessToken !== null) {
+      const userReview = {
+        productId,
+        rating,
+        reviewText,
+      };
+      const reqHeaders = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        withCredentials: true
+
+      };
+      axios.post('http://localhost:5000/user/review', userReview, reqHeaders)
+        .then(response => {
+          console.log('Review added successfully:', response.data);
+          setReview(review);
+          setIsAddingReview(false);
+          setReviewText('');
+          setRating(0);
+        })
+        .catch(error => {
+          console.error('Error adding review:', error);
+          // Handle error
+        });
+    } else {
+      navigate('/login')
+    }
+
+
 
 
 
@@ -94,17 +107,17 @@ const ProductReviews = () => {
       axios.get(`http://localhost:5000/reviews/product-reviews/${productId}`)
         .then(response => {
           const reviews = response.data.data[0];
-          const reversedReviews = reviews.reviews.slice().reverse(); 
-          const updatedReviews = { ...reviews, reviews: reversedReviews }; 
-          setReview(updatedReviews); 
+          const reversedReviews = reviews.reviews.slice().reverse();
+          const updatedReviews = { ...reviews, reviews: reversedReviews };
+          setReview(updatedReviews);
         })
         .catch(error => console.error("Error: no such product Id", error));
     }
   }, [productId, isAddingReview]);
-  
 
 
-  
+
+
 
 
 
@@ -134,10 +147,10 @@ const ProductReviews = () => {
           /> <br />
           <button type="submit">Submit</button>
         </form>
-      ) : (
-        <a onClick={handleAddReviewClick}>
+      ) : (accessToken ?
+        (<a onClick={handleAddReviewClick}>
           Add review
-        </a>
+        </a>) : ''
       )}
       <div className={styles.reviews}>
         {review.reviews && review.reviews.map((rev, index) => (

@@ -10,7 +10,7 @@ import asyncHandler from 'express-async-handler';
 
 const createReview = asyncHandler(async (req, res) => {
     const productId = req.body.productId;
-    const userId = req.body.userId;
+    const userId = req.user.id;
     const user = await User.findById(userId).exec();
     const fullName = user.first_name + " " + user.last_name;
     const rating = req.body.rating;

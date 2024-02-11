@@ -11,6 +11,23 @@ import SearchBar from './SearchBar';
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
 
+// for show account icon
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+
+};
+
+
 const Header = () => {
   const { setProducts } = useContext(DataContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -18,6 +35,8 @@ const Header = () => {
   const [searchResults, setSearchResults] = useState([]);
   const resultsContainerRef = useRef(null);
   const navigate = useNavigate();
+  const accessToken = getAccessToken(); // to show account icon
+  // const accessToken = true
 
   // retrieving products on input change
   const handleSearchQueryChange = async (query) => {
@@ -107,38 +126,40 @@ const Header = () => {
   }, []);
 
   return (
-      <div>
-        <Banner />
-        <div className={styles.header}>
-          <Logo />
-          <NavBar />
-          <div className={styles.iconContainer}>
-            <SearchBar onSearchQueryChange={handleSearchQueryChange} onSearchQuery={handleSearchQuery} />
-            <ul ref={resultsContainerRef} className={`${styles.suggestionsContainer} ${showSuggestions ? styles.show : ''}`}>
-              {searchResults.length !== 0 ? (
-                searchResults.map(result => (
-                  <li
-                    className={styles.suggestion}
-                    key={result._id}
-                    onClick={() => handleSuggestionClick(result.name)} // Pass suggestion name as query
-                  >
-                    {result.name}
-                  </li>
-                ))
-              ) : (
-                <li>No matches found</li>
-              )}
-            </ul>
+    <div>
+      <Banner />
+      <div className={styles.header}>
+        <Logo />
+        <NavBar />
+        <div className={styles.iconContainer}>
+          <SearchBar onSearchQueryChange={handleSearchQueryChange} onSearchQuery={handleSearchQuery} />
+          <ul ref={resultsContainerRef} className={`${styles.suggestionsContainer} ${showSuggestions ? styles.show : ''}`}>
+            {searchResults.length !== 0 ? (
+              searchResults.map(result => (
+                <li
+                  className={styles.suggestion}
+                  key={result._id}
+                  onClick={() => handleSuggestionClick(result.name)} // Pass suggestion name as query
+                >
+                  {result.name}
+                </li>
+              ))
+            ) : (
+              <li>No matches found</li>
+            )}
+          </ul>
 
-            <Link to="/wishlist" className={styles.link}>
-              <FiHeart className={styles.wishIcon} />
-            </Link>
-            <Link to="/cart" className={styles.link}>
-              <FiShoppingCart className={styles.shopCartIcon} />
-            </Link>
-          </div>
+          <Link to="/wishlist" className={styles.link}>
+            <FiHeart className={styles.wishIcon} />
+          </Link>
+          <Link to="/cart" className={styles.link}>
+            <FiShoppingCart className={styles.shopCartIcon} />
+          </Link>
+          {/* get user initial or first letter from the accesss token */}
+          {accessToken && <div className={styles.accountIcon}>W</div>} { }
         </div>
       </div>
+    </div>
   );
 };
 
