@@ -16,7 +16,7 @@ const getAccessToken = () => {
     return null;
   };
   return getCookie('accessToken');
-  
+
 };
 
 
@@ -40,12 +40,12 @@ const [selectedSize, setSelectedSize] = useState(null);
   };
 let accessToken = getAccessToken();
 const handleAddToCart = async () => {
-  
- 
+
+
   try {
     console.log('selected size:', selectedSize['enum'][0]);
     const response = await axios.post(
-      'http://localhost:5000/user/cart',
+      'http://localhost:5000/cart/user/cart',
       {
         productId: productId,
         quantity: 1,
@@ -58,10 +58,10 @@ const handleAddToCart = async () => {
           Authorization: `Bearer ${accessToken}`
         },
         withCredentials: true
-        
+
       }
     );
-    
+
     //  console.log('Product added to cart:', response.data);
     // console.log(accessToken )
     // console.log(selectedSize['enum'][0])
@@ -69,12 +69,12 @@ const handleAddToCart = async () => {
     // console.log(response.data.userId)
     let userrid=response.data.cart.userId
     console.log("user id " ,userrid)
-    
-  
+
+
 
   } catch (error) {
- 
-   
+
+
     console.error('Error adding product to cart:', error);
   }
 };

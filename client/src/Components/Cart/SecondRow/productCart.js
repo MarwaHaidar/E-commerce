@@ -3,55 +3,25 @@ import styles from './productCart.module.css';
 import axios from 'axios';
 //import { useCart } from '../../../cartcontext'; // Import the useCart hook from the CartProvider file
 
-// const storedUserId = JSON.parse(localStorage.getItem('userid'));
-
-const getAccessToken = () => {
-  const getCookie = (name) => {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.startsWith(name + '=')) {
-        return cookie.substring(name.length + 1);
-      }
-    }
-    return null;
-  };
-  return getCookie('accessToken');
-  
-};
-
-
-
-
-
-
-
-
-
-let accessToken = getAccessToken();
-
-
 
 
 const ProductCard = ({ imageSrc, name, color, size, price, initialQuantity, subTotal }) => {
   const [items, setCartItems] = useState([]);
 
-  async function getCard()
+  function getCard()
   {
-    await axios({
+    return axios({
       method: 'get',
-      url: `${process.env.REACT_APP_BASE_URL}/user/getcart`,
-      withCredentials: true
+      url: `${process.env.REACT_APP_BASE_URL}/cart/user/getcart`,
+      withCredentials:true
     })
     .then((response) => {
       const itemsData = response.data;
       setCartItems(itemsData);
-      console.log(accessToken);
     })
     .catch(error => console.error("Error fetching cart data:", error));
-    
-  }
 
+  }
   useEffect(() => {
     getCard();
   }, []); // Use cartItem as a dependency for useEffect
@@ -97,9 +67,9 @@ const ProductCard = ({ imageSrc, name, color, size, price, initialQuantity, subT
   //     .then((response) => {
   //       const itemsData = response.data.items;
   //       setCartItems(itemsData);
-       
+
   //     })
-      
+
   //     .catch(error => console.error("Error: no such product Id", error));
   // },[]);
 
