@@ -52,6 +52,7 @@ const handleAddToCart = async () => {
         currency:'USD',
         color: selectedColor.color,
         size: selectedSize['enum'][0],
+        
       },
       {
         headers: {

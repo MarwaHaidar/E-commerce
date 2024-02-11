@@ -13,10 +13,10 @@ const Cart = () => {
       <div className="text-3xl font-bold test" style={{ marginLeft: '110px' }}>My shopCart</div>
       <FirstRow />
       
-        <ProductCard />
+      
      
       <ButtonLayout />
-      <CartTotal />
+     
     </div>
   );
 }

@@ -42,6 +42,10 @@ const cartSchema = new Schema({
       color:{
         type:String,
         required:true
+      },
+      image:{
+        type:String,
+        required:false
       }
     }
   ],
