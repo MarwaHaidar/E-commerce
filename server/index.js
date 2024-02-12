@@ -17,6 +17,7 @@ import messageroute from "./routes/messageRoute.js";
 import accesstoken from "./controllers/accessTokenController.js";
 import cookieParser from "cookie-parser";
 import { validateToken } from "./Middleware/validateTokenHandler.js";
+import chartroute from './routes/chartsroute.js';
 
 const app = express();
 app.use(
@@ -55,6 +56,7 @@ app.use(striperoute);
 app.use(messageroute);
 app.use(wishlistroute);
 app.use(accesstoken);
+app.use('/charts',chartroute)
 
 // connecting to databse ==> listening to requests
 connection().then(() => {

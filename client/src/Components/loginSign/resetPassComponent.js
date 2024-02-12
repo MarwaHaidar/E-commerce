@@ -11,7 +11,7 @@ function ResetPasswordComponent(){
   
     const navigate = useNavigate();
     const location = useLocation();
-    const [email, setEmail] = useState('');
+    const [useremail, setEmail] = useState('');
     const [formData, setFormData] = useState({
         password: '',
         verifyPassword: ''
@@ -19,8 +19,8 @@ function ResetPasswordComponent(){
     
       useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
-        const userEmail = searchParams.get('email');
-        setEmail(userEmail);
+        const useremail = searchParams.get('email');
+        setEmail(useremail);
       }, [location]);
 
 
@@ -35,15 +35,16 @@ function ResetPasswordComponent(){
       const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form data:', formData);
-        console.log(email)
+        console.log(useremail)
         if (formData.password !== formData.verifyPassword) {
           console.error("Passwords do not match");
           return;
         }
+        console.log(useremail)
         
         try {
           const response = await axios.post('http://localhost:5000/author/resetpass', {
-            email: email,
+            email: useremail,
             password: formData.password,
             verifyPassword: formData.verifyPassword
           });
