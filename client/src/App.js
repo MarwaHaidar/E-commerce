@@ -28,19 +28,21 @@ import SubCategoryAdminDelete from "./Components/Admin/SubCategoryAdmin/SubCateg
 import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
 import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
-import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
+import ProductsView from "./Components/Home/BrowseProducts/ProductsView.js";
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
+import ProductAdminEdit from "./Components/Admin/ProductsAdmin/ProductAdminEdit.js";
 
 
 export default function App() {
   const isAdmin = false;
   const [products,setProducts] = useState([]);
+  const [itemsCount, setItemsCount] = useState(0);
   
   
   return (
     <div>
       <Router>
-        <DataContext.Provider value={{ products, setProducts }}>
+        <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount }}>
           {isAdmin ? <AdminHeader /> : <Header />}
           <Routes>
             <Route index element={<Home />} />
@@ -61,6 +63,7 @@ export default function App() {
             <Route path="/admin/addcategories" element={<AddCategories />} />
             <Route path="/admin/addsubcategories" element={<AddSubCategories />} />
             <Route path="/admin/addproduct" element={<AddProduct />} />
+            <Route path="/admin/editproduct/:id" element={<ProductAdminEdit />} /> 
             <Route path="/admin/editCat/:id" element={<CategoryAdminEdit />} />
             <Route path="/admin/deleteCat/:id" element={<CategoryAdminDelete />} />
             <Route path="/admin/editsubCat/:id" element={<SubCategoryAdminEdit />} />

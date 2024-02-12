@@ -96,10 +96,7 @@ const Wishlist = () => {
 
   return (
     <>
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-    <span style={{ marginLeft: '80px' }}>Wishlist(4)</span>
-    <button style={{ marginRight: '125px', border:'solid black 1px', padding:'10px 10px 10px 10px' }}>Move all to bag</button>
-    </div>
+
     <Items products={products} />
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
     <span style={{ marginLeft: '80px' }}>Just For You</span>

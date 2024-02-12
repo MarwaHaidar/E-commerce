@@ -50,8 +50,8 @@ variations.forEach((variation) => {
   const name = req.body.name;
   const desc = req.body.desc;
   const price = req.body.price;
-  // const discountPercentage = req.body.discountPercentage;
-  // const priceAfterDiscount = price - (price * discountPercentage) / 100;
+  const discountPercentage = parseInt(req.body.discountPercentage);
+  const priceAfterDiscount = parseInt(price - (price * discountPercentage) / 100);
   // const currency = req.body.currency;
   const subcategory = req.body.subcategory;
   const isFeatured = req.body.isFeatured;
@@ -72,7 +72,7 @@ variations.forEach((variation) => {
     imageCover,
     isFeatured,
     totalQuantityProducts,
-    // priceAfterDiscount,
+    priceAfterDiscount,
   });
   res.status(201).json({ data: product });
 });
@@ -146,8 +146,88 @@ const getproduct = asyncHandler(async (req, res) => {
 export { getproduct };
 
 // update specific product
+  
 
 const updateproduct = asyncHandler(async (req, res) => {
+  //----------------------------------
+  const variations = req.body.variations;
+  var sumQuantitySizes;
+  var totalQuantity = [];
+  
+  variations.forEach((variation) => {
+    variation.colors.forEach((color) => {
+      sumQuantitySizes = color.sizes.reduce(
+        (sum, size) => sum + parseInt(size.quantitySizes, 10),
+        0
+      );
+      color.quantity = sumQuantitySizes; // quantity
+      totalQuantity.push(sumQuantitySizes);
+  
+      // Ensure 'enum' is populated with size values
+      color.sizes.forEach((size) => {
+        size.enum = [size.size];
+      });
+  
+      // Log the sizes array for verification
+      console.log('Sizes Array:', color.sizes);
+    });
+  });
+  
+  // Rest of your code...
+  
+    const sumQuantity = totalQuantity.reduce((acc, current) => acc + current, 0); // totalQuantity
+    console.log(sumQuantity);
+  //----------------------------------
+
+  // calculateDiscountedPrice(req, res, () => {});
+
+  const { id } = req.params;
+  const { name } = req.body;
+  const { desc } = req.body;
+  const { price } = req.body;
+  const discountPercentage = parseInt(req.body.discountPercentage);
+  const priceAfterDiscount = parseInt(price - (price * discountPercentage) / 100);
+  // const { currency } = req.body;
+  const { subcategory } = req.body;
+  const { isFeatured } = req.body;
+  const totalQuantityProducts = sumQuantity;
+  const multiimages = req.files ? req.files.map((file) => file.buffer) : [];
+  const imagesArray = await uploadMultipleImages(multiimages);
+  const imageCover = imagesArray[0];
+  const images = imagesArray.slice(1);
+
+  // Check if 'name' is provided in the request body before generating the slug
+  const slug = name ? slugify(name, { lower: true }) : undefined;
+
+  const product = await Product.findOneAndUpdate(
+    { _id: id },
+    {
+    name,
+    slug: slugify(name),
+    desc,
+    price,
+    variations,
+    subcategory,
+    images,
+    imageCover,
+    isFeatured,
+    totalQuantityProducts,
+    priceAfterDiscount,
+    },
+    { new: true }
+  );
+
+  if (!product) {
+    res.status(404).json({ msg: `no product for this is ${id}` });
+  }
+  res.status(200).json({ data: product });
+});
+export { updateproduct };
+
+
+
+
+const updateproductImage = asyncHandler(async (req, res) => {
   //----------------------------------
   // const variations = req.body.variations;
 
@@ -209,7 +289,19 @@ const updateproduct = asyncHandler(async (req, res) => {
   }
   res.status(200).json({ data: product });
 });
-export { updateproduct };
+export { updateproductImage };
+
+
+
+
+
+
+
+
+
+
+
+
 
 // delete specific product
 
