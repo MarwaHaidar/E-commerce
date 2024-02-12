@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Header.module.css';
-import { Link, useLocation,useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 import Cookies from 'js-cookie'; // Import Cookies library
 
@@ -75,10 +75,10 @@ const NavBar = () => {
                         <Link to="/about" className={`${styles.item} ${activePath === "/about" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>About</li></Link>
                         <Link to="/contact" className={`${styles.item} ${activePath === "/contact" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Contact</li></Link>
                         {isLoggedIn ? (
-                    <li className={styles.item} onClick={handleLogout}><Link to="/">Logout</Link></li>
-                ) : (
-                    <Link to="/login" className={`${styles.item} ${activePath === "/login" ? styles.activeTab : ""}`} onClick={closeNavBar}><li>Login</li></Link>
-                )}
+                            <li className={styles.item} onClick={handleLogout}><Link to="/">Logout</Link></li>
+                        ) : (
+                            <Link to="/login" className={`${styles.item} ${activePath === "/login" ? styles.activeTab : ""}`} onClick={closeNavBar}><li>Login</li></Link>
+                        )}
                     </ul>
                 </div>
             </nav>

@@ -28,20 +28,21 @@ import SubCategoryAdminDelete from "./Components/Admin/SubCategoryAdmin/SubCateg
 import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
 import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
+import ProductsView from "./Components/Home/BrowseProducts/ProductsView.js";
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
-import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import ProductAdminEdit from "./Components/Admin/ProductsAdmin/ProductAdminEdit.js";
 
 
 export default function App() {
   const isAdmin = false;
   const [products,setProducts] = useState([]);
+  const [itemsCount, setItemsCount] = useState(0);
   
   
   return (
     <div>
       <Router>
-        <DataContext.Provider value={{ products, setProducts }}>
+        <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount }}>
           {isAdmin ? <AdminHeader /> : <Header />}
           <Routes>
             <Route index element={<Home />} />
