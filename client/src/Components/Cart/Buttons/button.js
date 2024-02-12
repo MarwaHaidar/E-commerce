@@ -15,10 +15,10 @@ const ButtonLayout = ({ children }) => {
           type="submit"
           className={styles.button}
         >
-          Update Cart
+         CHECKOUT
         </button>
       </div>
-      <div style={{ marginTop: '30px', display: 'flex',alignItems: 'center',width: '50%'}}>
+      <div style={{ marginTop: '30px',marginBottom:'100px', display: 'flex',alignItems: 'center',width: '50%'}}>
       <input
           type="text"
           placeholder="Coupon Code"
