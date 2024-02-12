@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { SketchPicker } from "react-color";
-import axios from "axios";
-import styles from './AddProduct.module.css'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { SketchPicker } from 'react-color';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styles from './ProductAdminEdit.module.css'; // Import your styles
 
 const getAccessToken = () => {
   const getCookie = (name) => {
@@ -18,10 +19,12 @@ const getAccessToken = () => {
   };
   return getCookie('accessToken');
 };
-const AddProduct = () => {
+
+const ProductAdminEdit = () => {
+  const { id } = useParams();
   const [subcategories, setSubcategories] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
-  const [productId, setProductId] = useState(null); // New state to store the product ID
+
   useEffect(() => {
     // Fetch subcategories from your API endpoint
     const fetchSubcategories = async () => {
@@ -38,19 +41,77 @@ const AddProduct = () => {
   }, []);
 
   const [productData, setProductData] = useState({
-    name: "",
-    desc: "",
+    name: '',
+    desc: '',
     price: 0,
     variations: [],
-    subcategory: "",
+    subcategory: '',
     isFeatured: false,
-    images: [], // Add this line
+    images: [],
   });
+
+  useEffect(() => {
+    // Fetch the product data by ID
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/products/${id}`);
+        const fetchedProductData = response.data.data; // Assuming your API response structure
+        setProductData(fetchedProductData);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    };
+
+    fetchProductData();
+  }, [id]);
+  let accessToken = getAccessToken();
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/admin/products/${id}`,
+        
+        productData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+        }
+      );
+
+      console.log('Product updated successfully:', response.data);
+      toast.success('Product updated successfully');
+    } catch (error) {
+      console.error('Error updating product:', error.response.data.error);
+      toast.error('Error updating product');
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProductData((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
+
+  // const handleVariationChange = (
+  //   index,
+  //   field,
+  //   value,
+  //   colorIndex,
+  //   sizeIndex
+  // ) => {
+  //   setProductData((prevProduct) => {
+  //     const variations = [...prevProduct.variations];
+  //     if (colorIndex !== undefined && sizeIndex !== undefined) {
+  //       variations[index].colors[colorIndex].sizes[sizeIndex][field] = value;
+  //     } else if (colorIndex !== undefined) {
+  //       variations[index].colors[colorIndex][field] = value;
+  //     } else {
+  //       variations[index][field] = value;
+  //     }
+  //     return { ...prevProduct, variations };
+  //   });
+  // };
 
   const handleVariationChange = (
     index,
@@ -61,6 +122,7 @@ const AddProduct = () => {
   ) => {
     setProductData((prevProduct) => {
       const variations = [...prevProduct.variations];
+  
       if (colorIndex !== undefined && sizeIndex !== undefined) {
         variations[index].colors[colorIndex].sizes[sizeIndex][field] = value;
       } else if (colorIndex !== undefined) {
@@ -68,10 +130,29 @@ const AddProduct = () => {
       } else {
         variations[index][field] = value;
       }
+  
+      // Ensure that all predefined sizes are present
+      variations.forEach((variation) => {
+        variation.colors.forEach((color) => {
+          ['small', 'medium', 'large'].forEach((size) => {
+            const existingSize = color.sizes.find((s) => s.size === size);
+            if (!existingSize) {
+              color.sizes.push({ size, quantitySizes: 0 });
+            }
+          });
+  
+          // Remove any extra sizes not in predefined list
+          color.sizes = color.sizes.filter((size) =>
+            ['small', 'medium', 'large'].includes(size.size)
+          );
+        });
+      });
+  
       return { ...prevProduct, variations };
     });
   };
-
+  
+  
   const addVariation = () => {
     setProductData((prevProduct) => ({
       ...prevProduct,
@@ -91,25 +172,23 @@ const AddProduct = () => {
     setProductData((prevProduct) => {
       const variations = [...prevProduct.variations];
       const newColor = {
-        color: "",
-        quantity: "",
+        color: '',
+        quantity: '',
         sizes: [
-          { size: "small", quantitySizes: 0 },
-          { size: "medium", quantitySizes: 0 },
-          { size: "large", quantitySizes: 0 },
+          { size: 'small', quantitySizes: 0 },
+          { size: 'medium', quantitySizes: 0 },
+          { size: 'large', quantitySizes: 0 },
         ],
       };
 
-      // Check if the colors array is empty or the last color is not empty
       if (
         variations[variationIndex].colors.length === 0 ||
         variations[variationIndex].colors[
           variations[variationIndex].colors.length - 1
-        ].color !== ""
+        ].color !== ''
       ) {
         variations[variationIndex].colors.push(newColor);
       } else {
-        // Replace the last color if it is empty
         variations[variationIndex].colors[
           variations[variationIndex].colors.length - 1
         ] = newColor;
@@ -127,165 +206,74 @@ const AddProduct = () => {
     });
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("Product:", productData); // Log the state to debug
-  //   // Implement API call here
-  // };
-  let accessToken = getAccessToken();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    const imagesArray = files.map((file) => {
+      const reader = new FileReader();
+
+      return new Promise((resolve) => {
+        reader.onload = (e) => {
+          resolve({
+            file,
+            preview: e.target.result,
+          });
+        };
+
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(imagesArray).then((images) => {
+      setProductData((prevProduct) => ({
+        ...prevProduct,
+        images: [...prevProduct.images, ...images.map((image) => image.file)],
+      }));
+    });
+  };
+
+  const addImage = () => {
+    setProductData((prevProduct) => {
+      const updatedImages = [...prevProduct.images, ...selectedImages.map((image) => image.file)];
+      return { ...prevProduct, images: updatedImages };
+    });
+  };
+
   
+  const updateProduct = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/admin/product",
-        JSON.stringify(productData),
+      const formData = new FormData();
+      productData.images.forEach((image, index) => {
+        formData.append('images', image);
+      });
+
+      const response = await axios.put(
+        `http://localhost:5000/admin/productsImage/${id}`,
+        
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${accessToken}`
           },
           withCredentials: true
         }
       );
-  
-      // Assuming the product ID is included in the response data
-      const productId = response.data.data._id;
-      console.log("Product created successfully with ID:", productId);
-      setProductId(response.data.data._id);
-      toast.success('Choose Images');
-    
+
+      console.log('Product images added successfully:', response.data);
+      toast.success('Product images added successfully');
     } catch (error) {
-      console.error("Error creating product:", error.response.data.error);
+      console.error('Error updating product images:', error.response.data.error);
+      toast.error('Error updating product images');
     }
+
+    setSelectedImages([]);
   };
-  
-
-  // const handleImageChange = (e) => {
-  //   const files = Array.from(e.target.files);
-
-  //   const imagesArray = files.map((file) => {
-  //     const reader = new FileReader();
-
-  //     return new Promise((resolve) => {
-  //       reader.onload = (e) => {
-  //         resolve({
-  //           file,
-  //           preview: e.target.result,
-  //         });
-  //       };
-
-  //       reader.readAsDataURL(file);
-  //     });
-  //   });
-
-  //   Promise.all(imagesArray).then((images) => {
-  //     setSelectedImages(images);
-  //   });
-  // };
-
-  // const addImage = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     selectedImages.forEach((image) => {
-  //       formData.append("images", image.file);
-  //     });
-
-  //     // Update product data
-  //     formData.append("name", productData.name);
-  //     formData.append("desc", productData.desc);
-  //     formData.append("price", productData.price);
-  //     formData.append("subcategory", productData.subcategory);
-  //     formData.append("isFeatured", productData.isFeatured);
-
-  //     // Send the updated data to the server
-  //     const response = await axios.put(
-  //       `http://localhost:5000/admin/products/${productId}`, // Replace with the actual product ID
-  //       formData,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Product updated successfully:", response.data);
-  //   } catch (error) {
-  //     console.error("Error updating product:", error.response.data.error);
-  //   }
-
-  //   setSelectedImages([]);
-  // };
-
-  // Function to handle image change
-const handleImageChange = (e) => {
-  const files = Array.from(e.target.files);
-
-  const imagesArray = files.map((file) => {
-    const reader = new FileReader();
-
-    return new Promise((resolve) => {
-      reader.onload = (e) => {
-        resolve({
-          file,
-          preview: e.target.result,
-        });
-      };
-
-      reader.readAsDataURL(file);
-    });
-  });
-
-  Promise.all(imagesArray).then((images) => {
-    setSelectedImages(images);
-  });
-};
-
-// Function to add selected images to the product data
-const addImage = () => {
-  setProductData((prevProduct) => {
-    const updatedImages = [...prevProduct.images, ...selectedImages.map((image) => image.file)];
-    return { ...prevProduct, images: updatedImages };
-  });
-
-  setSelectedImages([]);
-};
-
-// Function to update the product with images
-// Function to update the product with images
-const updateProduct = async () => {
-  try {
-    const formData = new FormData();
-    productData.images.forEach((image, index) => {
-      formData.append("images", image); // Use "images" as the key
-    });
-
-    const response = await axios.put(
-      `http://localhost:5000/admin/productsImage/${productId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`
-        },
-        withCredentials: true
-      }
-    );
-    toast.success('Product added successfully');
-    console.log("Product images added successfully:", response.data);
-  } catch (error) {
-    console.error("Error updating product images:", error.response.data.error);
-  }
-
-  // Clear the selected images array after updating
-  setSelectedImages([]);
-};
-
   return (
     <div> <ToastContainer />
     <div className={` mx-auto ${styles.AddProductMain}`}>
-      <form onSubmit={handleSubmit} className={`space-y-4 ${styles.formcontainerAddPr}`}>
-      <h2 className="text-2xl font-semibold mb-4">Add Product</h2>
+      <form onSubmit={handleUpdate} className={`space-y-4 ${styles.formcontainerAddPr}`}>
+      <h2 className="text-2xl font-semibold mb-4">Update Product</h2>
         <div>
           <label
             htmlFor="name"
@@ -496,7 +484,7 @@ const updateProduct = async () => {
             type="submit"
             className={`bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-300 ${styles.formButtonAddPr}`}
           >
-            Add Product
+            Update Product
           </button>
         </div>
         
@@ -558,4 +546,4 @@ const updateProduct = async () => {
   );
 };
 
-export default AddProduct;
+export default ProductAdminEdit;

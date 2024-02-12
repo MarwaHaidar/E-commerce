@@ -1,7 +1,7 @@
 import express from 'express';
 import upload from '../controllers/imageuploadcontroller.js';
 import { filterSortProducts, searchProducts } from '../controllers/searchfiltercontroller.js';
-import { createProduct, getproducts, getproduct, updateproduct, deleteproduct ,FeaturedProducts} from '../controllers/productcontroller.js'
+import { createProduct, getproducts, getproduct, updateproduct,updateproductImage, deleteproduct ,FeaturedProducts} from '../controllers/productcontroller.js'
 import { validateToken,validateTokenForAdmin } from '../Middleware/validateTokenHandler.js';
 
 
@@ -17,6 +17,12 @@ router.put('/admin/products/:id',
 validateToken,validateTokenForAdmin ,
  upload.array("images"),
   updateproduct);
+
+  router.put('/admin/productsImage/:id',
+// validateToken,validateTokenForAdmin ,
+ upload.array("images"),
+ updateproductImage);
+
 
   router.delete('/admin/products/:id',
   validateToken,validateTokenForAdmin,
