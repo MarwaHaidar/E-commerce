@@ -44,6 +44,8 @@ const ProductAdminEdit = () => {
     name: '',
     desc: '',
     price: 0,
+    discountPercentage :0,
+    priceAfterDiscount: 0,
     variations: [],
     subcategory: '',
     isFeatured: false,
@@ -323,6 +325,45 @@ const ProductAdminEdit = () => {
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             required
           />
+        </div>
+        <div>
+
+
+          <div className='flex ml-2'>
+          <label
+            htmlFor="discountPercentage"
+            className="block text-sm font-medium text-gray-600"
+          >
+          discountPercentage %
+          </label>
+          <label
+            htmlFor="priceAfterDiscount"
+            className="block text-sm font-medium text-gray-600 ml-20"
+          >
+          priceAfterDiscount
+          </label>
+          </div>
+
+
+          <div className='flex'>
+          <input
+            type="number"
+            id="discountPercentage"
+            name="discountPercentage"
+            // value={productData.discountPercentage}
+            onChange={handleChange}
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            required
+          />
+              <input
+                type="text"
+                id="priceAfterDiscount"
+                name="priceAfterDiscount"
+                value={productData.priceAfterDiscount}
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                readOnly
+            />
+        </div>
         </div>
 
         {/* Variations section */}

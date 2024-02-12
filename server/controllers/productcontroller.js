@@ -50,8 +50,8 @@ variations.forEach((variation) => {
   const name = req.body.name;
   const desc = req.body.desc;
   const price = req.body.price;
-  // const discountPercentage = req.body.discountPercentage;
-  // const priceAfterDiscount = price - (price * discountPercentage) / 100;
+  const discountPercentage = parseInt(req.body.discountPercentage);
+  const priceAfterDiscount = parseInt(price - (price * discountPercentage) / 100);
   // const currency = req.body.currency;
   const subcategory = req.body.subcategory;
   const isFeatured = req.body.isFeatured;
@@ -72,7 +72,7 @@ variations.forEach((variation) => {
     imageCover,
     isFeatured,
     totalQuantityProducts,
-    // priceAfterDiscount,
+    priceAfterDiscount,
   });
   res.status(201).json({ data: product });
 });
@@ -185,8 +185,8 @@ const updateproduct = asyncHandler(async (req, res) => {
   const { name } = req.body;
   const { desc } = req.body;
   const { price } = req.body;
-  // const { discountPercentage } = req.body;
-  // const { priceAfterDiscount } = price - (price * discountPercentage) / 100;
+  const discountPercentage = parseInt(req.body.discountPercentage);
+  const priceAfterDiscount = parseInt(price - (price * discountPercentage) / 100);
   // const { currency } = req.body;
   const { subcategory } = req.body;
   const { isFeatured } = req.body;
@@ -212,7 +212,7 @@ const updateproduct = asyncHandler(async (req, res) => {
     imageCover,
     isFeatured,
     totalQuantityProducts,
-    // priceAfterDiscount,
+    priceAfterDiscount,
     },
     { new: true }
   );
