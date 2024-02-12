@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import DataContext from '../../Context.js';
-import ProductCard from "./ProductCard.js";
+import ProductCard from './productcard.js';
 import Pagination from './Pagination.js';
 import FilterBox from '../slider/FilterableMenu.js';
 import { FaFilter } from "react-icons/fa6";
