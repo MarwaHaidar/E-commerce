@@ -6,6 +6,7 @@
 .siteBarBackground{
     background-color: white;
     width:350px;
+    height: 92%;
     border-right: 1px solid rgba(148, 144, 144, 0.54);
 }
 .siteBarMainTopic{
@@ -71,10 +72,23 @@ margin-left: 5px;
   .Adddropdown a:hover {
     background-color: #2C666E;
   }
+
+
+
   .sitBarBox {
     max-height: 430px; /* Adjust the height as needed */
     overflow-y: auto;
 }
+
+.sitBarBox::-webkit-scrollbar {
+    width: 12px; 
+}
+.sitBarBox::-webkit-scrollbar-thumb {
+    background-color:  #07393C; 
+    border-radius: 10px;
+}
+
+
   /* Category List styling */
 .siteBarTopic {
     display: flex;

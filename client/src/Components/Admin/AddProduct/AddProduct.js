@@ -42,6 +42,7 @@ const AddProduct = () => {
     desc: "",
     price: 0,
     variations: [],
+    discountPercentage :0,
     subcategory: "",
     isFeatured: false,
     images: [], // Add this line
@@ -336,7 +337,24 @@ const updateProduct = async () => {
             required
           />
         </div>
-
+        <div>
+          <label
+            htmlFor="discountPercentage"
+            className="block text-sm font-medium text-gray-600"
+          >
+          discountPercentage %
+          </label>
+          <input
+            type="number"
+            id="discountPercentage"
+            name="discountPercentage"
+            value={productData.discountPercentage}
+            onChange={handleChange}
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            required
+          />
+        </div>
+        
         {/* Variations section */}
         {productData.variations.map((variation, variationIndex) => (
           <div key={variationIndex} className={`${styles.VariationContainer} ${styles.spaceY2}`}>
