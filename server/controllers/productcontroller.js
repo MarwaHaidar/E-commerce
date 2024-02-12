@@ -19,19 +19,30 @@ const createProduct = asyncHandler(async (req, res) => {
   //----------------------------------
 
   const variations = req.body.variations;
-  var sumQuantitySizes;
-  var totalQuantity = [];
+var sumQuantitySizes;
+var totalQuantity = [];
 
-  variations.forEach((variation) => {
-    variation.colors.forEach((color) => {
-      sumQuantitySizes = color.sizes.reduce(
-        (sum, size) => sum + parseInt(size.quantitySizes, 10),
-        0
-      );
-      color.quantity = sumQuantitySizes; // quantity
-      totalQuantity.push(sumQuantitySizes);
+variations.forEach((variation) => {
+  variation.colors.forEach((color) => {
+    sumQuantitySizes = color.sizes.reduce(
+      (sum, size) => sum + parseInt(size.quantitySizes, 10),
+      0
+    );
+    color.quantity = sumQuantitySizes; // quantity
+    totalQuantity.push(sumQuantitySizes);
+
+    // Ensure 'enum' is populated with size values
+    color.sizes.forEach((size) => {
+      size.enum = [size.size];
     });
+
+    // Log the sizes array for verification
+    console.log('Sizes Array:', color.sizes);
   });
+});
+
+// Rest of your code...
+
   const sumQuantity = totalQuantity.reduce((acc, current) => acc + current, 0); // totalQuantity
   console.log(sumQuantity);
   //----------------------------------
@@ -93,13 +104,23 @@ export { createProduct };
 
 // get all products
 const getproducts = asyncHandler(async (req, res) => {
-  const page = req.query.page * 1 || 1; // req.query: take data from url not from req body, *1 to change it from string to number
-  const limit = req.query.limit * 1 || 5; // in selected page give 5 categories
+  const page = req.query.page * 1 || 1;
+  const limit = req.query.limit * 1 || 18;
   const skip = (page - 1) * limit;
-  const products = await Product.find({})
+
+  let filterObject = {};
+  
+  if (req.params.id) {
+    // Assuming the ID in the route parameter can be either category or subcategory
+    filterObject = { // get the id of category from params
+      subcategory: req.params.id
+  }
+  }
+  console.log( filterObject)
+
+  const products = await Product.find(filterObject)
     .skip(skip)
     .limit(limit)
-    // .populate({path:'currency',select:'symbol-_id'})
     .populate({ path: "subcategory", select: "name-_id" })
     .sort({ dateOrdered: -1 });
 
@@ -107,6 +128,7 @@ const getproducts = asyncHandler(async (req, res) => {
 });
 
 export { getproducts };
+
 
 // get specific product
 

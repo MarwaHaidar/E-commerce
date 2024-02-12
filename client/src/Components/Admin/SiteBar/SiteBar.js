@@ -9,6 +9,20 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
+};
+
 function SiteBar() {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState({});
@@ -49,12 +63,19 @@ function SiteBar() {
     }
   }, [selectedCategoryId, subcategories]);
 
-
+  let accessToken = getAccessToken();
   const handleDeleteClick = async (categoryID) => {
     try {
       const confirmed = window.confirm('Are you sure you want to delete this category?');
       if (confirmed) {
-        await axios.delete(`http://localhost:5000/admin/categories/${categoryID}`);
+        await axios.delete(`http://localhost:5000/admin/categories/${categoryID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+        }
+        );
         setCategories((prevCategories) =>
           prevCategories.filter((category) => category._id !== categoryID)
         );
@@ -70,7 +91,14 @@ function SiteBar() {
     try {
       const confirmed = window.confirm('Are you sure you want to delete this Subcategory?');
       if (confirmed) {
-        await axios.delete(`http://localhost:5000/admin/subcategories/${subcategoryID}`);
+        await axios.delete(`http://localhost:5000/admin/subcategories/${subcategoryID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+        }
+        );
         setSubcategories((prevSubcategories) => {
           const updatedSubcategories = { ...prevSubcategories };
           if (updatedSubcategories[selectedCategoryId]) {
@@ -88,10 +116,12 @@ function SiteBar() {
     }
   };
   
+
+
 return (
   <div>
     <ToastContainer />
-    <div className="flex h-screen bg-gray-200">
+    <div className={`flex h-screen bg-gray-200" ${styles.SiteBarAdmin}`}>
       <aside className={`w-64 bg-gray-800 text-white ${styles.siteBarBackground}`}>
         <div className="p-4">
 
@@ -113,10 +143,10 @@ return (
          
             <h2 className={`text-xl font-bold ml-4 ${styles.siteBarMainTopic}`}>Main Topics</h2>
         
-        <ul>
+        <ul className={styles.sitBarBox}>
           {categories &&
             categories.map((category) => (
-              <li key={category._id} className="py-2 px-4 cursor-pointer">
+              <li key={category._id} className={`py-2 px-4 cursor-pointer `}>
                 <div onClick={() => toggleDropdown(category._id)} className={styles.siteBarTopic}>
                   <IoIosArrowDropdown className={styles.siteBarIcons} />
                   {category.name}
@@ -136,7 +166,7 @@ return (
                         <li key={subcategory._id} className="py-2 ml-4 flex " >
                           {subcategory.name}
                           <div className={styles.crudoperationSiteBar}>
-                          <Link to={`/admin/allproducts/`}><AiOutlineLogin className={styles.iconSize} /></Link>
+                          <Link to={`/admin/allproducts/${subcategory._id}`}><AiOutlineLogin className={styles.iconSize} /></Link>
                             <Link to={`/admin/editsubCat/${subcategory._id}`}><FaRegEdit className={styles.iconSize} /></Link>
                             <Link to={`/admin/`}
                             onClick={() => handleDeleteClickSub(subcategory._id)}><MdDeleteForever  className={styles.iconSize}/> </Link> 
@@ -149,10 +179,6 @@ return (
             ))}
         </ul>
       </aside>
-
-      <div className="flex-1 p-4">
-        <h1>Main Content</h1>
-      </div>
     </div>
     </div>
   );

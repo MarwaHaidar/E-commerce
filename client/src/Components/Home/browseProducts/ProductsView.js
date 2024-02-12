@@ -23,8 +23,7 @@ const ProductsView = () => {
     const totalProducts = products ? products.length : 0;
     const startIndex = currentPage * productsPerPage;
     const endIndex = startIndex + productsPerPage;
-    // const currentProducts = products ? products.slice(startIndex, endIndex) : [];
-    // const currentProducts = products ? products.results.slice(startIndex, endIndex) : [];
+
     let currentProducts;
     if (Array.isArray(products)) {
         currentProducts = products ? products.slice(startIndex, endIndex) : [];

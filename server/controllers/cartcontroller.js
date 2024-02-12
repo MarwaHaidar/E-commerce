@@ -1,6 +1,10 @@
+//import { ObjectId } from "mongodb";
 import Cart from "../models/cart.js";
 import Product from '../models/product.js';
 import asyncHandler from 'express-async-handler';
+import { Types } from 'mongoose';
+
+const { ObjectId } = Types;
 // import { validateToken } from '../Middleware/validateTokenHandler.js';
 
 
@@ -27,7 +31,7 @@ const addToCart = asyncHandler(async (req, res) => {
       price,
       currency
   }];
-  
+
   let cart = await Cart.findOne({ userId });
   try {
       if (!cart) {
@@ -69,17 +73,23 @@ export { addToCart };
 
 // get user cart
 const getCart = asyncHandler(async (req, res) => {
-try {
-      const { userId } = req.params;
-      console.log(userId);
-      let cart = await Cart.findOne({ id: userId });
-      let count = cart.items.length
-      res.status(200).json({result: count, data: cart });
-} catch (error) {
-    console.error(error)
-}
-});
+  console.log("Hello world");
+  try {
+    let cart = await Cart.findOne({ userId:req.user.id }); // No need for additional conversion
 
+    if (!cart) {
+      // Handle case where cart is not found for the user
+      return res.status(400).json({ message: "Cart not found" });
+    }
+
+    let count = cart.items.length;
+    res.status(200).json({ result: count, data: cart });
+  } catch (error) {
+    console.error(error);
+    console.log(userid)
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 export { getCart };
 
@@ -95,11 +105,11 @@ const updateCart = asyncHandler(async (req, res) => {
         { $set: { 'items.$.quantity': newQuantity } },
         { new: true }
       );
-  
+
       if (!updatedCart) {
         return res.status(404).json({ message: 'Cart not found or product not in cart' });
       }
-  
+
       res.status(200).json({ message: 'Quantity updated successfully', data: updatedCart });
     } catch (error) {
       console.error(error);
@@ -114,25 +124,25 @@ export { updateCart };
 // delete a product from cart
 const deleteItem = async (req, res) => {
     const { userId, productId } = req.body;
-  
+
     try {
       const newCart = await Cart.findOneAndUpdate(
         { userId },
         { $pull: { items: { productId } } },
         { new: true }
       );
-  
+
       if (!newCart) {
         return res.status(404).json({ message: 'Cart not found or product not in cart' });
       }
-  
+
       res.status(200).json({ message: 'Product deleted from cart successfully', data: newCart });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
   };
-  
+
 export  { deleteItem };
 
 const clearitems = async (req, res) => {
