@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styles from './ProductCardAdmin.module.css';
+import { Link } from 'react-router-dom';
 
 
-const ProductCardAdmin = ({ name, desc, price, priceAfterDiscount, images, variations, subcategory, isFeatured, totalQuantityProducts, createdAt, imageCover,onDelete}) => {
+const ProductCardAdmin = ({_id ,name, desc, price, priceAfterDiscount, images, variations, subcategory, isFeatured, totalQuantityProducts, createdAt, imageCover,onDelete}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showVariations, setShowVariations] = useState(false);
 
-
+console.log("id is ", _id)
   const openOverlay = (index) => {
     setSelectedImage(index);
   };
@@ -140,7 +141,7 @@ const ProductCardAdmin = ({ name, desc, price, priceAfterDiscount, images, varia
         )}
       </div>
       <div className={styles.editDelteCon}>
-      <button  className={styles.btnEditAdmin}>edit</button>
+      <Link to={`/admin/editproduct/${_id}`} ><button  className={styles.btnEditAdmin}>edit</button> </Link>
       <button onClick={onDelete} className={styles.btnDeleteAdmin}>
         delete
       </button>

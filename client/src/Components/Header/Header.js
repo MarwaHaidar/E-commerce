@@ -29,7 +29,7 @@ const getAccessToken = () => {
 
 
 const Header = () => {
-  const { setProducts } = useContext(DataContext);
+  const { setProducts, itemsCount } = useContext(DataContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -90,8 +90,7 @@ const Header = () => {
       const searchedProducts = response.data.products;
       setSearchResults(searchedProducts);
       setProducts(searchedProducts);
-      console.log("header component :", searchedProducts) // this could be more than one product in case multiple products have the same name
-      console.log("after fetch (logginf DataContext in header component): ", typeof (DataContext))
+      console.log("header component :", searchedProducts)
       setShowSuggestions(false);
       navigate(`/products/search?q=${searchQuery}`)
     } catch (error) {
@@ -150,7 +149,12 @@ const Header = () => {
           </ul>
 
           <Link to="/wishlist" className={styles.link}>
-            <FiHeart className={styles.wishIcon} />
+            <div className={styles.wishIconContainer}>
+              <div className="indicator relative">
+                <span className="indicator-item badge absolute text-sm w-5 text-center right-4 bottom-0 rounded-full bg-red-500 text-white">{itemsCount}</span>
+              </div>
+              <FiHeart className={styles.wishIcon} />
+            </div>
           </Link>
           <Link to="/cart" className={styles.link}>
             <FiShoppingCart className={styles.shopCartIcon} />
