@@ -18,6 +18,7 @@ const getAccessToken = () => {
   };
   return getCookie('accessToken');
 
+
 };
 
 
@@ -39,42 +40,47 @@ const ProductDetails = () => {
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
   };
-  let accessToken = getAccessToken();
-  const handleAddToCart = async () => {
+let accessToken = getAccessToken();
+const handleAddToCart = async () => {
 
 
-    try {
-      console.log('selected size:', selectedSize['enum'][0]);
-      const response = await axios.post(
-        'http://localhost:5000/user/cart',
-        {
-          productId: productId,
-          quantity: 1,
-          currency: 'USD',
-          color: selectedColor.color,
-          size: selectedSize['enum'][0],
+  try {
+    console.log('selected size:', selectedSize['enum'][0]);
+    const response = await axios.post(
+      'http://localhost:5000/cart/user/cart',
+      {
+        productId: productId,
+        quantity: 1,
+        currency:'USD',
+        color: selectedColor.color,
+        size: selectedSize['enum'][0],
+        
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
         },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          },
-          withCredentials: true
+        withCredentials: true
 
-        }
-      );
+      }
+    );
 
-      console.log('Product added to cart:', response.data);
-      console.log(accessToken)
-      console.log(selectedSize['enum'][0])
-      console.log(selectedColor.color)
-      // console.log(selectedSize.enum)
+    //  console.log('Product added to cart:', response.data);
+    // console.log(accessToken )
+    // console.log(selectedSize['enum'][0])
+    // console.log(selectedColor.color)
+    // console.log(response.data.userId)
+    let userrid=response.data.cart.userId
+    console.log("user id " ,userrid)
 
-    } catch (error) {
 
-      console.log(selectedColor)
-      console.error('Error adding product to cart:', error);
-    }
-  };
+
+  } catch (error) {
+
+
+    console.error('Error adding product to cart:', error);
+  }
+};
 
 
 

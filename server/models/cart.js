@@ -1,6 +1,8 @@
 
 import { Schema, model } from 'mongoose';
 
+
+
 const cartSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
@@ -40,6 +42,10 @@ const cartSchema = new Schema({
       color:{
         type:String,
         required:true
+      },
+      image:{
+        type:String,
+        required:false
       }
     }
   ],

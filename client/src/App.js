@@ -28,7 +28,7 @@ import SubCategoryAdminDelete from "./Components/Admin/SubCategoryAdmin/SubCateg
 import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
 import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
-import ProductsView from "./Components/Home/BrowseProducts/ProductsView.js";
+import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
 
 
@@ -47,7 +47,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/cart/" element={<Cart />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/forgetpassword" element={<ForgetPass />} />
             <Route path="/resetpassword" element={<ResetPass />} />
