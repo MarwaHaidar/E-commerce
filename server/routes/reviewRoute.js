@@ -4,7 +4,7 @@ import { validateToken, validateTokenForAdmin } from '../Middleware/validateToke
 
 const router = express.Router();
 
-router.post('/user/review', createReview)
+router.post('/user/review',validateToken, createReview)
 router.get('/reviews/product-reviews/:productId', getProductreview)
 router.get('/reviews', getreviews)
 

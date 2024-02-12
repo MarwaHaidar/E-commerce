@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import axios from 'axios'
+import DataContext from '../Context';
 //------------------------------------------------------------------------------------------------
 const getAccessToken = () => {
   const getCookie = (name) => {
@@ -17,6 +18,7 @@ const getAccessToken = () => {
   };
   return getCookie('accessToken');
 
+
 };
 
 
@@ -29,11 +31,11 @@ function classNames(...classes) {
 }
 
 const ProductDetails = () => {
+  const { products, setProducts } = useContext(DataContext);
+  //==========================================================================================
 
-//==========================================================================================
-
-const [selectedColor, setSelectedColor] = useState(null);
-const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
@@ -52,6 +54,7 @@ const handleAddToCart = async () => {
         currency:'USD',
         color: selectedColor.color,
         size: selectedSize['enum'][0],
+        
       },
       {
         // headers: {
@@ -220,67 +223,65 @@ const handleAddToCart = async () => {
             </div>
 
             <form className="mt-10">
-      {/* Colors */}
-      <div>
-        <h3 className="text-sm font-medium text-gray-900">Color</h3>
-        <div className="flex items-center space-x-3">
-          {product.variations && product.variations.flatMap(variation => variation.colors).map((color, index) => (
-            <div
-              key={`${color.color}-${index}`}
-              className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ${
-                selectedColor && selectedColor.color === color.color ? 'ring ring-offset-1' : ''
-              }`}
-              onClick={() => handleColorSelect(color)}
-            >
-              <span
-                aria-hidden="true"
-                className="h-8 w-8 rounded-full border border-black border-opacity-10"
-                style={{ backgroundColor: color.color }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Sizes */}
-      <div className="mt-10">
-        <h3 className="text-sm font-medium text-gray-900">Size</h3>
-        <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-          {/* Filter sizes based on the selected color */}
-          {selectedColor &&
-            product.variations.flatMap(variation => variation.colors)
-              .find(c => c.color === selectedColor.color)
-              .sizes.map((size, index) => (
-                <div
-                key={`${size}-${index}`}
-                className={`group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase ${
-                  size.quantitySizes > 0
-                    ? 'cursor-pointer bg-white text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none'
-                    : 'cursor-not-allowed bg-gray-50 text-gray-200'
-                } ${selectedSize === size ? 'ring-2 ring-indigo-500' : ''}`}
-                onClick={() => handleSizeSelect(size)}
-              >
-                  {size.enum}
-                  {size.quantitySizes <= 0 && (
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+              {/* Colors */}
+              <div>
+                <h3 className="text-sm font-medium mb-3 text-gray-900">Color</h3>
+                <div className="flex items-center space-x-3">
+                  {product.variations && product.variations.flatMap(variation => variation.colors).map((color, index) => (
+                    <div
+                      key={`${color.color}-${index}`}
+                      className={`relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ${selectedColor && selectedColor.color === color.color ? 'ring ring-offset-1' : ''
+                        }`}
+                      onClick={() => handleColorSelect(color)}
                     >
-                      <svg
-                        className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                        viewBox="0 0 100 100"
-                        preserveAspectRatio="none"
-                        stroke="currentColor"
-                      >
-                        <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                      </svg>
-                    </span>
-                  )}
+                      <span
+                        aria-hidden="true"
+                        className="h-8 w-8 rounded-full border border-black border-opacity-10"
+                        style={{ backgroundColor: color.color }}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-        </div>
-      </div>
-    </form>
+              </div>
+
+              {/* Sizes */}
+              <div className="mt-10">
+                <h3 className="text-sm font-medium mb-3 text-gray-900">Size</h3>
+                <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                  {/* Filter sizes based on the selected color */}
+                  {selectedColor &&
+                    product.variations.flatMap(variation => variation.colors)
+                      .find(c => c.color === selectedColor.color)
+                      .sizes.map((size, index) => (
+                        <div
+                          key={`${size}-${index}`}
+                          className={`group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase ${size.quantitySizes > 0
+                            ? 'cursor-pointer bg-white text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none'
+                            : 'cursor-not-allowed bg-gray-50 text-gray-200'
+                            } ${selectedSize === size ? 'ring-2 ring-indigo-500' : ''}`}
+                          onClick={() => handleSizeSelect(size)}
+                        >
+                          {size.enum}
+                          {size.quantitySizes <= 0 && (
+                            <span
+                              aria-hidden="true"
+                              className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                            >
+                              <svg
+                                className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                                viewBox="0 0 100 100"
+                                preserveAspectRatio="none"
+                                stroke="currentColor"
+                              >
+                                <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
+                              </svg>
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                </div>
+              </div>
+            </form>
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">

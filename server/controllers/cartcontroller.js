@@ -32,7 +32,7 @@ const addToCart = asyncHandler(async (req, res) => {
       currency
   }];
 
-  let cart = await Cart.findOne({ userId });
+  let cart = await Cart.findOne({ userId});
   try {
       if (!cart) {
           cart = await Cart.create({ userId, items });

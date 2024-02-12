@@ -18,6 +18,7 @@
 //     .then((response) => {
 //       const itemsData = response.data;
 //       setCartItems(itemsData);
+//       console.log(response.data)
 //     })
 //     .catch(error => console.error("Error fetching cart data:", error));
 
@@ -85,34 +86,42 @@
 //   //   // Update the cart by adding the new product
 //   //   setCart([...cart, productToAdd]);
 //   // };
-
-//   return (
+//    {
+//     items.length>0?items.map((item)=>{
+//        return (
 //     <div className={styles.flashsale}>
-//       <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'white', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', width: '83%' }}>
-//         <div style={{ display: 'flex', flexDirection: 'row' }}>
-//           {imageSrc && <img src={imageSrc} alt={name} style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }} />}
-//           <div style={{ marginTop:'30px'}}>{name}</div>
-//         </div>
-//         <div>{color}</div>
-//         <div>{size}</div>
-//         <div>${Number(price).toFixed(2)}</div>
+//     <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'white', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', width: '83%' }}>
+//       <div style={{ display: 'flex', flexDirection: 'row' }}>
+//         {imageSrc && <img src={imageSrc} alt={name} style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }} />}
+//         <div style={{ marginTop:'30px'}}>{item.productName}</div>
+//       </div>
+//       <div>{item.color}</div>
+//       <div>{item.size}</div>
+//       <div>${item.price+" "+item.currency}</div>
 
-//         <div>
-//           <input
-//             style={{ width: '50px', textAlign: 'center', marginLeft: '10px', border: '2px solid black' }}
-//             type="number"
-//             value={quantity}
-//             min="1"
-//             onChange={handleQuantityChange}
-//           />
-//         </div>
-//         <div>${Number(subTotal).toFixed(2)}</div>
-//         <div>
-//           {/* <button onClick={handleAddToCart}>Add to Cart</button> */}
-//         </div>
+//       <div>
+//         <input
+//           style={{ width: '50px', textAlign: 'center', marginLeft: '10px', border: '2px solid black' }}
+//           type="number"
+//           value={quantity}
+//           min="1"
+//           onChange={handleQuantityChange}
+//         />
+//       </div>
+//       <div>${Number(subTotal).toFixed(2)}</div>
+//       <div>
+//         {/* <button onClick={handleAddToCart}>Add to Cart</button> */}
 //       </div>
 //     </div>
-//   );
+//   </div>
+// );
+//     })
+//     :
+//     <div>No Products Found!</div>
+//   }
 // };
+ 
+
+
 
 // export default ProductCard;
