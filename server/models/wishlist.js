@@ -14,7 +14,8 @@ const wishlistSchema = new Schema({
         required: true
       },
       productName: { type: String, required: true },
-    }
+      image: { type: String, required: true }
+    },
   ],
 });
 
