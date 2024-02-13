@@ -5,17 +5,16 @@ import Pagination from './Pagination.js';
 import FilterBox from '../slider/FilterableMenu.js';
 import { FaFilter } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
+import axios from 'axios';
 
 
 const ProductsView = () => {
-    console.log("rendered")
-    const { products, setProducts } = useContext(DataContext);
-    console.log(products)
+    const { products, setProducts, setProductInWishlist, setItemsCount } = useContext(DataContext);
     const [currentPage, setCurrentPage] = useState(0);
     const [filterBoxVisible, setFilterBoxVisible] = useState(false);
     const [filterIconVisible, setFilterIconVisible] = useState(true);
 
-    console.log("Type of products:", Array.isArray(products));
+
 
 
     // Check if products is undefined before accessing its properties
@@ -47,20 +46,61 @@ const ProductsView = () => {
         setFilterIconVisible(true);
     };
 
+    const userId = '65a8f6cff242b58ff5272d12';
+    const addToWishList = (productId) => {
+        console.log("invoked")
+        axios.post('http://localhost:5000/user/wishlist', {
+            userId,
+            productId
+        })
+            .then(response => {
+                console.log('Item added successfully:', response);
+                setProductInWishlist(prevProducts => prevProducts.filter(product => product.productId !== products.productId));
+                axios.get(`http://localhost:5000/user/wishlist/${userId}`)
+                    .then(response => {
+                        const count = response.data.result;
+                        console.log("Wishlist count:", count);
+                        setItemsCount(count);
+                        console.log("Items count updated:", count);
+                    })
+                    .catch(error => {
+                        console.error("Error fetching wishlist count:", error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error adding item:', error);
+                // Handle the error appropriately
+            });
+    }
+
+
+
+
     useEffect(() => {
+
         const retrievedData = window.localStorage.getItem("retrieved-products");
         if (retrievedData) {
             const parsedData = JSON.parse(retrievedData);
-            setProducts(parsedData);
+
+            if (!products || (Array.isArray(products) && products.length === 0)) {
+                setProducts(parsedData);
+            }
         }
-    }, []);
+    }, [setProducts, products]);
 
 
     useEffect(() => {
+        if (products && products.length > 0) {
+            window.localStorage.setItem("retrieved-products", JSON.stringify(products));
+            console.log("Products stored in localStorage");
+        }
+    }, [products]);
 
-        window.localStorage.setItem("retrieved-products", JSON.stringify(products));
-        console.log("Products stored in localStorage");
-    }, [products]); // This useEffect runs whenever products state changes
+
+
+
+
+
 
 
 
@@ -74,7 +114,7 @@ const ProductsView = () => {
                     <FilterBox />
                 </div>
 
-                <ProductCard products={currentProducts} />
+                <ProductCard products={currentProducts} addToWishList={addToWishList} />
                 <Pagination
                     productsPerPage={productsPerPage}
                     totalProducts={totalProducts}

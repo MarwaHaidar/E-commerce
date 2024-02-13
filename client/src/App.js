@@ -37,12 +37,13 @@ export default function App() {
   const isAdmin = false;
   const [products,setProducts] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
+  const [productInWishlist, setProductInWishlist] =useState([]);
   
   
   return (
     <div>
       <Router>
-        <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount }}>
+        <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount, productInWishlist, setProductInWishlist }}>
           {isAdmin ? <AdminHeader /> : <Header />}
           <Routes>
             <Route index element={<Home />} />

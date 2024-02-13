@@ -12,7 +12,7 @@ const addToWishlist = asyncHandler(async (req, res) => {
   const product = await Product.findById(productId).exec();
   console.log("found product: ", product)
   const productName = product.name;
-  const image = product.images[1];
+  const image = product.imageCover;
   console.log("image: ", typeof(image))
   const wishlist = [{
     productId,
