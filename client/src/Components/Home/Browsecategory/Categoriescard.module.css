@@ -1,9 +1,10 @@
 .categorymaincontents{
-    background-color: #bcc4c5;
-    border-bottom-left-radius: 15%;
-    border-bottom-right-radius: 15%;
+    border-radius: 5px;
+    background-color: #e5e7eb;
+    /* border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
     border-top-right-radius: 5%;
-    border-top-left-radius: 5%;  
+    border-top-left-radius: 5%;   */
 }
 
 .categoryDivImages{
@@ -11,10 +12,9 @@
     height: 100%;
 }
 .categoryDivImages img{
+    border-radius: 5px;
     object-fit:fill;
     width: 100%;
-    border-top-right-radius: 5%;
-    border-top-left-radius: 5%; 
     height: 230px;  
 }
 .categoryNameHeader{
