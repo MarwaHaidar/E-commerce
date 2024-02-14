@@ -25,14 +25,13 @@ const addToWishlist = asyncHandler(async (req, res) => {
   try {
     if (!wishCart) {
       wishCart = await Wishlist.create({ userId, wishlist });
-      res.status(422).json({ wishCart: wishCart });
+      res.status(201).json({ wishCart: wishCart });
       console.log("Created :", wishCart)
-    }
-    else {
+    } else {
       const productExists = wishCart.wishlist.some(el => el.productId.equals(productId));
-
       if (productExists) {
-        res.status(201).json({ message: `Product: ${productName} is alreay in your Wish Cart` });
+        res.status(409).json({ message: `Product: ${productName} is already in your Wish Cart` });
+        return; // Return here to prevent further execution
       } else {
         wishCart.wishlist.push(...wishlist);
         await wishCart.save();
@@ -41,10 +40,12 @@ const addToWishlist = asyncHandler(async (req, res) => {
       }
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 export { addToWishlist };
+
 
 
 // get user wish cart
