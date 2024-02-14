@@ -33,6 +33,7 @@ import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategori
 import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
 import ProductAdminEdit from "./Components/Admin/ProductsAdmin/ProductAdminEdit.js";
+import ProductSubCategory from "./Pages/ProductSubCategory.js";
 
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
   const [cartItems,setCartItems] = useState([]);
   const [products,setProducts] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
+  const [productInWishlist, setProductInWishlist] =useState([]);
   const [cartItemCount, setCartItemCount] = useState(0);
   
   
@@ -47,7 +49,7 @@ export default function App() {
     <div>
       <Router>
         <CartProvider value={{cartItems,setCartItems, cartItemCount, setCartItemCount}}>
-        <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount }}>
+        <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount, productInWishlist, setProductInWishlist }}>
 
           {isAdmin ? <AdminHeader /> : <Header />}
           <Routes>
@@ -64,6 +66,7 @@ export default function App() {
             <Route path="/products/filter" element={<ProductsView />} />
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
+            <Route path="/subcategories/:subcategoriesId/products" element={<ProductSubCategory />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/addcategories" element={<AddCategories />} />

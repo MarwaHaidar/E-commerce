@@ -3,23 +3,24 @@ import styles from './SubCategory.module.css';
 
 function SubCategory({subcategory}) {
   return (
-    <div className="group relative w-full">
-        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80 relative">
+    <div className="group relative ml-9">
+       <div className={styles.categorymaincontents}>
+        <div className={styles.categoryDivImages}>
           
             {/* Product Image */}
             <img
-                src={subcategory.imageSrc}
-                alt={subcategory.imageAlt}
-                className="h-full w-full object-cover object-center group-hover:opacity-0.8 lg:h-full lg:w-full"
+                src={subcategory.image}
+                alt={subcategory.image}
+                className="h-full w-full object-contain group-hover:opacity-0.8 lg:h-60 lg:w-80"
             />
             {/* ADD to cart
             <div className='absolute bottom-20 left-1/2 transform -translate-x-1/2 z-10 invisible group-hover:visible'>
                 <div className="bg-greenish-blue text-white font-bold px-5 text-center py-1 rounded ">ADD TO CART</div>
             </div> */}
         </div>
-        <div className="mt-4 flex justify-between items-center">
-            <div>
-            <h3 className="text-lg text-black font-bold text-center"> {/* Added text-center class */}
+        <div className="flex justify-center items-center">
+        <div className="flex flex-col items-center">
+            <h3 className={`text-lg text-center font-bold mr-4 py-1 px-2 rounded-full ${styles.categoryNameHeader}`}>
             <a href={subcategory.href}>
             <span aria-hidden="true" className="absolute  text-center inset-0" />
             {subcategory.name}
@@ -28,6 +29,7 @@ function SubCategory({subcategory}) {
                
             </div>
         </div>
+    </div>
     </div>
 );
 };
