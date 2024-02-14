@@ -57,9 +57,9 @@ const handleAddToCart = async () => {
         
       },
       {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        },
+        // headers: {
+        //   Authorization: `Bearer ${accessToken}`
+        // },
         withCredentials: true
 
       }

@@ -97,27 +97,27 @@ export { getCart };
 // update Products quantity
 
 const updateCart = asyncHandler(async (req, res) => {
-  const { productId, quantity, color, size } = req.body;
-  const userId = req.user.id;
-  try {
-    const updatedCart = await Cart.findOneAndUpdate(
-      { userId, 'items.productId': productId, 'items.color':color,'items.size':size },
-      { $set: { 'items.$.quantity': quantity } },
-      { new: true }
-    );
-    
+    const { productId, quantity, color, size } = req.body;
+    const userId = req.user.id;
+    try {
+      const updatedCart = await Cart.findOneAndUpdate(
+        { userId, 'items.productId': productId, 'items.color':color,'items.size':size },
+        { $set: { 'items.$.quantity': quantity } },
+        { new: true }
+      );
+      
 
     if (!updatedCart) {
       return res.status(404).json({ message: 'Cart not found or product not in cart' });
     }
 
-    res.status(200).json({ message: 'Quantity updated successfully', data: updatedCart });
-    console.log(userId);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
+      res.status(200).json({ message: 'Quantity updated successfully', data: updatedCart });
+      console.log(userId);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
 
 export { updateCart };
 
@@ -126,12 +126,12 @@ export { updateCart };
 
 // delete a product from cart
 const deleteItem = async (req, res) => {
-    const { userId, productId } = req.body;
+    const { userId, productId, color, size } = req.body;
 
     try {
       const newCart = await Cart.findOneAndUpdate(
         { userId },
-        { $pull: { items: { productId } } },
+        { $pull: { items: { productId, color, size } } },
         { new: true }
       );
 

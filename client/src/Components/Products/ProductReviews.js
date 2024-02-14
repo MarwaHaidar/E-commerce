@@ -30,6 +30,7 @@ const ProductReviews = () => {
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
   const { productId } = useParams();
   // console.log(productId)
   const navigate = useNavigate()
@@ -89,6 +90,7 @@ const ProductReviews = () => {
         })
         .catch(error => {
           console.error('Error adding review:', error);
+          setErrorMessage('Error adding review. Please try refreshing the page.');
           // Handle error
         });
     } else {
@@ -125,6 +127,7 @@ const ProductReviews = () => {
 
   return (
     <div className={styles.main}>
+       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       <p key={review.productId} >Product Reviews</p>
       {isAddingReview ? (
         <form onSubmit={handleReviewSubmit}>

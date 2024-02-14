@@ -52,7 +52,6 @@ app.use(reviewroute);
 // app.use('/', currencyroute)
 app.use(orderroute);
 app.use('/cart',cartroute);
-app.use(striperoute);
 app.use(messageroute);
 app.use(wishlistroute);
 app.use(accesstoken);

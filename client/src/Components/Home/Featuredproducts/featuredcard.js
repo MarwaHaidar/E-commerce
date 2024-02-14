@@ -31,13 +31,13 @@ const FeaturedProduct = ({ product, onClick }) => {
 
       <div className="flex justify-start">
         <div className="flex flex-col items-start">
-          <h3 className="text-lg text-center font-bold mr-4 py-1 px-2 rounded-full">
+          <h3 className="text-lg text-center font-bold mt-3 mr-4 py-1 px-2 rounded-full">
             <a href={product.href}>
               <span aria-hidden="true" className="absolute inset-0"></span>
               {product.name}
             </a>
           </h3>
-          <span className="text-lg font-bold text-black-500 py-1 px-2 rounded-full mr-4">
+          <span className="text-lg font-bold text-black-500 px-2 rounded-full mr-4">
             ${product.price}
             <span className="ml-3">{renderRatingStars(rating)}</span>
           </span>
