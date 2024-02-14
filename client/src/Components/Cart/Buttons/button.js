@@ -2,6 +2,9 @@ import React from 'react';
 import styles from './button.module.css';
 
 const ButtonLayout = ({ children }) => {
+
+
+
   return (
     <div className={styles.flashsale}>
       <div style={{ marginTop: '30px', display: 'flex',alignItems: 'center', justifyContent: 'space-between',width: '83%' }}>
