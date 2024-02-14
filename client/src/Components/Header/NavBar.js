@@ -66,6 +66,10 @@ const NavBar = () => {
         };
     }, []);
 
+    const reloadPage = () => {
+        window.location.reload();
+      };
+
     return (
         <>
             <nav className={`bg-white-800 p-4 nav-bar ${isNavBarExtended ? styles.extended : styles.navBar}`}>
@@ -75,10 +79,15 @@ const NavBar = () => {
                         <Link to="/about" className={`${styles.item} ${activePath === "/about" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>About</li></Link>
                         <Link to="/contact" className={`${styles.item} ${activePath === "/contact" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Contact</li></Link>
                         {isLoggedIn ? (
-                            <li className={styles.item} onClick={handleLogout}><Link to="/">Logout</Link></li>
+                            <li className={styles.item} onClick={() => { handleLogout(); reloadPage(); }}>
+                                <Link to="/">Logout</Link>
+                            </li>
                         ) : (
-                            <Link to="/login" className={`${styles.item} ${activePath === "/login" ? styles.activeTab : ""}`} onClick={closeNavBar}><li>Login</li></Link>
+                            <Link to="/login" className={`${styles.item} ${activePath === "/login" ? styles.activeTab : ""}`} onClick={closeNavBar}>
+                                <li>Login</li>
+                            </Link>
                         )}
+                        
                     </ul>
                 </div>
             </nav>
