@@ -28,9 +28,10 @@ import SubCategoryAdminDelete from "./Components/Admin/SubCategoryAdmin/SubCateg
 import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
 import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
-import ProductsView from "./Components/Home/BrowseProducts/ProductsView.js";
+import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
 import ProductAdminEdit from "./Components/Admin/ProductsAdmin/ProductAdminEdit.js";
+import ProductSubCategory from "./Pages/ProductSubCategory.js";
 
 
 export default function App() {
@@ -59,6 +60,7 @@ export default function App() {
             <Route path="/products/filter" element={<ProductsView />} />
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
+            <Route path="/subcategories/:subcategoriesId/products" element={<ProductSubCategory />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/addcategories" element={<AddCategories />} />
