@@ -29,20 +29,25 @@ import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
 import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
 import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
+// import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
 import ProductAdminEdit from "./Components/Admin/ProductsAdmin/ProductAdminEdit.js";
 import CheckoutSuccess from "./Components/Cart/CheckoutSuccess.js";
+import ProductSubCategory from "./Pages/ProductSubCategory.js";
+import { CartContext, CartProvider } from "./Components/Cart/cartContext.js";
 
 
 export default function App() {
-  const isAdmin = true;
+  const isAdmin = false;
   const [products,setProducts] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
-  
+  const [cartItems,setCartItems] = useState([])
+  const [cartItemCount, setCartItemCount] = useState(0)
   
   return (
     <div>
       <Router>
+      <CartProvider value={{cartItems,setCartItems, cartItemCount, setCartItemCount}}>
         <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount }}>
           {isAdmin ? <AdminHeader /> : <Header />}
           <Routes>
@@ -60,6 +65,7 @@ export default function App() {
             <Route path="/products/filter" element={<ProductsView />} />
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
+            <Route path="/subcategories/:subcategoriesId/products" element={<ProductSubCategory />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/addcategories" element={<AddCategories />} />
@@ -77,6 +83,7 @@ export default function App() {
             {isAdmin ? " ":<Footer />}
           
         </DataContext.Provider>
+        </CartProvider>
       </Router>
     </div>
   );

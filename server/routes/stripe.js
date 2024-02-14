@@ -3,7 +3,12 @@ import Stripe from 'stripe';
 import Order from '../models/order.js'
 import Delivery from '../models/delivery.js';
 import { validateToken } from '../Middleware/validateTokenHandler.js';
-import bodyParser from 'body-parser';
+//import bodyParser from 'body-parser';
+ import mongoose from 'mongoose';
+import { ObjectId } from 'mongoose';
+
+
+// const newObjectId = new ObjectId();
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -111,28 +116,30 @@ router.post("/stripecheckoutsession",validateToken, async (req, res) => {
 // Create order function
 
 const createOrder = async (customer, data) => {
-  const Items = JSON.parse(customer.metadata.cart);
-
-  // Construct the order items array based on the items received from the Stripe session
-  const orderItems = Items.map((item) => ({
-    product: item.productId, // Assuming productId is the reference to the product
-    quantity: item.quantity,
-  }));
-
-  // Create a new instance of the Order model
-  const newOrder = new Order({
-    userId: customer.metadata.userId, // Use the retrieved userId from the customer metadata
-    orderItems: orderItems, // Use the constructed orderItems array
-    totalAmount: data.amount_subtotal,
-    TotalStatus: data.amount_total,
-    dateOrdered: new Date(), // Set the current date as the date ordered
-  });
-
   try {
+    const Items = JSON.parse(customer.metadata.cart);
+
+    // Convert product IDs to ObjectIDs
+    const orderItems = Items.map((item) => ({
+      product:item.productId, // Use ObjectId instead of newObjectId
+      quantity: item.quantity,
+    }));
+    
+
+    // Create a new instance of the Order model
+    const newOrder = new Order({
+      userId: customer.metadata.userId,
+      orderItems: orderItems,
+      totalAmount: data.amount_subtotal,
+      TotalStatus: data.amount_total, // Correct the property name
+      dateOrdered: new Date(),
+    });
+
     const savedOrder = await newOrder.save();
     console.log("Processed Order:", savedOrder);
   } catch (err) {
-    console.log(err);
+    console.error("Error saving order:", err);
+  
   }
 };
 
@@ -238,6 +245,8 @@ router.post("/webhook", async (req, res) => {
           try {
             //CREATE ORDER and delivery
              createOrder(customer, data);
+             console.log("success")
+           
             //createDelivery(customer, data);
           } catch (err) {
             console.log(typeof createOrder);

@@ -1,3 +1,8 @@
+.chartcontainer{
+    background-color: #F5F5F5;
+}
+
+
 .cards{
     display: flex;
     flex-direction: row;
@@ -37,4 +42,25 @@
     font-weight: 800;
     text-align: center;
 
+}
+.cahrts,.bargraph1{
+    background-color: #F5F5F5;
+}
+.bargraph1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); 
+    width: 45%;
+    margin: 0 20px;
+    margin-top: -80px;
+}
+.charttitle{
+    font-family: poppins;
+    font-weight: 800;
+    font-size: 30px;
+     margin-left: 150px;
+     margin-bottom: 20px;
+     
+    
 }

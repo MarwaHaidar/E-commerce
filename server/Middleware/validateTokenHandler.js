@@ -77,4 +77,3 @@ const validateTokenForAdmin = asyncHandler(async (req, res, next) => {
     });
 });
 export { validateToken,validateTokenForAdmin };
-

@@ -52,3 +52,23 @@ const getUserCount = asyncHandler(async(req,res)=>{
 })
 export {getUserCount};
 
+const getUserCountByYear =asyncHandler( async (req, res) => {
+    try {
+      const userCountByYear = await User.aggregate([
+        {
+          $group: {
+            _id: { $year: "$createdAt" },
+            count: { $sum: 1 }
+          }
+        },
+        { $sort: { _id: 1 } } // Optionally, sort by year
+      ]);
+  
+      res.json(userCountByYear);
+    } catch (error) {
+      console.error('Error fetching user count by year:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  export {getUserCountByYear};

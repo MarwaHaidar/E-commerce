@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Categoriescard from './Categoriescard';
 import Viewproductbtn from '../Viewprodbtn/vpb';
+import { Link } from 'react-router-dom';
 import './browsecategory.css'
 
 const Browsecategory = ({ categories }) => {
@@ -51,10 +52,11 @@ const Browsecategory = ({ categories }) => {
           </div>
         </div>
       </div>
+      <Link to="/categories">
       <Viewproductbtn text="View All Categories" />
+    </Link>
     </>
   );
 };
 
 export default Browsecategory;
-

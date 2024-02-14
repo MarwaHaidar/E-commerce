@@ -97,24 +97,25 @@ export { getCart };
 // update Products quantity
 
 const updateCart = asyncHandler(async (req, res) => {
-  const { productId, quantity } = req.body;
-  const {userId} = req.body;
-
+  const { productId, quantity, color, size } = req.body;
+  const userId = req.user.id;
   try {
-      const updatedCart = await Cart.findOneAndUpdate(
-          { userId, 'items.productId': productId },
-          { $set: { 'items.$.quantity': quantity } },
-          { new: true }
-      );
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userId, 'items.productId': productId, 'items.color':color,'items.size':size },
+      { $set: { 'items.$.quantity': quantity } },
+      { new: true }
+    );
+    
 
-      if (!updatedCart) {
-          return res.status(404).json({ message: 'Cart not found or product not in cart' });
-      }
+    if (!updatedCart) {
+      return res.status(404).json({ message: 'Cart not found or product not in cart' });
+    }
 
-      res.status(200).json({ message: 'Quantity updated successfully', data: updatedCart });
+    res.status(200).json({ message: 'Quantity updated successfully', data: updatedCart });
+    console.log(userId);
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
