@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FirstRow from '../Components/Cart/FirstRaw/firstRow';
 import ProductCard from '../Components/Cart/SecondRow/productCart';
-import ButtonLayout from '../Components/Cart/Buttons/button';
+// import ButtonLayout from '../Components/Cart/Buttons/button';
 import CartTotal from '../Components/Cart/CartTotal/cartTotal';
 import zara1 from '../Components/Assets/zara11.png';
 
@@ -15,7 +15,7 @@ const Cart = () => {
       
       
      
-      <ButtonLayout />
+      {/* <ButtonLayout /> */}
      
     </div>
   );
