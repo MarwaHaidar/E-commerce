@@ -1,21 +1,15 @@
 
 import Message from '../models/message.js';
-import User from '../models/user.js'
 import asyncHandler from 'express-async-handler';
-import { uploadImage } from "./imageuploadcontroller.js"
 
 
-//  send  a message (verified users only)
+
 const sendMessage = asyncHandler(async (req, res) => {
     try {
-        const user_id = req.body.userId;
-        const text = req.body.text
-        const screenshot = await uploadImage(req.file.buffer);
-        const user = await User.findById(user_id)
-        const name = user.first_name;
-        const email = user.email;
-
-        const message = await Message.create({ user_id, name, email, text, screenshot });
+        const text = req.body.message
+        const name = req.body.name;
+        const email = req.body.email;
+        const message = await Message.create({ name, email, text });
         res.status(201).json({ message: message });
     } catch (error) {
         console.error('Error sending message:', error);
