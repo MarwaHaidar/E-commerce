@@ -42,7 +42,7 @@ const ProductCard = ({ products, addToWishList }) => {
               </a>
               <h3 className="mt-4 text-sm text-gray-900 font-bold whitespace-nowrap">{product.name}</h3>
               <div className="flex items-center mt-1">
-                <span className="bg-blue-200 px-2 rounded-full text-base font-bold text-black">{product.price}</span>
+                <span className="bg-blue-200 px-2 rounded-full text-base font-bold text-black">$ {product.price}</span>
                 <span className="ml-2">{generateStars(rating)}</span>
               </div>
               <div className="absolute bottom-5 right-5 p-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
