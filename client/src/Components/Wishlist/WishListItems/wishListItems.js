@@ -11,8 +11,8 @@ library.add(faShoppingCart, faTrash);
 const WishListProduct = ({ product, removeItem }) => {
 
     const handleRemoveItem = () => {
-        removeItem(product.productId); 
-        
+        removeItem(product.productId);
+
         console.log(product.productId)
     };
 
@@ -24,9 +24,9 @@ const WishListProduct = ({ product, removeItem }) => {
                 <div className="absolute top-0 left-0 z-10" style={{ marginTop: '7px', marginLeft: '5px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div className="bg-greenish-blue text-white font-bold px-2 py-1 rounded" style={{ width: 'fit-content' }}>20%</div>
                     <FontAwesomeIcon icon={faTrash} style={{ color: "#07393C", marginTop: '2px', marginRight: '10px', zIndex: '100' }} onClick={() => {
-    console.log("clicked")
-    handleRemoveItem()
-}} />
+                        console.log("clicked")
+                        handleRemoveItem()
+                    }} />
 
                 </div>
 
@@ -49,8 +49,8 @@ const WishListProduct = ({ product, removeItem }) => {
                         </a>
                     </h3>
                     <div className="flex items-center">
-                        <span className="text-lg font-bold text-gray-900 mr-1">${product.price}</span>
-                        <span className="text-black text-lg line-through mr-14">$50</span>
+                        <span className="text-lg font-bold text-gray-900 mr-1">{product.price}</span>
+                        {/* <span className="text-black text-lg line-through mr-14">$50</span> */}
                     </div>
                 </div>
             </div>
