@@ -43,8 +43,10 @@
     text-align: center;
 
 }
-.cahrts,.bargraph1{
+.charts{
     background-color: #F5F5F5;
+    display: flex ;
+    justify-content: space-between;
 }
 .bargraph1{
     display: flex;
@@ -54,6 +56,8 @@
     width: 45%;
     margin: 0 20px;
     margin-top: -80px;
+    background-color: #F5F5F5;
+    height: 400px;
 }
 .charttitle{
     font-family: poppins;
@@ -62,5 +66,33 @@
      margin-left: 150px;
      margin-bottom: 20px;
      
+    
+}
+.areagraph{
+    display: flex;
+    justify-content: flex-end;
+    background-color: #F5F5F5;
+    flex-direction: column;
+   
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); 
+    width: 45%;
+    height: 400px;
+    margin: 0 20px;
+    margin-top: -80px;
+    background-color: #F5F5F5;
+
+}
+.piechart{
+    display: flex;
+    justify-content: flex-end;
+    background-color: #F5F5F5;
+    flex-direction: column;
+   
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); 
+    width: 45%;
+    height: 400px;
+    margin: 0 20px;
+    margin-top: 70px;
+    background-color: #F5F5F5;
     
 }
