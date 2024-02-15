@@ -42,7 +42,7 @@ function SiteBar() {
 
   useEffect(() => {
     // Fetch categories from your server using Axios
-    axios.get('http://localhost:5000/categories?page=1&limit=100')
+    axios.get('http://localhost:5000/categories')
       .then((response) => setCategories(response.data.data))
       .catch((error) => console.error('Error fetching categories:', error));
   }, []);
