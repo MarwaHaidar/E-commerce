@@ -1,0 +1,16 @@
+.ProductPrice {
+    color: red;
+    text-decoration: line-through;
+  }
+  .productafterprice{
+    display: flex;
+    margin-left: 10px;
+    justify-content: space-between;
+    width: 120px;
+  }
+  .productprice{
+    display: flex;
+    margin-left: 10px;
+    justify-content: space-between;
+    width: 120px;
+  }
