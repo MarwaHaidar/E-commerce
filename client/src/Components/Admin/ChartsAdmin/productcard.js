@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './charts.module.css';
-import { BarChart,Bar,Legend, XAxis, YAxis, CartesianGrid, Tooltip, LinearGradient, Stop } from 'recharts';
+import { BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, LinearGradient, Stop } from 'recharts';
 
 function ProductCard() {
   const [productCount, setProductCount] = useState(0);
   const [categoryCount, setCategoryCount] = useState(0);
   const [subcategoryCount, setSubcategoryCount] = useState(0);
-  const[userCount,setUserCount]=useState(0);
+  const [userCount, setUserCount] = useState(0);
   const [userData, setUserData] = useState([]);
 
 
@@ -57,7 +57,7 @@ function ProductCard() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/charts/usercountbyyear',{ withCredentials: true }); // Replace this with your API endpoint
+      const response = await axios.get('http://localhost:5000/charts/usercountbyyear', { withCredentials: true }); // Replace this with your API endpoint
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user count by year:', error);
@@ -89,20 +89,20 @@ function ProductCard() {
           <p className={styles.carddetails}>{userCount}</p>
         </div>
 
-      
+
       </div>
       <div className={styles.charts}>
         <div className={styles.bargraph1}>
           <h2 className={styles.charttitle}>COUNT OF USERS BY YEARS</h2>
-        <BarChart width={730} height={300} data={userData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="_id" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="count" fill="#07393C" />
-        {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
-      </BarChart>
+          <BarChart width={730} height={300} data={userData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="_id" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="count" fill="#07393C" />
+            {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
+          </BarChart>
 
         </div>
       </div>

@@ -13,25 +13,39 @@ import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
 
 // for show account icon
-const getAccessToken = () => {
-  const getCookie = (name) => {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.startsWith(name + '=')) {
-        return cookie.substring(name.length + 1);
-      }
+const getCookie = (name) => {
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(name + '=')) {
+      return cookie.substring(name.length + 1);
     }
-    return null;
-  };
-  return getCookie('accessToken');
-
+  }
+  return null;
 };
+
+const getAccessToken = () => {
+  return getCookie('accessToken');
+};
+
+const firstName = getCookie('first_name');
+
+if (firstName) {
+  const firstLetter = firstName.charAt(0);
+  console.log('First letter of the first name:', firstLetter);
+} else {
+  console.error('First name cookie not found or empty.');
+}
+
+
+
+// Example usage:
+
 
 
 const Header = () => {
   const { setProducts, itemsCount } = useContext(DataContext);
-  const { setCartItemsData,cartItemCount } = useContext(CartContext);
+  const { setCartItemsData, cartItemCount } = useContext(CartContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -159,15 +173,18 @@ const Header = () => {
             </div>
           </Link>
           <Link to="/cart" className={styles.link}>
-          <div className={styles.wishIconContainer}>
-          <div className="indicator relative">
-                <span className="indicator-item badge absolute text-sm w-5 text-center left-6 bottom-0 rounded-full bg-red-500 text-white">{cartItemCount}</span>
-          </div>
-          <FiShoppingCart className={styles.shopCartIcon} />
-          </div>
+            <div className={styles.wishIconContainer}>
+              <div className="indicator relative">
+                <span className={`indicator-item badge absolute text-sm w-5 text-center right-4 bottom-0 rounded-full bg-red-500 text-white ${styles.cartIndicator}`}>{cartItemCount}</span>
+              </div>
+              <FiShoppingCart className={styles.shopCartIcon} />
+            </div>
           </Link>
-          {/* get user initial or first letter from the accesss token */}
-          {accessToken && <div className={styles.accountIcon}>W</div>} { }
+          {accessToken && (
+            <div className={styles.accountIcon}>
+              {firstName ? firstName.charAt(0) : null}
+            </div>
+          )}
         </div>
       </div>
     </div>
