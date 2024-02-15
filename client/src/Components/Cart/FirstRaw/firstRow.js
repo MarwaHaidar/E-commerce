@@ -106,9 +106,9 @@ const ProductItem = ({ item, handleQuantityChange }) => {
     <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'white', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', width: '83%' }}>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div >{item.image && <img src={item.image} alt={item.productName} style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }} />}</div>
-        <div style={{ marginTop: '30px' }}>{item.productName}</div>
+        <div style={{ marginTop: '30px', width:'150px' }}>{item.productName}</div>
       </div>
-      <div style={{ backgroundColor: item.color, width: '40px', height: '40px', borderRadius: '50%' }}></div>
+      <div style={{ backgroundColor: item.color, width: '40px', height: '40px', borderRadius: '50%', justifyContent:'center' }}></div>
       <div>{item.size}</div>
       <div>{item.price + " " + item.currency}</div>
       <div>
