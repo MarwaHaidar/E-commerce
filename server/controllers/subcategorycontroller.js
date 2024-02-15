@@ -34,10 +34,28 @@ export { createsubcategory };
 // to apply pagenation:
 /* desc:  get list subcategory 
    route: get /api/v1/subcategories?page & limit=     */
+// const getsubcategories = asyncHandler(async (req, res) => {
+//     const page = req.query.page * 1 || 1;// req.query: take data from url not from req body, *1 to change it from string to number
+//     const limit = req.query.limit * 1 || 5; // in selected page give 5 categories
+//     const skip = (page - 1) * limit
+//     let filterObject = {};
+//     if (req.params.id)
+//         filterObject = { // get the id of category from params
+//             category: req.params.id
+//         }
+//     // console.log(req.params.id)
+//     const subcategories = await Subcategory.find(filterObject) // if have req.params filter the subcategory for this category req.params 
+//         .skip(skip)
+//         .limit(limit)
+//     // .populate({path:'category',select:'name-_id'});// select the name from category -_id mean remove the select id
+//     res.status(200).json({ result: subcategories.length, page, data: subcategories });
+// });
+
+
+// export { getsubcategories };
+
+
 const getsubcategories = asyncHandler(async (req, res) => {
-    const page = req.query.page * 1 || 1;// req.query: take data from url not from req body, *1 to change it from string to number
-    const limit = req.query.limit * 1 || 5; // in selected page give 5 categories
-    const skip = (page - 1) * limit
     let filterObject = {};
     if (req.params.id)
         filterObject = { // get the id of category from params
@@ -45,16 +63,12 @@ const getsubcategories = asyncHandler(async (req, res) => {
         }
     // console.log(req.params.id)
     const subcategories = await Subcategory.find(filterObject) // if have req.params filter the subcategory for this category req.params 
-        .skip(skip)
-        .limit(limit)
     // .populate({path:'category',select:'name-_id'});// select the name from category -_id mean remove the select id
-    res.status(200).json({ result: subcategories.length, page, data: subcategories });
+    res.status(200).json({ result: subcategories.length, data: subcategories });
 });
 
 
 export { getsubcategories };
-
-
 
 // get specific subcategory
 /* desc:  get specific subcategory by id 

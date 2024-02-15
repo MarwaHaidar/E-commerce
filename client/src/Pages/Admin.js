@@ -26,7 +26,7 @@ function Admin() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/products?page=1&limit=1000`);
+        const response = await axios.get(`http://localhost:5000/products`);
         setProducts(response.data.data); // Set an empty array if response.data is falsy
       } catch (error) {
         console.error('Error fetching products:', error);

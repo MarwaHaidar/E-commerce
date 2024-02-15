@@ -103,11 +103,35 @@ export { createProduct };
 // export { createProduct };
 
 // get all products
-const getproducts = asyncHandler(async (req, res) => {
-  const page = req.query.page * 1 || 1;
-  const limit = req.query.limit * 1 || 18;
-  const skip = (page - 1) * limit;
+// const getproducts = asyncHandler(async (req, res) => {
+//   const page = req.query.page * 1 || 1;
+//   const limit = req.query.limit * 1 || 18;
+//   const skip = (page - 1) * limit;
 
+//   let filterObject = {};
+  
+//   if (req.params.id) {
+//     // Assuming the ID in the route parameter can be either category or subcategory
+//     filterObject = { // get the id of category from params
+//       subcategory: req.params.id
+//   }
+//   }
+//   console.log( filterObject)
+
+//   const products = await Product.find(filterObject)
+//     .skip(skip)
+//     .limit(limit)
+//     .populate({ path: "subcategory", select: "name-_id" })
+//     .sort({ dateOrdered: -1 });
+
+//   res.status(200).json({ result: products.length, page, data: products });
+// });
+
+// export { getproducts };
+
+
+
+const getproducts = asyncHandler(async (req, res) => {
   let filterObject = {};
   
   if (req.params.id) {
@@ -119,16 +143,13 @@ const getproducts = asyncHandler(async (req, res) => {
   console.log( filterObject)
 
   const products = await Product.find(filterObject)
-    .skip(skip)
-    .limit(limit)
     .populate({ path: "subcategory", select: "name-_id" })
     .sort({ dateOrdered: -1 });
 
-  res.status(200).json({ result: products.length, page, data: products });
+  res.status(200).json({ result: products.length, data: products });
 });
 
 export { getproducts };
-
 
 // get specific product
 
