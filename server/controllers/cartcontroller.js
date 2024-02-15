@@ -126,7 +126,8 @@ export { updateCart };
 
 // delete a product from cart
 const deleteItem = async (req, res) => {
-    const { userId, productId, color, size } = req.body;
+    const {productId, color, size } = req.body;
+    const userId = req.user.id;
 
     try {
       const newCart = await Cart.findOneAndUpdate(
@@ -149,7 +150,8 @@ const deleteItem = async (req, res) => {
 export  { deleteItem };
 
 const clearitems = async (req, res) => {
-  const { userId } = req.body;
+  
+  const userId = req.user.id;
 
   try {
     const newCart = await Cart.findOneAndUpdate(

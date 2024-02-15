@@ -13,11 +13,11 @@ const ProductItem = ({ item, handleQuantityChange }) => {
   //const [cartItems, setCartItems] = useState([]);
   const { deleteItem } = useCart();
 
-  const userId = '65c37d5bf70133be5cda504e';
 
   const handleDelete = async () => {
     try {
-      await deleteItem(userId, item.productId, item.color, item.size);
+      await deleteItem(item.productId, item.color, item.size);
+      // getCard();
       // After successful deletion, update the cart items in the local state
       // You can fetch the updated cart items again or simply remove the deleted item from the local state
       // setCartItems(cartItems.filter(cartItem => cartItem.productId !== item.productId));
@@ -94,7 +94,7 @@ const ProductItem = ({ item, handleQuantityChange }) => {
       // Delete item if quantity is zero
       if (newQuantity === 0) {
         try {
-          await deleteItem(userId, item.productId, item.color, item.size);
+          await deleteItem(item.productId, item.color, item.size);
         } catch (error) {
           console.error('Error deleting item:', error);
         }
@@ -108,7 +108,7 @@ const ProductItem = ({ item, handleQuantityChange }) => {
         <div >{item.image && <img src={item.image} alt={item.productName} style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }} />}</div>
         <div style={{ marginTop: '30px' }}>{item.productName}</div>
       </div>
-      <div>{item.color}</div>
+      <div style={{ backgroundColor: item.color, width: '40px', height: '40px', borderRadius: '50%' }}></div>
       <div>{item.size}</div>
       <div>{item.price + " " + item.currency}</div>
       <div>
