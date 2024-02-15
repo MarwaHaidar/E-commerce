@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 export const CartContext = createContext();
@@ -9,10 +9,10 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cartItemCount, setCartItemCount] = useState(0);
 
-  const deleteItem = async (userId, productId, color, size) => {
+  const deleteItem = async (productId, color, size) => {
     try {
       const response = await axios.delete(`http://localhost:5000/cart/user/cart/deleteitem`, {
-        data: { userId, productId, color, size },
+        data: { productId, color, size },
         withCredentials: true
       });
       if (response.status === 200) {
