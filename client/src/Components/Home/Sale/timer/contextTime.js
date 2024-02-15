@@ -11,7 +11,7 @@ export const TimerProvider = ({ children }) => {
 
   useEffect(() => {
     const countdownDate = new Date(); // Set your countdown date here
-    countdownDate.setHours(countdownDate.getHours() + 1); // For example, add 1 hour
+    countdownDate.setHours(countdownDate.getHours() + 0); // For example, add 1 hour
 
     const interval = setInterval(() => {
       const now = new Date().getTime();

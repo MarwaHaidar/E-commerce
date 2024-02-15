@@ -7,7 +7,7 @@ import asyncHandler from 'express-async-handler';
 
 // add to wish list
 const addToWishlist = asyncHandler(async (req, res) => {
-  const userId = req.body.userId;
+  const userId = req.user.id;
   const productId = req.body.productId;
   const product = await Product.findById(productId).exec();
   console.log("found product: ", product)
@@ -50,8 +50,10 @@ export { addToWishlist };
 // get user wish cart
 const getWishcart = asyncHandler(async (req, res) => {
   try {
-    const { userId } = req.params;
-    let WishCart = await Wishlist.findOne({ id: userId });
+    // const { userId } = req.params;
+    const  userId  = req.user.id;
+    console.log(userId)
+    let WishCart = await Wishlist.findOne({ userId: userId });
     let count = WishCart.wishlist.length
     res.status(200).json({ result: count, data: WishCart });
   } catch (error) {
@@ -69,7 +71,10 @@ export { getWishcart };
 
 // remove items from wish cart
 const removeWishItem = async (req, res) => {
-  const { userId, productId } = req.body;
+  const userId = req.user.id
+  console.log(userId)
+  const {productId }= req.body;
+
 
   try {
     const newWishCart = await Wishlist.findOneAndUpdate(

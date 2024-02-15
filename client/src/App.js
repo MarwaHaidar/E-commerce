@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DataContext from './Components/Context.js';
  import { CartContext, CartProvider } from "./Components/Cart/cartContext.js";
-
+ import Cookies from 'js-cookie';
 import React, { useState } from "react";
 import "./App.css";
 import Home from "./Pages/Home.js";
@@ -53,9 +53,27 @@ export default function App() {
       <Router>
         <CartProvider value={{cartItems,setCartItems, cartItemCount, setCartItemCount}}>
         <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount, productInWishlist, setProductInWishlist }}>
-
           {isAdmin ? <AdminHeader /> : <Header />}
+
           <Routes>
+
+          {isAdmin ? (
+        <>
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/addcategories" element={<AddCategories />} />
+            <Route path="/admin/addsubcategories" element={<AddSubCategories />} />
+            <Route path="/admin/addproduct" element={<AddProduct />} />
+            <Route path="/admin/editproduct/:id" element={<ProductAdminEdit />} /> 
+            <Route path="/admin/editCat/:id" element={<CategoryAdminEdit />} />
+            <Route path="/admin/deleteCat/:id" element={<CategoryAdminDelete />} />
+            <Route path="/admin/editsubCat/:id" element={<SubCategoryAdminEdit />} />
+            <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
+            <Route path="/admin/allproducts/:id" element={<ProductsAdminGet />} />
+            <Route path="/adminCharts" element={<AdminCharts />} />
+         
+        </>
+      ) : (
+        <>
             <Route index element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
@@ -71,20 +89,13 @@ export default function App() {
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/categories/:categoryId/subcategories" element={<SubCategories />} />
             <Route path="/subcategories/:subcategoriesId/products" element={<ProductSubCategory />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/addcategories" element={<AddCategories />} />
-            <Route path="/admin/addsubcategories" element={<AddSubCategories />} />
-            <Route path="/admin/addproduct" element={<AddProduct />} />
-            <Route path="/admin/editproduct/:id" element={<ProductAdminEdit />} /> 
-            <Route path="/admin/editCat/:id" element={<CategoryAdminEdit />} />
-            <Route path="/admin/deleteCat/:id" element={<CategoryAdminDelete />} />
-            <Route path="/admin/editsubCat/:id" element={<SubCategoryAdminEdit />} />
-            <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
-            <Route path="/admin/allproducts/:id" element={<ProductsAdminGet />} />
-            <Route path="/adminCharts" element={<AdminCharts />} />
             <Route path="/registerverify/:token" element={<VerificationComponent />} />
-            <Route path="/register" element={<Signup />} /></Routes>
+            <Route path="/register" element={<Signup />} />
+        </>
+      )}
+            <Route path="*" element={<NotFound />} />
+
+          </Routes>
             {isAdmin ? " ":<Footer />}
          
         </DataContext.Provider>
