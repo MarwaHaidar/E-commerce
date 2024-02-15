@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'; // Import Cookies library
 
 const NavBar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     useEffect(() => {
         // Check if access token and refresh token cookies are present
         const accessToken = Cookies.get('accessToken');
@@ -13,8 +14,7 @@ const NavBar = () => {
 
         // Update isLoggedIn state based on the presence of cookies
         setIsLoggedIn(accessToken && refreshToken);
-    }, []);
-
+    },[Cookies.get('accessToken')]);
 
     const location = useLocation();
     const activePath = location.pathname;
@@ -29,13 +29,15 @@ const NavBar = () => {
         setNavBarExtended(false);
     };
 
-    //--------------------------------------------------------------
     const navigate = useNavigate(); // Initialize useNavigate
 
     const handleLogout = () => {
         // Clear the access token and refresh token cookies
         Cookies.remove('accessToken');
         Cookies.remove('refreshToken');
+        Cookies.remove('user_id');
+        Cookies.remove('first_name');
+        Cookies.remove('role');
 
         // Update isLoggedIn state to false
         setIsLoggedIn(false);
@@ -43,32 +45,6 @@ const NavBar = () => {
         // Redirect to the home page
         navigate('/');
     };
-
-
-
-
-
-    //--------------------------------------------------------------
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth > 791) {
-                setNavBarExtended(false);
-            }
-        };
-
-        handleResize();
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    const reloadPage = () => {
-        window.location.reload();
-      };
 
     return (
         <>
@@ -79,7 +55,7 @@ const NavBar = () => {
                         <Link to="/about" className={`${styles.item} ${activePath === "/about" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>About</li></Link>
                         <Link to="/contact" className={`${styles.item} ${activePath === "/contact" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Contact</li></Link>
                         {isLoggedIn ? (
-                            <li className={styles.item} onClick={() => { handleLogout(); reloadPage(); }}>
+                            <li className={styles.item} onClick={handleLogout}>
                                 <Link to="/">Logout</Link>
                             </li>
                         ) : (
@@ -87,7 +63,6 @@ const NavBar = () => {
                                 <li>Login</li>
                             </Link>
                         )}
-                        
                     </ul>
                 </div>
             </nav>

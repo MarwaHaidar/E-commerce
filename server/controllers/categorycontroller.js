@@ -31,14 +31,20 @@ export { createcategory };
 // to apply pagenation:
 /* desc:  get list of categories
    route: get /api/v1/categories?page & limit=     */
-const getcategories = asyncHandler(async (req, res) => {
-    const page = req.query.page * 1 || 1;// req.query: take data from url not from req body, *1 to change it from string to number
-    const limit = req.query.limit * 1 || 5; // in selected page give 5 categories
-    const skip = (page - 1) * limit
-    const categories = await Category.find({}).skip(skip).limit(limit);
-    res.status(200).json({ result: categories.length, page, data: categories });
-});
+// const getcategories = asyncHandler(async (req, res) => {
+//     // const page = req.query.page * 1 || 1;// req.query: take data from url not from req body, *1 to change it from string to number
+//     // const limit = req.query.limit * 1 || 5; // in selected page give 5 categories
+//     // const skip = (page - 1) * limit
+//     const categories = await Category.find({});
+//     res.status(200).json({ result: categories.length, page, data: categories });
+// });
+// export { getcategories };
 
+const getcategories = asyncHandler(async (req, res) => {
+    const categories = await Category.find({});
+    
+    res.status(200).json({ result: categories.length, data: categories });
+});
 
 export { getcategories };
 

@@ -11,7 +11,7 @@ function AllCategories() {
   useEffect(() => {
     // Fetch categories when the component mounts
     axios
-      .get("http://localhost:5000/categories?page1&limit=50")
+      .get("http://localhost:5000/categories")
       .then((response) => setCategories(response.data.data))
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
