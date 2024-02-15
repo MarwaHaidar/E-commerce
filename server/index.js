@@ -12,15 +12,17 @@ import reviewroute from "./routes/reviewRoute.js";
 import orderroute from "./routes/orderRoute.js";
 import cartroute from "./routes/cartRoute.js";
 import wishlistroute from "./routes/wishlistRoute.js";
+import striperoute from "./routes/stripe.js";
 import messageroute from "./routes/messageRoute.js";
 import accesstoken from "./controllers/accessTokenController.js";
 import cookieParser from "cookie-parser";
 import { validateToken } from "./Middleware/validateTokenHandler.js";
+import chartroute from './routes/chartsroute.js';
 
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000","https://api.stripe.com","https//checkout.stripe.com"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"], // Add other HTTP methods if needed
     allowedHeaders: ["Content-Type", "Authorization"], // Add other allowed headers if needed
     credentials: true, // Allow cookies to be sent with the request
@@ -53,6 +55,8 @@ app.use('/cart',cartroute);
 app.use(messageroute);
 app.use(wishlistroute);
 app.use(accesstoken);
+app.use('/charts',chartroute)
+app.use('/stripe',striperoute)
 
 // connecting to databse ==> listening to requests
 connection().then(() => {

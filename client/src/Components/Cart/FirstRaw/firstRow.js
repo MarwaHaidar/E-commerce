@@ -2,8 +2,9 @@ import React, { useEffect, useState,useContext } from 'react';
 import styles from './firstRow.module.css';
 import axios from 'axios';
 import { BsTrash3Fill } from "react-icons/bs";
-//import buttonStyle from '../Buttons/button.module.css';
+import stylebtn from '../Buttons/button.module.css';
 import { useCart } from '../cartContext';
+import PayButton from '../PayButton.js'
 //import { CartContext } from '../cartContext';
 
 const ProductItem = ({ item, handleQuantityChange }) => {
@@ -12,7 +13,7 @@ const ProductItem = ({ item, handleQuantityChange }) => {
   //const [cartItems, setCartItems] = useState([]);
   const { deleteItem } = useCart();
 
-  const userId = '65c224cca97375578d394636';
+  const userId = '65c37d5bf70133be5cda504e';
 
   const handleDelete = async () => {
     try {
@@ -147,7 +148,7 @@ const FirstRaw = () => {
 
   useEffect(() => {
     getCard();
-  });
+  },[]);
 
   const handleQuantityChange = async (productId, newQuantity, color, size) => {
     try {
@@ -183,9 +184,39 @@ const FirstRaw = () => {
         />
       ))
        :
-        <div>No Products Found!</div>
-      }
+        <div>No Products Found!</div>}
+             <div style={{ marginTop: '30px', display: 'flex',alignItems: 'center', justifyContent: 'space-between',width: '83%' }}>
+      <button
+            type="submit"
+            className={stylebtn.button}
+          >
+            Return To Shop
+          </button>
+          {/* <button
+          type="submit"
+          className={stylebtn.button}
+        >
+         CHECKOUT
+        </button> */}
+        <PayButton cartItems={cartItemsData} />
+      </div>
+      <div style={{ marginTop: '30px',marginBottom:'100px', display: 'flex',alignItems: 'center',width: '50%'}}>
+      <input
+          type="text"
+          placeholder="Coupon Code"
+          className={stylebtn.couponcode}
+       />
+        <button
+          type="submit"
+          className={stylebtn.couponbutton}
+        >
+          Apply Coupon
+        </button>
+      </div>
+
     </div>
+   
+    
   );
 };
 

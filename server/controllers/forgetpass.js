@@ -68,7 +68,8 @@ export { requestPasswordReset };
 const resetPassword = async (req, res) => {
     try {
         const { email, password, verifyPassword } = req.body;
-
+        console.log('Email:', email); // Log the email to check if it's correctly passed
+        
         // // Access the user ID from the decoded information attached by the middleware
         // const {email} = req.query;
 

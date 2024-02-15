@@ -107,9 +107,9 @@ const updateCart = asyncHandler(async (req, res) => {
       );
       
 
-      if (!updatedCart) {
-        return res.status(404).json({ message: 'Cart not found or product not in cart' });
-      }
+    if (!updatedCart) {
+      return res.status(404).json({ message: 'Cart not found or product not in cart' });
+    }
 
       res.status(200).json({ message: 'Quantity updated successfully', data: updatedCart });
       console.log(userId);
@@ -120,6 +120,7 @@ const updateCart = asyncHandler(async (req, res) => {
   });
 
 export { updateCart };
+
 
 
 

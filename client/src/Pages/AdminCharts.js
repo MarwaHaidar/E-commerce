@@ -1,10 +1,33 @@
 import React from 'react'
-import ChartsAdmin from '../Components/Admin/ChartsAdmin/ChartsAdmin'
+import ProductCard from '../Components/Admin/ChartsAdmin/productcard';
+
 function AdminCharts() {
   return (
+    <>
     <div>
-      <ChartsAdmin />
+
+      <div style={{backgroundColor:'red'}}>
+      <ProductCard />
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+      
     </div>
+
+
+
+
+    </>
   )
 }
 
