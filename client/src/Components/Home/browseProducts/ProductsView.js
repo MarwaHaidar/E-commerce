@@ -6,23 +6,24 @@ import FilterBox from '../slider/FilterableMenu.js';
 import { FaFilter } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 // authorize
-const getAccessToken = () => {
-    const getCookie = (name) => {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(name + '=')) {
-          return cookie.substring(name.length + 1);
-        }
-      }
-      return null;
-    };
-    return getCookie('accessToken');
-  
-  
-  };
+// const getAccessToken = () => {
+//     const getCookie = (name) => {
+//       const cookies = document.cookie.split(';');
+//       for (let i = 0; i < cookies.length; i++) {
+//         const cookie = cookies[i].trim();
+//         if (cookie.startsWith(name + '=')) {
+//           return cookie.substring(name.length + 1);
+//         }
+//       }
+//       return null;
+//     };
+//     return getCookie('accessToken');
+
+
+//   };
 
 const ProductsView = () => {
     const { products, setProducts, setProductInWishlist, setItemsCount } = useContext(DataContext);
@@ -62,26 +63,39 @@ const ProductsView = () => {
         setFilterIconVisible(true);
     };
 
-    const userId = '65a8f6cff242b58ff5272d12'; // temoporary
-    let accessToken = getAccessToken();
+    const userId = Cookies.get("user_id")
+    const accessToken = Cookies.get("accessToken")
+
     const addToWishList = (productId) => {
         console.log("invoked")
+        console.log(userId)
+        console.log(accessToken)
         axios.post('http://localhost:5000/user/wishlist', {
-            userId, // temporary
             productId
         },
-        {
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            },
-            withCredentials: true
-    
-          }
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                },
+                withCredentials: true
+
+            }
         )
             .then(response => {
+                console.log("invoked after post")
+                console.log(userId)
+                console.log(accessToken)
                 console.log('Item added successfully:', response);
                 setProductInWishlist(prevProducts => prevProducts.filter(product => product.productId !== products.productId));
-                axios.get(`http://localhost:5000/user/wishlist/${userId}`)
+                axios.get(`http://localhost:5000/user/wishlist/${userId}`, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    },
+                    withCredentials: true
+    
+                }
+                )
                     .then(response => {
                         const count = response.data.result;
                         console.log("Wishlist count:", count);
