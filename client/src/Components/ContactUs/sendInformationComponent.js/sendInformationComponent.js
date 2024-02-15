@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./sendInformationComponent.module.css";
 import contactImage from "../../Assets/contactus.gif";
 import { IoSend } from "react-icons/io5";
+import axios from 'axios'
 
 const SendInformationComponent = () => {
   const [formData, setFormData] = useState({
@@ -9,24 +10,34 @@ const SendInformationComponent = () => {
     email: "",
     message: "",
   });
+  const [notification, setNotification] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-    // console.log("e target name " + e.target.name);
-    // console.log("e target value " + e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+
+    try {
+      await axios.post('http://localhost:5000/user/message', formData);
+      setFormData({ name: "", email: "", message: "" }); // Clear form fields
+      setNotification("Form submitted successfully!");
+      setTimeout(() => {
+        setNotification(null);
+      }, 3000); // Clear notification after 3 seconds
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className={styles.boxright}>
       <div className="container p-4 mt-8 max-w-2xl">
+      {notification && <div className="text-white bg-green-500 p-2 mb-4">{notification}</div>}
         <form className="mb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -93,7 +104,7 @@ const SendInformationComponent = () => {
               Send Message <IoSend className="mt-1 ml-3" />
             </button>
           </div>
-        </form>
+          </form>
       </div>
 
       <div className={styles.contactImagecss}>

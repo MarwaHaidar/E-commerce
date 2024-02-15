@@ -4,13 +4,15 @@
   }
   .productafterprice{
     display: flex;
-    margin-left: 10px;
+    margin-left: 5px;
     justify-content: space-between;
     width: 120px;
+    font-size: small;
   }
   .productprice{
     display: flex;
-    margin-left: 10px;
+    margin-left: 5px;
     justify-content: space-between;
     width: 120px;
+    font-size: small;
   }

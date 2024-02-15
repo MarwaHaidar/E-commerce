@@ -10,20 +10,20 @@ const Items = () => {
   const { itemsCount, setItemsCount } = useContext(DataContext)
 
 
-  const nextSlide = () => {
-    const remainingProducts = wishlistProducts.length - (startIndex + 4);
-    if (remainingProducts > 0) {
-      const newStartIndex = startIndex + 1;
-      setStartIndex(newStartIndex);
-    }
-  };
+  // const nextSlide = () => {
+  //   const remainingProducts = wishlistProducts.length - (startIndex + 4);
+  //   if (remainingProducts > 0) {
+  //     const newStartIndex = startIndex + 1;
+  //     setStartIndex(newStartIndex);
+  //   }
+  // };
 
-  const prevSlide = () => {
-    if (startIndex > 0) {
-      const newStartIndex = startIndex - 1;
-      setStartIndex(newStartIndex);
-    }
-  };
+  // const prevSlide = () => {
+  //   if (startIndex > 0) {
+  //     const newStartIndex = startIndex - 1;
+  //     setStartIndex(newStartIndex);
+  //   }
+  // };
 
 
   const userId = '65a8f6cff242b58ff5272d12';
@@ -34,9 +34,8 @@ const Items = () => {
     })
       .then(response => {
         console.log('Item removed successfully:', response);
-        // Update the wishlistProducts state after item removal
         setWishlistProducts(prevProducts => prevProducts.filter(product => product.productId !== productId));
-        // Fetch and update the items count from the backend
+
         axios.get(`http://localhost:5000/user/wishlist/${userId}`)
           .then(response => {
             const count = response.data.result;
@@ -46,12 +45,10 @@ const Items = () => {
           })
           .catch(error => {
             console.error("Error fetching wishlist count:", error);
-            // Handle the error appropriately
           });
       })
       .catch(error => {
         console.error('Error removing item:', error);
-        // Handle the error appropriately
       });
   };
 
@@ -82,23 +79,22 @@ const Items = () => {
   return (
     <div className="flashsale">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-        <span style={{ marginLeft: '80px' }}>Wishlist({itemsCount})</span>
-        <button style={{ marginRight: '125px', border: 'solid black 1px', padding: '10px 10px 10px 10px' }}>Move all to bag</button>
+        <span className="font-semibold text-md md:text-md lg:text-2xl xl:text-2xl pl-20 ml-20" style={{ marginBottom: '-5px', marginTop: '20px' }}>You have {itemsCount} items in your Wishlist</span>
       </div>
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 relative">
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 mt-[-50px] ml-[-50px] relative">
-          <div className="absolute left-0 top-1/2 z-10 transform -translate-y-1/2 cursor-pointer" onClick={prevSlide}>
-            <FaChevronLeft className="text-gray-700 h-6 w-6" />
-          </div>
-          {wishlistProducts && wishlistProducts.slice(startIndex, startIndex + 4).map((product) => (
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 relative" style={{ marginTop: '-50px' }}>
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          {wishlistProducts && wishlistProducts.map((product) => (
             <WishListProduct key={product.productId} product={product} removeItem={removeItem} />
           ))}
-          <div className="absolute right-0 top-1/2 z-10 transform -translate-y-1/2 cursor-pointer" onClick={nextSlide}>
-            <FaChevronRight className="text-gray-700 h-6 w-6" />
-          </div>
         </div>
       </div>
     </div>
+
+
+
+
+
+
   );
 };
 

@@ -98,11 +98,11 @@ const Wishlist = () => {
     <>
 
     <Items products={products} />
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+    {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
     <span style={{ marginLeft: '80px' }}>Just For You</span>
     <button style={{ marginRight: '125px', border:'solid black 1px', padding:'10px 10px 10px 10px' }}>See All</button>
-    </div>
-    <JustForYouItems products={products} />
+    </div> */}
+    {/* <JustForYouItems products={products} /> */}
      
     </>
   )

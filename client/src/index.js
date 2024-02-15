@@ -5,18 +5,20 @@ import App from './App';
 import CategoryProvider from './Components/Admin/CategoryAdmin/CategoryProvider';
 import SubCategoryProvider from './Components/Admin/SubCategoryAdmin/SubCategoryProvider';
 import { TimerProvider } from './Components/Home/Sale/timer/contextTime';
+//import { CartProvider} from './Components/Cart/cartContext';
 // import { CartProvider } from './cartcontext'; ;
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
 <TimerProvider>
  <CategoryProvider>
   <React.StrictMode>
    
   <SubCategoryProvider>
-  
-    <App />
+  <App />
+
 
   </SubCategoryProvider>
   

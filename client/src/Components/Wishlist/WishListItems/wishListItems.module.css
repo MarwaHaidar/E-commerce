@@ -1,10 +1,6 @@
-.flashsale {
-    background-color: #F5F5F5;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    margin-left: 10px;
-}
 
-.flashsale .grid {
-    white-space: nowrap; /* Prevent wrapping */
-    overflow-x: auto; /* Enable scrolling */
+
+.addToCart {
+z-index: 1000;
+ cursor: pointer;
 }

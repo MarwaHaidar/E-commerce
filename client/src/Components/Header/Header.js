@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from './../Context';
+import { CartContext } from '../Cart/cartContext';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Header.module.css';
@@ -30,6 +31,7 @@ const getAccessToken = () => {
 
 const Header = () => {
   const { setProducts, itemsCount } = useContext(DataContext);
+  const { setCartItemsData,cartItemCount } = useContext(CartContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -157,7 +159,12 @@ const Header = () => {
             </div>
           </Link>
           <Link to="/cart" className={styles.link}>
-            <FiShoppingCart className={styles.shopCartIcon} />
+          <div className={styles.wishIconContainer}>
+          <div className="indicator relative">
+                <span className="indicator-item badge absolute text-sm w-5 text-center left-6 bottom-0 rounded-full bg-red-500 text-white">{cartItemCount}</span>
+          </div>
+          <FiShoppingCart className={styles.shopCartIcon} />
+          </div>
           </Link>
           {/* get user initial or first letter from the accesss token */}
           {accessToken && <div className={styles.accountIcon}>W</div>} { }

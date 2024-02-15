@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DataContext from './Components/Context.js';
+ import { CartContext, CartProvider } from "./Components/Cart/cartContext.js";
+
 import React, { useState } from "react";
 import "./App.css";
 import Home from "./Pages/Home.js";
@@ -29,21 +31,30 @@ import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
 import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
 import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
+
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
 import ProductAdminEdit from "./Components/Admin/ProductsAdmin/ProductAdminEdit.js";
+import CheckoutSuccess from "./Components/Cart/CheckoutSuccess.js";
 import ProductSubCategory from "./Pages/ProductSubCategory.js";
+
 
 
 export default function App() {
   const isAdmin = false;
+  const [cartItems,setCartItems] = useState([]);
   const [products,setProducts] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
-  
+  const [productInWishlist, setProductInWishlist] =useState([]);
+  const [cartItemCount, setCartItemCount] = useState(0);
+ 
+ 
   
   return (
     <div>
       <Router>
-        <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount }}>
+        <CartProvider value={{cartItems,setCartItems, cartItemCount, setCartItemCount}}>
+        <DataContext.Provider value={{ products, setProducts, itemsCount, setItemsCount, productInWishlist, setProductInWishlist }}>
+
           {isAdmin ? <AdminHeader /> : <Header />}
           <Routes>
             <Route index element={<Home />} />
@@ -51,6 +62,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cart/" element={<Cart />} />
+            <Route path="/checkout-success" element={<CheckoutSuccess />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/forgetpassword" element={<ForgetPass />} />
             <Route path="/resetpassword" element={<ResetPass />} />
@@ -75,8 +87,11 @@ export default function App() {
             <Route path="/registerverify/:token" element={<VerificationComponent />} />
             <Route path="/register" element={<Signup />} /></Routes>
             {isAdmin ? " ":<Footer />}
-          
+         
         </DataContext.Provider>
+        </CartProvider>
+    
+       
       </Router>
     </div>
   );

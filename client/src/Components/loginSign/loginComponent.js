@@ -109,7 +109,7 @@ function LoginComponent(){
       <div className={styles.haveAccountName}>
       <h3>You Don't have an account ? </h3>
 
-     <h3> <Link to="/signup" className={styles.loginLink}>
+     <h3> <Link to="/register" className={styles.loginLink}>
     Sign up
      </Link>
      </h3>

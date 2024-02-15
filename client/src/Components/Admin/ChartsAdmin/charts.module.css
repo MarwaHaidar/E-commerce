@@ -1,0 +1,66 @@
+.chartcontainer{
+    background-color: #F5F5F5;
+}
+
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 300px;
+    background-color: #F5F5F5;
+    padding: 0 20px;
+    margin-top: 10px;
+    
+}
+.card{
+    width: 20%;
+    height: 100px;
+    background-color: #07393C;
+    color: white;
+    padding: 0 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+
+    
+}
+.cardtitle{
+    color: white;
+    font-size: 20px;
+    font-family: poppins;
+    font-weight: 600;
+    text-align: center;
+    margin:8px 0;
+
+}
+
+.carddetails{
+    font-size: 30px;
+    font-family: poppins;
+    font-weight: 800;
+    text-align: center;
+
+}
+.cahrts,.bargraph1{
+    background-color: #F5F5F5;
+}
+.bargraph1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); 
+    width: 45%;
+    margin: 0 20px;
+    margin-top: -80px;
+}
+.charttitle{
+    font-family: poppins;
+    font-weight: 800;
+    font-size: 30px;
+     margin-left: 150px;
+     margin-bottom: 20px;
+     
+    
+}

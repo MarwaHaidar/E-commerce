@@ -11,8 +11,8 @@ import zara5 from '../Components/Assets/zara12.png'
 import Banner from '../Components/Home/Banners/banner'
 import Featured from '../Components/Home/Featuredproducts/featured'
 import Newarrival from '../Components/Home/Newarrivals/newarrival'
- import Browsecategory from '../Components/Home/Browsecategory/browsecategory'
- import Properties from '../Components/Home/properties/properties'
+import Browsecategory from '../Components/Home/Browsecategory/browsecategory'
+import Properties from '../Components/Home/properties/properties'
 
 const Home = () => {
 
@@ -40,7 +40,7 @@ const Home = () => {
       imageSrc: zara1,
       imageAlt: "Product 1 Image",
       href: "#",
-      rating:3
+      rating: 3
     },
     {
       id: 2,
@@ -50,7 +50,7 @@ const Home = () => {
       imageSrc: zara2,
       imageAlt: "Product 2 Image",
       href: "#",
-      rating:3
+      rating: 3
     },
     {
       id: '65b3be169f078945f6e80a8a',
@@ -60,7 +60,7 @@ const Home = () => {
       imageSrc: zara3,
       imageAlt: "Product 3 Image",
       href: "#",
-      rating:4
+      rating: 4
     },
     {
       id: 4,
@@ -70,7 +70,7 @@ const Home = () => {
       imageSrc: zara4,
       imageAlt: "Product 4 Image",
       href: "#",
-      rating:2
+      rating: 2
     },
     {
       id: 5,
@@ -80,7 +80,7 @@ const Home = () => {
       imageSrc: zara5,
       imageAlt: "Product 4 Image",
       href: "#",
-      rating:3
+      rating: 3
     },
     {
       id: 6,
@@ -90,7 +90,7 @@ const Home = () => {
       imageSrc: zara5,
       imageAlt: "Product 4 Image",
       href: "#",
-      rating:3
+      rating: 3
     },
     {
       id: 7,
@@ -100,7 +100,7 @@ const Home = () => {
       imageSrc: zara5,
       imageAlt: "Product 4 Image",
       href: "#",
-      rating:3
+      rating: 3
     },
     {
       id: 8,
@@ -110,21 +110,21 @@ const Home = () => {
       imageSrc: zara5,
       imageAlt: "Product 4 Image",
       href: "#",
-      rating:3
+      rating: 3
     },
   ];
 
   return (
     <>
-    <Slider />
-     <Timer/>
-     <Flashsale products={products} />
-     <Browsecategory categories={categories}/>
-     
-     <Banner/>
-     <Featured products={products}/>
-     <Newarrival/>
-     <Properties/>
+      <Slider />
+      <Timer />
+      <Flashsale products={products} />
+      <Browsecategory categories={categories} />
+
+      <Banner />
+      <Featured products={products} />
+      <Newarrival />
+      <Properties />
 
 
 
@@ -132,8 +132,8 @@ const Home = () => {
 
 
 
-     
-     </>
+
+    </>
   )
 }
 export default Home;

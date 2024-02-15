@@ -10,82 +10,87 @@ import User from '../models/user.js';
 // function TotalFu(TotalAmount) {
 //     if (TotalAmount > 100) {
 //         return TotalAmount;
-//     } else {
-//         return TotalAmount + 10;
-//     }
-// }
-// // create order
-const createOrder = asyncHandler(async (req, res, next) => {
+// //     } else {
+// //         return TotalAmount + 10;
+// //     }
+// // }
+// // // create order
+// const createOrder = asyncHandler(async (req, res, next) => {
 
-    // validation joi-------------- 
-    // const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
+//     // validation joi-------------- 
+//     // const { error} = orderValidationSchema.validate(req.body, { abortEarly: false });
 
-    // if (error) {
-    //   return res.status(400).json({ error: error.details.map(detail => detail.message) });
-    // }
-    // --------------function to return only the ids of products in array orderItems in the collection order  ---------------//
-    const orderItemsIds = Promise.all(
-        req.body.orderItems.map(
-            async orderitem => { // Promise.all is for merge the ids
-            let newOrderItem = new OrderItem(
-                {
-            product: orderitem.product,
-            quantity: orderitem.quantity
-        }
-        )}));
+//     // if (error) {
+//     //   return res.status(400).json({ error: error.details.map(detail => detail.message) });
+//     // }
+//     // --------------function to return only the ids of products in array orderItems in the collection order  ---------------//
+//     const orderItemsIds = Promise.all(
+//         req.body.orderItems.map(
+//             async orderitem => { // Promise.all is for merge the ids
+//             let newOrderItem = new OrderItem(
+//                 {
+//             product: orderitem.product,
+//             quantity: orderitem.quantity
+// //         }
+// //         )}));
 
-        //         newOrderItem = await newOrderItem.save();
+//         //         newOrderItem = await newOrderItem.save();
 
-        //         return newOrderItem._id;
-        //     }));
-        //     const orderItemsIdsResolved = await orderItemsIds;
+//         //         return newOrderItem._id;
+//         //     }));
+//         //     const orderItemsIdsResolved = await orderItemsIds;
 
-        //     //EX: orderItemsIdsResolved is array of Ids
-        //     //[
-        //     //     new ObjectId('65a93857d4c4a1d967c607da'),
-        //     //     new ObjectId('65a93857d4c4a1d967c607db')
-        //     //   ]
+//         //     //EX: orderItemsIdsResolved is array of Ids
+//         //     //[
+//         //     //     new ObjectId('65a93857d4c4a1d967c607da'),
+//         //     //     new ObjectId('65a93857d4c4a1d967c607db')
+//         //     //   ]
 
 
-        //     // console.log(orderItemsIdsResolved);
+//         //     // console.log(orderItemsIdsResolved);
 
-        // -----------------------------//
-        const TotalAmount = await Promise.all(orderItemsIdsResolved.map(async orderItemsId => {
-            const orderItem = await OrderItem.findById(orderItemsId)
-                .populate('product')
-            // console.log(orderItem);
-            // res.json(orderItem);
+//         // -----------------------------//
+//         const TotalAmount = await Promise.all(orderItemsIdsResolved.map(async orderItemsId => {
+//             const orderItem = await OrderItem.findById(orderItemsId)
+//                 .populate('product')
+//             // console.log(orderItem);
+//             // res.json(orderItem);
 
-            const price = orderItem.product.price; // get price 
-            const quantity = orderItem.quantity; // get quantity
+//             const price = orderItem.product.price; // get price 
+//             const quantity = orderItem.quantity; // get quantity
 
-            const totalAmount = price * quantity
-            // console.log(totalAmount);
-            return totalAmount;
-        }))
+//             const totalAmount = price * quantity
+//             // console.log(totalAmount);
+//             return totalAmount;
+//         }))
 
-        // console.log(TotalAmount);
+//         // console.log(TotalAmount);
 
-        const sumTotalAmount = TotalAmount.reduce((a, b) => a + b, 0); // sum of all values in array TotalAmount
-        // console.log(sumTotalAmount);
+//         const sumTotalAmount = TotalAmount.reduce((a, b) => a + b, 0); // sum of all values in array TotalAmount
+//         // console.log(sumTotalAmount);
 
-        // -----------------------------//
-        const subTotalStatus = TotalFu(sumTotalAmount);
-        //  console.log(subTotalStatus);
+//         // -----------------------------//
+//         const subTotalStatus = TotalFu(sumTotalAmount);
+//         //  console.log(subTotalStatus);
 
-        // -----------------------------//
-        const userId = req.body.userId;
-        const orderItems = orderItemsIdsResolved;
-        const totalAmount = sumTotalAmount;
-        const status = req.body.status;
-        const TotalStatus = subTotalStatus;
+//         // -----------------------------//
+//         const userId = req.body.userId;
+//         const orderItems = orderItemsIdsResolved;
+//         const totalAmount = sumTotalAmount;
+//         const status = req.body.status;
+//         const TotalStatus = subTotalStatus;
 
-        const order = await Order.create({ userId, orderItems, totalAmount, TotalStatus, status });
-        res.status(201).json({ data: order });
-        next();
+//         const order = await Order.create({ userId, orderItems, totalAmount, TotalStatus, status });
+//         res.status(201).json({ data: order });
+//         next();
     
-});
-    export { createOrder };
+// });
+//     export { createOrder };
+
+
+
+
+
 
 
     // get all oders
