@@ -3,73 +3,59 @@ import axios from 'axios';
 import WishListProduct from './wishListItems';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import DataContext from '../../Context';
+import Cookies from 'js-cookie';
 
 const Items = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [wishlistProducts, setWishlistProducts] = useState([]);
   const { itemsCount, setItemsCount } = useContext(DataContext)
-  const getUserIdFromCookie = () => {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      // Check if the cookie starts with 'user_id='
-      if (cookie.startsWith('user_id=')) {
-        // Return the value of the 'user_id' cookie
-        return cookie.substring('user_id='.length);
-      }
-    }
-    // Return null if 'user_id' cookie is not found
-    return null;
-  };
-
-  // Get the user ID from the cookies
-  const userIdFromCookie = getUserIdFromCookie();
-
-  // Log the user ID from the cookies
-  console.log("User ID from cookie: ", userIdFromCookie);
 
 
-  // const nextSlide = () => {
-  //   const remainingProducts = wishlistProducts.length - (startIndex + 4);
-  //   if (remainingProducts > 0) {
-  //     const newStartIndex = startIndex + 1;
-  //     setStartIndex(newStartIndex);
-  //   }
-  // };
 
-  // const prevSlide = () => {
-  //   if (startIndex > 0) {
-  //     const newStartIndex = startIndex - 1;
-  //     setStartIndex(newStartIndex);
-  //   }
-  // };
+  const userId = Cookies.get("user_id")
+  const accessToken = Cookies.get("accessToken")
+  console.log(userId)
+  console.log(accessToken)
 
-
-  const userId = userIdFromCookie;
   console.log("user Id : ", userId)
   const removeItem = (productId) => {
     axios.patch('http://localhost:5000/user/wishlist/remove-item', {
-      userId,
-      productId,
-    })
-      .then(response => {
-        console.log('Item removed successfully:', response);
-        setWishlistProducts(prevProducts => prevProducts.filter(product => product.productId !== productId));
 
-        axios.get(`http://localhost:5000/user/wishlist/${userId}`)
-          .then(response => {
-            const count = response.data.result;
-            console.log("Wishlist count:", count);
-            setItemsCount(count);
-            console.log("Items count updated:", count);
-          })
-          .catch(error => {
-            console.error("Error fetching wishlist count:", error);
-          });
-      })
-      .catch(error => {
-        console.error('Error removing item:', error);
-      });
+      productId
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      },
+      withCredentials: true
+    })
+    .then(response => {
+      console.log('Item removed successfully:', response);
+      setWishlistProducts(prevProducts => prevProducts.filter(product => product.productId !== productId));
+  
+      // Fetch updated wishlist count with userId in the URL
+      axios.get(`http://localhost:5000/user/wishlist/${userId}`, 
+      {
+          headers: {
+              Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+
+      }
+      )
+        .then(response => {
+          const count = response.data.result;
+          console.log("Wishlist count:", count);
+          setItemsCount(count);
+          console.log("Items count updated:", count);
+        })
+        .catch(error => {
+          console.error("Error fetching wishlist count:", error);
+        });
+    })
+    .catch(error => {
+      console.error('Error removing item:', error);
+    });
   };
 
 
@@ -79,7 +65,15 @@ const Items = () => {
 
   useEffect(() => {
     if (userId) {
-      axios.get(`http://localhost:5000/user/wishlist/${userId}`)
+      axios.get(`http://localhost:5000/user/wishlist/${userId}`, 
+      {
+          headers: {
+              Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+
+      }
+      )
         .then(response => {
           const wishes = response.data.data.wishlist;
           const count = response.data.result;

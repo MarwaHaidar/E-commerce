@@ -10,6 +10,7 @@ import Logo from './Logo';
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
+import Cookies from 'js-cookie';
 
 
 // for show account icon
@@ -31,14 +32,17 @@ const getAccessToken = () => {
 
 const Header = () => {
   const { setProducts, itemsCount } = useContext(DataContext);
-  const { setCartItemsData,cartItemCount } = useContext(CartContext);
+  const { cartItemCount } = useContext(CartContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const resultsContainerRef = useRef(null);
   const navigate = useNavigate();
-  const accessToken = getAccessToken(); // to show account icon
-  // const accessToken = true
+  // const accessToken = getAccessToken(); 
+  const accessToken = Cookies.get("accessToken")
+  const firstName = Cookies.get("first_name")
+  console.log(accessToken)
+  console.log(firstName)
 
   // retrieving products on input change
   const handleSearchQueryChange = async (query) => {
@@ -159,15 +163,18 @@ const Header = () => {
             </div>
           </Link>
           <Link to="/cart" className={styles.link}>
-          <div className={styles.wishIconContainer}>
-          <div className="indicator relative">
-                <span className="indicator-item badge absolute text-sm w-5 text-center left-6 bottom-0 rounded-full bg-red-500 text-white">{cartItemCount}</span>
-          </div>
-          <FiShoppingCart className={styles.shopCartIcon} />
-          </div>
+            <div className={styles.wishIconContainer}>
+              <div className="indicator relative">
+                <span className={`indicator-item badge absolute text-sm w-5 text-center right-4 bottom-0 rounded-full bg-red-500 text-white ${styles.cartIndicator}`}>{cartItemCount}</span>
+              </div>
+              <FiShoppingCart className={styles.shopCartIcon} />
+            </div>
           </Link>
-          {/* get user initial or first letter from the accesss token */}
-          {accessToken && <div className={styles.accountIcon}>W</div>} { }
+          {accessToken && (
+            <div className={styles.accountIcon}>
+              {firstName ? firstName.charAt(0) : null}
+            </div>
+          )}
         </div>
       </div>
     </div>
