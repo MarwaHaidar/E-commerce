@@ -4,7 +4,7 @@ import Order from '../models/order.js'
 import Delivery from '../models/delivery.js';
 import { validateToken } from '../Middleware/validateTokenHandler.js';
 //import bodyParser from 'body-parser';
- import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { ObjectId } from 'mongoose';
 
 
@@ -117,92 +117,82 @@ router.post("/stripecheckoutsession",validateToken, async (req, res) => {
 
 const createOrder = async (customer, data) => {
   try {
+    console.log(customer.metadata.cart);
     const Items = JSON.parse(customer.metadata.cart);
-
+   
     // Convert product IDs to ObjectIDs
     const orderItems = Items.map((item) => ({
-      product:item.productId, // Use ObjectId instead of newObjectId
+      product: item.productId,
       quantity: item.quantity,
     }));
     
-
     // Create a new instance of the Order model
     const newOrder = new Order({
       userId: customer.metadata.userId,
       orderItems: orderItems,
       totalAmount: data.amount_subtotal,
-      TotalStatus: data.amount_total, // Correct the property name
+      totalStatus: data.amount_total, // Correct the property name
       dateOrdered: new Date(),
     });
 
     const savedOrder = await newOrder.save();
     console.log("Processed Order:", savedOrder);
+
+    // Call createDelivery function after saving the order
+    await createDelivery(customer, data, savedOrder._id);
   } catch (err) {
     console.error("Error saving order:", err);
-  
   }
 };
 
 // Create delivery function
-// const createDelivery = async (customer, data) => {
-//   // Calculate delivery date based on shipping option
-// // Assuming 'data' is your session object
-// const subtotal = data.amount_subtotal;
-//     const total=data.amount_total;
+const createDelivery = async (customer, data, orderId) => {
+  try {
+    // Calculate delivery date based on shipping option
+    const subtotal = data.amount_subtotal;
+    const total = data.amount_total;
 
-// // Find the Free shipping option
-// //const freeShippingOption = shippingOptions.find(option => option.shipping_rate_data.display_name === 'Free shipping');
-// let deliveryDate;
-// if (subtotal==total) {
-//   //const selectedOption = shippingOption.find(option => option.selected);
-  
-//     // For free shipping, set delivery date to current date + 7 days
-//     deliveryDate = new Date();
-//     deliveryDate.setDate(deliveryDate.getDate() + 7);
-//   } else {
-//     // For other shipping options, set delivery date to current date + 1 day
-//     deliveryDate = new Date();
-//     deliveryDate.setDate(deliveryDate.getDate() + 1);
-//   }
+    let deliveryDate;
+    if (subtotal == total) {
+      deliveryDate = new Date();
+      deliveryDate.setDate(deliveryDate.getDate() + 7);
+    } else {
+      deliveryDate = new Date();
+      deliveryDate.setDate(deliveryDate.getDate() + 1);
+    }
 
-//   // Generate a random tracking number
-//   const trackingNumber = Math.floor(Math.random() * 1000000000);
+    // Generate a random tracking number
+    const trackingNumber = Math.floor(Math.random() * 1000000000);
 
-//   const newDelivery = new Delivery({
-  
-//     user_id: customer.metadata.userId,
-//     customerId: data.customer,
-//     shipping: data.customer_details,
-//     deliveryDate: deliveryDate,
-//     status: "pending",
-   
-//     trackingNumber: trackingNumber.toString(),
-   
-//   });
+    const newDelivery = new Delivery({
+      order_id: orderId,
+      user_id: customer.metadata.userId,
+      customerId: data.customer,
+      shipping: data.customer_details,
+      deliveryDate: deliveryDate,
+      status: "pending",
+      trackingNumber: trackingNumber.toString(),
+    });
 
-//   try {
-//     const savedDelivery = await newDelivery.save();
-//     console.log("Processed Delivery:", savedDelivery);
+    const savedDelivery = await newDelivery.save();
+    console.log("Processed Delivery:", savedDelivery);
 
-//     // Update order status to "Delivered" when current date matches delivery date
-//     const order = await Order.findOneAndUpdate(
-//       { _id: data.payment_intent }, // Assuming payment_intent is the order ID
-//       { $set: { status: 'Delivered' } },
-//       { new: true }
-//     );
+    // Update order status to "Delivered" when current date matches delivery date
+    const order = await Order.findOneAndUpdate(
+      { _id: orderId }, // Assuming orderId is the order ID
+      { $set: { status: 'Delivered' } },
+      { new: true }
+    );
 
-//     if (order) {
-//       console.log(`Order ${order._id} status updated to Delivered`);
-//     } else {
-//       console.log(`Order not found`);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-
-
+    if (order) {
+      console.log(`Order ${order._id} status updated to Delivered`);
+    } else {
+      console.log(`Order not found`);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 //webhook
 router.use(express.raw({ type: 'application/json' }));
@@ -247,7 +237,7 @@ router.post("/webhook", async (req, res) => {
              createOrder(customer, data);
              console.log("success")
            
-            //createDelivery(customer, data);
+            createDelivery(customer, data);
           } catch (err) {
             console.log(typeof createOrder);
             console.log(typeof createDelivery);

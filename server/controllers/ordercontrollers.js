@@ -1,6 +1,6 @@
 import Order from "../models/order.js";
 import asyncHandler from 'express-async-handler';
-import OrderItem from '../models/orderItems.js';
+// import OrderItem from '../models/orderItems.js';
 import { orderValidationSchema } from '../validationJoi/orderValidation.js'
 import { calculateQuantity } from '../Middleware/RecalculateQu.js'
 import User from '../models/user.js';
