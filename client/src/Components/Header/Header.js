@@ -10,32 +10,35 @@ import Logo from './Logo';
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
+import Cookies from 'js-cookie';
 
 
 // for show account icon
-const getCookie = (name) => {
-  const cookies = document.cookie.split(';');
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    if (cookie.startsWith(name + '=')) {
-      return cookie.substring(name.length + 1);
-    }
-  }
-  return null;
-};
+// const getCookie = (name) => {
+//   const cookies = document.cookie.split(';');
+//   for (let i = 0; i < cookies.length; i++) {
+//     const cookie = cookies[i].trim();
+//     if (cookie.startsWith(name + '=')) {
+//       return cookie.substring(name.length + 1);
+//     }
+//   }
+//   return null;
+// };
 
-const getAccessToken = () => {
-  return getCookie('accessToken');
-};
+// const getAccessToken = () => {
+//   return getCookie('accessToken');
+// };
 
-const firstName = getCookie('first_name');
+// const firstName = getCookie('first_name');
 
-if (firstName) {
-  const firstLetter = firstName.charAt(0);
-  console.log('First letter of the first name:', firstLetter);
-} else {
-  console.error('First name cookie not found or empty.');
-}
+// if (firstName) {
+//   const firstLetter = firstName.charAt(0);
+//   console.log('First letter of the first name:', firstLetter);
+// } else {
+//   console.error('First name cookie not found or empty.');
+// }
+
+
 
 
 
@@ -45,14 +48,17 @@ if (firstName) {
 
 const Header = () => {
   const { setProducts, itemsCount } = useContext(DataContext);
-  const { setCartItemsData, cartItemCount } = useContext(CartContext);
+  const { cartItemCount } = useContext(CartContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const resultsContainerRef = useRef(null);
   const navigate = useNavigate();
-  const accessToken = getAccessToken(); // to show account icon
-  // const accessToken = true
+  // const accessToken = getAccessToken(); 
+  const accessToken = Cookies.get("accessToken")
+  const firstName = Cookies.get("first_name")
+  console.log(accessToken)
+  console.log(firstName)
 
   // retrieving products on input change
   const handleSearchQueryChange = async (query) => {
