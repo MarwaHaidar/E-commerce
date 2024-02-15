@@ -8,7 +8,7 @@ import NavBarAdmin from './NavbarAdmin';
 function AdminHeader() {
     return (
         <div>
-          <Banner/>
+      
           <div className={styles.header}>
             <Logo/>
             <NavBarAdmin />
