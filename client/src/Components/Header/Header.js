@@ -14,36 +14,20 @@ import Cookies from 'js-cookie';
 
 
 // for show account icon
-// const getCookie = (name) => {
-//   const cookies = document.cookie.split(';');
-//   for (let i = 0; i < cookies.length; i++) {
-//     const cookie = cookies[i].trim();
-//     if (cookie.startsWith(name + '=')) {
-//       return cookie.substring(name.length + 1);
-//     }
-//   }
-//   return null;
-// };
+const getAccessToken = () => {
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  return getCookie('accessToken');
 
-// const getAccessToken = () => {
-//   return getCookie('accessToken');
-// };
-
-// const firstName = getCookie('first_name');
-
-// if (firstName) {
-//   const firstLetter = firstName.charAt(0);
-//   console.log('First letter of the first name:', firstLetter);
-// } else {
-//   console.error('First name cookie not found or empty.');
-// }
-
-
-
-
-
-// Example usage:
-
+};
 
 
 const Header = () => {
