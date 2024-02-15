@@ -104,23 +104,23 @@ const ProductItem = ({ item, handleQuantityChange }) => {
 
   return (
     <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'white', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', width: '83%' }}>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row'}}>
         <div >{item.image && <img src={item.image} alt={item.productName} style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }} />}</div>
-        <div style={{ marginTop: '30px', width:'150px' }}>{item.productName}</div>
+        <div style={{ marginTop: '30px', width:"160px" }}>{item.productName}</div>
       </div>
-      <div style={{ backgroundColor: item.color, width: '40px', height: '40px', borderRadius: '50%', justifyContent:'center' }}></div>
-      <div>{item.size}</div>
-      <div>{item.price + " " + item.currency}</div>
-      <div>
+      <div style={{ backgroundColor: item.color, width: '40px', height: '40px', borderRadius: '50%',justifyContent:"center" }}></div>
+      <div style={{width:"10%px",textAlign:"center"}}>{item.size}</div>
+      <div style={{width:"7%"}}>{item.price + " " + item.currency}</div>
+      <div style={{width:"8%"}}>
         <input
-          style={{ width: '50px', textAlign: 'center', marginLeft: '10px', border: '2px solid black' }}
+          style={{ width: '50px', textAlign: 'center', border: '2px solid black' }}
           type="number"
           value={quantity}
           min="1"
           onChange={handleChange}
         />
       </div>
-      <div style={{textAlign:'center'}}>${subtotal.toFixed(2)}</div>
+      <div style={{width:"8%",textAlign:'center'}}>${subtotal.toFixed(2)}</div>
       <button style={{fontSize:'30px'}} onClick={handleDelete} >
         <BsTrash3Fill />
       </button>
@@ -148,7 +148,7 @@ const FirstRaw = () => {
 
   useEffect(() => {
     getCard();
-  },[]);
+  });
 
   const handleQuantityChange = async (productId, newQuantity, color, size) => {
     try {
@@ -168,12 +168,12 @@ const FirstRaw = () => {
 
   return (
     <div className={styles.flashsale}>
-      <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'white', padding: '10px 0', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', width: '83%' }}>
+      <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'white', padding: '10px 0', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', width: '83%', marginRight:"20px" }}>
         <div>Product{cartItemCount}</div>
-        <div style={{ paddingLeft: '140px' }}>Color</div>
-        <div>Size</div>
-        <div>Price</div>
-        <div>Quantity</div>
+        <div style={{ paddingLeft: '120px' }}>Color</div>
+        <div style={{ paddingRight: '20px' }}>Size</div>
+        <div style={{ paddingRight: '30px' }}>Price</div>
+        <div style={{ paddingRight: '30px' }}>Quantity</div>
         <div style={{ paddingRight: '90px' }}>SubTotal</div>
       </div>
       {cartItemsData.length > 0 ? cartItemsData.map(item => (
