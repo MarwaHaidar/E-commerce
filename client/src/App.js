@@ -39,7 +39,7 @@ import ProductSubCategory from "./Pages/ProductSubCategory.js";
 
 
 export default function App() {
-  const isAdmin = false;
+  const isAdmin = true;
   const [cartItems,setCartItems] = useState([]);
   const [products,setProducts] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);

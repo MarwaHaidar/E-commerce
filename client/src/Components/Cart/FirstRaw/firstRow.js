@@ -148,7 +148,7 @@ const FirstRaw = () => {
 
   useEffect(() => {
     getCard();
-  });
+  },[]);
 
   const handleQuantityChange = async (productId, newQuantity, color, size) => {
     try {
