@@ -13,7 +13,6 @@ const addToWishlist = asyncHandler(async (req, res) => {
   console.log("found product: ", product)
   const productName = product.name;
   const image = product.imageCover;
-  console.log("image: ", typeof(image))
   const wishlist = [{
     productId,
     productName,

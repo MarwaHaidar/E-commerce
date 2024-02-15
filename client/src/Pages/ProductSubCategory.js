@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import ProductCard from "../Components/Home/browseProducts/productcard";
+import ProductCard from "../Components/Home/BrowseProducts/productcard";
 
 function ProductSubCategory() {
   const { subcategoriesId } = useParams();

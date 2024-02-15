@@ -8,6 +8,25 @@ const Items = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [wishlistProducts, setWishlistProducts] = useState([]);
   const { itemsCount, setItemsCount } = useContext(DataContext)
+  const getUserIdFromCookie = () => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Check if the cookie starts with 'user_id='
+      if (cookie.startsWith('user_id=')) {
+        // Return the value of the 'user_id' cookie
+        return cookie.substring('user_id='.length);
+      }
+    }
+    // Return null if 'user_id' cookie is not found
+    return null;
+  };
+
+  // Get the user ID from the cookies
+  const userIdFromCookie = getUserIdFromCookie();
+
+  // Log the user ID from the cookies
+  console.log("User ID from cookie: ", userIdFromCookie);
 
 
   // const nextSlide = () => {
@@ -26,7 +45,8 @@ const Items = () => {
   // };
 
 
-  const userId = '65a8f6cff242b58ff5272d12';
+  const userId = userIdFromCookie;
+  console.log("user Id : ", userId)
   const removeItem = (productId) => {
     axios.patch('http://localhost:5000/user/wishlist/remove-item', {
       userId,

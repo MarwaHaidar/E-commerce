@@ -30,8 +30,7 @@ import SubCategoryAdminDelete from "./Components/Admin/SubCategoryAdmin/SubCateg
 import AddProduct from "./Components/Admin/AddProduct/AddProduct.js";
 import AddCategories from "./Components/Admin/AddCategories/AddCategories.js";
 import AddSubCategories from "./Components/Admin/AddSubCategories/AddSubCategories.js";
-import ProductsView from "./Components/Home/browseProducts/ProductsView.js";
-
+import ProductsView from "./Components/Home/BrowseProducts/ProductsView.js";
 import ProductsAdminGet from "./Components/Admin/ProductsAdmin/ProductsAdminGet.js";
 import ProductAdminEdit from "./Components/Admin/ProductsAdmin/ProductAdminEdit.js";
 import CheckoutSuccess from "./Components/Cart/CheckoutSuccess.js";

@@ -36,6 +36,9 @@ const NavBar = () => {
         // Clear the access token and refresh token cookies
         Cookies.remove('accessToken');
         Cookies.remove('refreshToken');
+        Cookies.remove('user_id');
+        Cookies.remove('first_name');
+        Cookies.remove('role');
 
         // Update isLoggedIn state to false
         setIsLoggedIn(false);
@@ -68,7 +71,7 @@ const NavBar = () => {
 
     const reloadPage = () => {
         window.location.reload();
-      };
+    };
 
     return (
         <>
@@ -87,7 +90,7 @@ const NavBar = () => {
                                 <li>Login</li>
                             </Link>
                         )}
-                        
+
                     </ul>
                 </div>
             </nav>
