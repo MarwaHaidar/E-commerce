@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import DataContext from '../Context';
 import { CartProvider } from '../Cart/cartContext'
 //------------------------------------------------------------------------------------------------
@@ -43,10 +45,8 @@ const ProductDetails = () => {
   };
   let accessToken = getAccessToken();
   const handleAddToCart = async () => {
-
-
     try {
-      console.log('selected size:', selectedSize['enum'][0]);
+      
       const response = await axios.post(
         'http://localhost:5000/cart/user/cart',
         {
@@ -55,33 +55,21 @@ const ProductDetails = () => {
           currency: 'USD',
           color: selectedColor.color,
           size: selectedSize['enum'][0],
-
         },
         {
-          // headers: {
-          //   Authorization: `Bearer ${accessToken}`
-          // },
           withCredentials: true
-
         }
       );
-
-      //  console.log('Product added to cart:', response.data);
-      // console.log(accessToken )
-      // console.log(selectedSize['enum'][0])
-      // console.log(selectedColor.color)
-      // console.log(response.data.userId)
-      let userrid = response.data.cart.userId
-      console.log("user id ", userrid)
-
-
-
+  
+      let userrid = response.data.cart.userId;
+      console.log("user id ", userrid);
+     
+      toast.success('Product added to cart successfully!');
     } catch (error) {
-
-
       console.error('Error adding product to cart:', error);
     }
   };
+  
 
 
 
@@ -135,6 +123,7 @@ const ProductDetails = () => {
   return (
 
     <div >
+    <ToastContainer />
       <div className="pt-6 ">
         <nav aria-label="Breadcrumb">
           <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-6xl lg:px-8">

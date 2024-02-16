@@ -1,7 +1,7 @@
 import express from 'express';
 import upload from '../controllers/imageuploadcontroller.js';
 import { filterSortProducts, searchProducts } from '../controllers/searchfiltercontroller.js';
-import { createProduct, getproducts, getproduct, updateproduct,updateproductImage, deleteproduct ,FeaturedProducts} from '../controllers/productcontroller.js'
+import { createProduct, getproducts, getproduct, updateproduct,updateproductImage, deleteproduct ,FeaturedProducts,getProductSizeQuantity} from '../controllers/productcontroller.js'
 import { validateToken,validateTokenForAdmin } from '../Middleware/validateTokenHandler.js';
 
 
@@ -33,7 +33,7 @@ router.get('/products/search', searchProducts);
 router.get('/products/filter', filterSortProducts); 
 router.get('/products/:id', getproduct);
 router.get('/products', getproducts);
-
+router.post('/products/productQuantity', getProductSizeQuantity);
 router.get('/features',FeaturedProducts);
 
 
