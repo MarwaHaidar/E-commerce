@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './charts.module.css';
-import { BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, LinearGradient, Stop } from 'recharts';
+import {AreaChart,Area,Pie,PieChart, BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, LinearGradient, Stop } from 'recharts';
 
 function ProductCard() {
   const [productCount, setProductCount] = useState(0);
@@ -9,6 +9,8 @@ function ProductCard() {
   const [subcategoryCount, setSubcategoryCount] = useState(0);
   const [userCount, setUserCount] = useState(0);
   const [userData, setUserData] = useState([]);
+  const[orderData,setOrderData]=useState([]);
+  const[userbyCountry,setUserbyCountry]=useState([]);
 
 
   useEffect(() => {
@@ -17,6 +19,8 @@ function ProductCard() {
     fetchSubcategoryCount();
     fetchUserCount();
     fetchData();
+    fetchorderbyyear();
+    fetchusersbycountry();
   }, []);
 
   const fetchProductCount = async () => {
@@ -63,9 +67,22 @@ function ProductCard() {
       console.error('Error fetching user count by year:', error);
     }
   };
-
-  // const years = userData.map(item => item._id);
-  // const userCounts = userData.map(item => item.count);
+  const fetchorderbyyear= async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/charts/ordercountbyyear', { withCredentials: true }); // Replace this with your API endpoint
+      setOrderData(response.data);
+    } catch (error) {
+      console.error('Error fetching user count by year:', error);
+    }
+  };
+  const fetchusersbycountry= async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/charts/userscountbycountry', { withCredentials: true }); // Replace this with your API endpoint
+      setUserbyCountry(response.data);
+    } catch (error) {
+      console.error('Error fetching user count by year:', error);
+    }
+  };
   return (
     <div className={styles.chartcontainer}>
       <div className={styles.cards}>
@@ -105,6 +122,50 @@ function ProductCard() {
           </BarChart>
 
         </div>
+        <div className={styles.areagraph}>
+        <h2 className={styles.charttitle}>COUNT OF ORDERS BY YEARS</h2>
+        <AreaChart width={730} height={310} data={orderData}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#07393C" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="#07393C" stopOpacity={0}/>
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="_id" />
+          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
+          <Area type="monotone" dataKey="count" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+        </AreaChart>
+        </div>
+      </div>
+      <div className={styles.charts}>
+      <div className={styles.piechart}>
+      <h2 className={styles.charttitle}>COUNT OF USERS BY COUNTRY</h2>
+      <PieChart width={730} height={300}>
+        <Pie data={userbyCountry} dataKey="userCount" outerRadius={100}  nameKey="_id" cx="50%" cy="50%"  fill="#07393C"  />
+        <Tooltip />
+        <Legend />
+      </PieChart>
+    </div>
+        {/* <div className={styles.areagraph}> */}
+        {/* <h2 className={styles.charttitle}>COUNT OF ORDERS BY YEARS</h2> */}
+        {/* <AreaChart width={730} height={310} data={orderData}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#07393C" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="#07393C" stopOpacity={0}/>
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="_id" />
+          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
+          <Area type="monotone" dataKey="count" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+        </AreaChart> */}
+        {/* </div> */}
       </div>
     </div>
   );
