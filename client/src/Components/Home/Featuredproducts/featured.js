@@ -5,7 +5,7 @@ import FeaturedProduct from './featuredcard';
 import Viewproductbtn from '../Viewprodbtn/vpb';
 import axios from 'axios';
 
-const Featured = ({ product }) => {
+const Featured = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [products, setProducts] = useState([]);
 
