@@ -24,9 +24,10 @@
   }
 .txt{
     font-size: 50px;
-    margin-top: -10px;
+    margin-top: -5px;
+    color: #fff;
     font-family: poppins;
-    font-weight:100;
+    font-weight:200;
     margin-left: 10px;
 }
 .digital-clock {
@@ -55,13 +56,14 @@
  .label {
     font-size: 14px;
     font-weight: bold;
-    color: #888;
+    color: #ffffff8c;
 } 
 
  span {
+
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #ffffffcc;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 } 
 @media screen and (max-width: 900px){

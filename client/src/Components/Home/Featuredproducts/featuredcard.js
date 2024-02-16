@@ -37,8 +37,9 @@ const FeaturedProduct = ({ product, onClick }) => {
               {product.name}
             </a>
           </h3>
-          <span className="text-lg font-bold text-black-500 px-2 rounded-full mr-4">
-            ${product.price}
+          <span className="text-lg font-bold text-gray-900 px-2 rounded-full mr-4">
+            ${product.price - product.price * 0.15}
+            <span className=" mx-4 text-base text-md font-bold text-red-500" style={{ textDecoration: 'line-through' }}>$ {product.price}</span>
             <span className="ml-3">{renderRatingStars(rating)}</span>
           </span>
 
