@@ -7,6 +7,7 @@ const ProductDetails = () => {
     <div  >
     <ProductDetailsCard />
     <ProductReviews />
+   
     </div>
   )
 }
