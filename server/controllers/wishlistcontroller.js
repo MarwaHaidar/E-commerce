@@ -29,7 +29,7 @@ const addToWishlist = asyncHandler(async (req, res) => {
     } else {
       const productExists = wishCart.wishlist.some(el => el.productId.equals(productId));
       if (productExists) {
-        res.status(409).json({ message: `Product: ${productName} is already in your Wish Cart` });
+        res.status(409).json({ product: productId, message: "Already in your Wish Cart"});
         return; // Return here to prevent further execution
       } else {
         wishCart.wishlist.push(...wishlist);
@@ -51,7 +51,7 @@ export { addToWishlist };
 const getWishcart = asyncHandler(async (req, res) => {
   try {
     // const { userId } = req.params;
-    const  userId  = req.user.id;
+    const userId = req.user.id;
     console.log(userId)
     let WishCart = await Wishlist.findOne({ userId: userId });
     let count = WishCart.wishlist.length
@@ -73,7 +73,7 @@ export { getWishcart };
 const removeWishItem = async (req, res) => {
   const userId = req.user.id
   console.log(userId)
-  const {productId }= req.body;
+  const { productId } = req.body;
 
 
   try {

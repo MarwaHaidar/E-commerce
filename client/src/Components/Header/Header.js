@@ -172,7 +172,8 @@ const Header = () => {
           </Link>
           {accessToken && (
             <div className={styles.accountIcon}>
-              {firstName ? firstName.charAt(0) : null}
+              {firstName ? firstName.charAt(0).toUpperCase() : null}
+
             </div>
           )}
         </div>

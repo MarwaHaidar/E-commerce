@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
 
-const ProductCard = ({ products, addToWishList }) => {
+const ProductCard = ({ products, addToWishList, error, success, itemId }) => {
 
   const generateStars = (rating) => {
     const stars = [];
@@ -22,10 +22,18 @@ const ProductCard = ({ products, addToWishList }) => {
 
   return (
     <div className="grid grid-cols-1 mb-20 gap-x-6 gap-y-8 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 large:grid-cols-4 xl:grid-cols-5 xl:gap-x-6">
+      {success && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50 bg-black bg-opacity-60">
+          <p className="px-20 py-20 bg-green-300 text-black rounded-lg text-xl">{success}</p>
+        </div>
+      )}
+
+
       {products.map((product) => {
         const rating = Math.floor(Math.random() * 2) + 3;
         return (
           <div key={product._id} className="group relative">
+            {error && itemId === product._id && <p className="absolute top-10 w-70 px-5 left-7 text-center py-10  bg-red-50 text-white-500  rounded-md z-20">{error}</p>}
             <div className="bg-white p-3 w-79 rounded-lg shadow-md transition-transform transform-gpu hover:scale-105 relative">
               <a href={product._id} className="group relative">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 transform-gpu hover:scale-105 transition-transform">

@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import DataContext from '../../Context';
+import { useNavigate } from 'react-router-dom';
 import './featured.css';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import FeaturedProduct from './featuredcard';
 import Viewproductbtn from '../Viewprodbtn/vpb';
 import axios from 'axios';
 
-const Featured = () => {
-  const [startIndex, setStartIndex] = useState(0);
-  const [products, setProducts] = useState([]);
 
+
+const Featured = () => {
+  const { setProducts } = useContext(DataContext)
+  const [startIndex, setStartIndex] = useState(0);
+  const [featured, setFeatured] = useState([]);
+  const navigate = useNavigate();
   const nextSlide = () => {
-    const remainingProducts = products.length - (startIndex + 4);
+    const remainingProducts = featured.length - (startIndex + 4);
     if (remainingProducts > 0) {
       const newStartIndex = startIndex + 1;
       setStartIndex(newStartIndex);
@@ -24,13 +29,21 @@ const Featured = () => {
     }
   };
 
+  const fetchAllProducts = () => {
+    axios.get('http://localhost:5000/products').then((res) => {
+      const allProducts = res.data.data;
+      setProducts(allProducts);
+      navigate('/products/')
+      console.log("all products: ", allProducts)
+    });
+  };
+
   useEffect(() => {
     axios.get('http://localhost:5000/products?limit=10').then((res) => {
       const featuredProducts = res.data.data;
-      setProducts(featuredProducts);
+      setFeatured(featuredProducts);
     });
   }, []);
-
 
   return (
     <>
@@ -46,7 +59,7 @@ const Featured = () => {
               </div>
             </div>
 
-            {products.slice(startIndex, startIndex + 4).map((product) => (
+            {featured.slice(startIndex, startIndex + 4).map((product) => (
               <FeaturedProduct key={product.id} product={product} />
             ))}
             <div className="absolute right-0 top-1/2 z-10 transform -translate-y-1/2 cursor-pointer" >
@@ -57,7 +70,7 @@ const Featured = () => {
           </div>
         </div>
       </div>
-      <Viewproductbtn text="View All Products" />
+      <Viewproductbtn text="View All Products" onClick={fetchAllProducts} />
     </>
   );
 };
