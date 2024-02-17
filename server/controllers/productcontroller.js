@@ -167,6 +167,67 @@ const getproduct = asyncHandler(async (req, res) => {
 export { getproduct };
 
 // update specific product
+
+
+// get the quantity sizes of a specific item
+
+const getProductSizeQuantity = asyncHandler(async (req, res) => {
+  const { id, color, size } = req.body; // Extract item ID, color, and size from request parameters
+
+  try {
+    // Find the product with the matching _id
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    let sizeQuantity; // Remove initialization
+
+    // Get the first variation from the variations array
+    const firstVariation = product.variations[0];
+
+    // Find the variation with the specific color
+    const variationWithColor = firstVariation.colors.find(c => c.color === color);
+
+    if (variationWithColor) {
+      // Find the size
+      const sizeObject = variationWithColor.sizes.find(s => s.enum[0] === size); // Assuming 'enum' contains the size value
+      
+      // Check if sizeObject was found
+      if (sizeObject) {
+        sizeQuantity = sizeObject.quantitySizes;
+      } else {
+        // Size not found, return appropriate response
+        return res.status(403).json({ message: "Size not found" });
+      }
+    } else {
+      // Color not found, return appropriate response
+      return res.status(409).json({ message: "Color not found" });
+    }
+
+    // If size quantity is not found, you can return a response indicating that
+    if (sizeQuantity === undefined) {
+      return res.status(405).json({ message: "Size quantity not found" });
+    }
+
+    console.log(sizeQuantity); // Move the console.log here
+    return res.json({ id, color, size, quantity: sizeQuantity });
+   
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+export { getProductSizeQuantity };
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
 
 const updateproduct = asyncHandler(async (req, res) => {
