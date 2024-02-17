@@ -51,7 +51,8 @@ function LoginComponent() {
         const role = user.role;
         if (role == "admin") {
           // Redirect to home page if login is successful
-          navigate('/admin');
+          // navigate('/admin');
+          window.location.href = "/admin";
         }
         else {
           // Redirect to home page if login is successful

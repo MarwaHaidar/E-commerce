@@ -275,7 +275,7 @@ const ProductAdminEdit = () => {
     <div> <ToastContainer />
     <div className={` mx-auto ${styles.AddProductMain}`}>
       <form onSubmit={handleUpdate} className={`space-y-4 ${styles.formcontainerAddPr}`}>
-      <h2 className="text-2xl font-semibold mb-4">Update Product</h2>
+      <h2 className={`text-2xl font-semibold mb-4 ${styles.ProductMainText}`}>Update Product</h2>
         <div>
           <label
             htmlFor="name"
@@ -578,7 +578,7 @@ const ProductAdminEdit = () => {
             onClick={updateProduct}
             className={`bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-300 ${styles.formButtonAddPrImg}`}
           >
-            Add Images
+            Update Images
           </button>
         </div>
       </form>

@@ -25,7 +25,7 @@ transform: scale(0.99);
   .coverimage img {
     width: 100%;
     height: 12rem;
-    object-fit: cover;
+    object-fit: contain;
     cursor: pointer;
   }
   
@@ -55,13 +55,13 @@ transform: scale(0.99);
   .price {
     font-size: 1rem;
     font-weight: bold;
-    color: #667eea;
+    color: #2C666E;
   }
   
   .discountedprice {
     font-size: 1em;
     font-weight: bold;
-    color: #6dd373;
+    color: #667eea;
   }
   
   .additionalinfo { 
@@ -135,7 +135,7 @@ transform: scale(0.99);
   }
   
   .overlaycontainer {
-    position: fixed;
+    position: relative;
     inset: 0;
     z-index: 50;
     background-color: rgba(0, 0, 0, 0.444);
@@ -143,11 +143,14 @@ transform: scale(0.99);
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    width: 100%;
+    border-radius:20px ;
+    margin-top: 10px;
   }
   
   .overlayimage {
-    max-width: 500px;
-    max-height: 500px;
+    width: 150px;
+    height: 250px;
     border-radius: 0.5rem;
   }
   .colorBox {
@@ -168,7 +171,7 @@ transform: scale(0.99);
     height: 40px;
     margin-left: 15px;
     padding: 10px;
-    background-color: #2d612f; /* Green color, you can change this */
+    background-color: #07393C; /* Green color, you can change this */
     color: white;
     border: none;
     border-radius: 5px;
@@ -178,7 +181,7 @@ transform: scale(0.99);
   }
   
   .btnEditAdmin:hover, .btnDeleteAdmin:hover {
-    background-color: #45a049; /* Darker green on hover, you can change this */
+    background-color: #2C666E; /* Darker green on hover, you can change this */
   }
   
   .btnDeleteAdmin {
