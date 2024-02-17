@@ -23,12 +23,12 @@ export { sendMessage };
 // Get all messages (admins only)
 
 const getMessages = asyncHandler(async (req, res) => {
-    const messages = await Message.find();
+    const messages = await Message.find().sort({ timestamp: -1 });
     res.status(200).json({ result: messages.length, data: messages });
 });
 
-
 export { getMessages };
+
 
 // Get a specific message (admins only)
 const getMessage = asyncHandler(async (req, res) => {

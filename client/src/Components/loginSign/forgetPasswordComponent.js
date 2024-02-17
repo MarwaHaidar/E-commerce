@@ -125,14 +125,17 @@ function ForgetPasswordComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
 
-    try {
-      // Send a POST request to the server with the email
-      const response = await axios.post('http://localhost:5000/author/resetpassverify', formData);
-      console.log(response.data); // Handle response as needed
-    } catch (error) {
-      console.error('Error:', error);
-      // Handle errors
-    }
+      try {
+        // Send a POST request to the server with the email
+        const response = await axios.post('http://localhost:5000/author/resetpassverify', formData);
+        console.log('Reset password email sent:', response.data); // Log response for debugging
+        if (response.data.success) {
+          alert(response.data.message); 
+        }
+      } catch (error) {
+        console.error('Error sending reset password email:', error); // Log error for debugging
+        // Handle errors
+      }
   };
 
   return (
