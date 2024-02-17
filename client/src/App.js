@@ -78,6 +78,7 @@ export default function App() {
             <Route path="/admin/deletesubCat/:id" element={<SubCategoryAdminDelete />} />
             <Route path="/admin/allproducts/:id" element={<ProductsAdminGet />} />
             <Route path="/adminCharts" element={<AdminCharts />} />
+            <Route path="/login" element={<Login />} />
          
         </>
       ) : (

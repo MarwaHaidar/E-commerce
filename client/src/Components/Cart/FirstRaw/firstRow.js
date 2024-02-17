@@ -9,17 +9,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import { CartContext } from '../cartContext';
 
-const ProductItem = ({ item, handleQuantityChange }) => {
+const ProductItem = ({ item, handleQuantityChange,getCard }) => {
   const [quantity, setQuantity] = useState(item.quantity);
   const [subtotal, setSubtotal] = useState(item.quantity * item.price);
   const [quantitySizes, setQuantitySizes] = useState(null);
   //const [cartItems, setCartItems] = useState([]);
   const { deleteItem } = useCart();
 
-
   const handleDelete = async () => {
     try {
       await deleteItem(item.productId, item.color, item.size);
+      console.log('item deleted');
+      getCard();
 
     } catch (error) {
       console.error('Error deleting item:', error);
@@ -109,9 +110,21 @@ const FirstRaw = () => {
     }
   }
 
-  useEffect(() => {
-    getCard();
-  }, []);
+   //////////// clear the cart////////////////////////////////////////
+   const handleClearCart = async () => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/cart/user/cart/clearitems`,
+        { withCredentials: true }
+      );
+      getCard();
+      toast.success('The cart deleted successfully!');
+    } catch (error) {
+      console.error("Error clearing the cart:", error);
+    }
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
 
   const handleQuantityChange = async (productId, newQuantity, color, size) => {
     try {
@@ -121,6 +134,7 @@ const FirstRaw = () => {
         color: color,
         size: size
       }, { withCredentials: true });
+      getCard();
       console.log(response.data);
       console.log(newQuantity);
     } catch (error) {
@@ -128,20 +142,11 @@ const FirstRaw = () => {
     }
 
   };
-  //////////// clear the cart////////////////////////////////////////
-  const handleClearCart = async () => {
-    try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/cart/user/cart/clearitems`,
-        { withCredentials: true }
-      );
-      toast.success('The cart deleted successfully!');
-    } catch (error) {
-      console.error("Error clearing the cart:", error);
-    }
-  };
 
-  /////////////////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    getCard();
+  },[]);
+ 
 
   return (
     <div className={styles.flashsale}>
@@ -160,6 +165,7 @@ const FirstRaw = () => {
           item={item}
           handleQuantityChange={handleQuantityChange}
           quantitySizes={item.quantitySizes}
+          getCard={getCard}
         />
       ))
         :
