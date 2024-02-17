@@ -88,7 +88,7 @@ const ProductsView = () => {
                 console.log(userId)
                 console.log(accessToken)
 
-                setSuccess('Adding to wishlist ...')
+                setSuccess('Adding to Wish Cart ...')
                 setTimeout(() => {
                     setSuccess('');
                 }, 1000);
