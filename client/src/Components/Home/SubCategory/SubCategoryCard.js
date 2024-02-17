@@ -4,14 +4,14 @@ import styles from './SubCategory.module.css';
 function SubCategory({subcategory}) {
   return (
     <div className="group relative ml-9">
-       <div className={styles.categorymaincontents}>
+       <div className={` bg-gray-200  ${styles.categorymaincontents}`}>
         <div className={styles.categoryDivImages}>
           
             {/* Product Image */}
             <img
                 src={subcategory.image}
                 alt={subcategory.image}
-                className="h-full w-full object-contain group-hover:opacity-0.8 lg:h-60 lg:w-80"
+                className="h-full w-full object-contain group-hover:opacity-0.8 lg:h-60 lg:w-60"
             />
             {/* ADD to cart
             <div className='absolute bottom-20 left-1/2 transform -translate-x-1/2 z-10 invisible group-hover:visible'>
