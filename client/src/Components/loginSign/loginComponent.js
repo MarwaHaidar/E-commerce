@@ -62,12 +62,11 @@ function LoginComponent() {
       } else {
         // Handle other cases, such as incorrect credentials
         setError(response.data.message);
-
       }
     } catch (error) {
       // Handle errors
       if (error.response && error.response.status === 401) {
-        // Redirect the user to the login page if the refresh token is expired
+        alert('Email or password incorrect,please try again!!');
 
       } else {
         setError('An error occurred. Please try again.'); // Handle generic errors

@@ -80,6 +80,7 @@ export default function App() {
                   <Route path="/admin/allproducts/:id" element={<ProductsAdminGet />} />
                   <Route path="/adminCharts" element={<AdminCharts />} />
                   <Route path="/admin/queries" element={<QueriesPage />} />
+                  <Route path="/login" element={<Login />} />
 
                 </>
               ) : (

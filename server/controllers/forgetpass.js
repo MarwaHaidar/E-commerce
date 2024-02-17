@@ -47,6 +47,7 @@ const sendResetEmail = (userEmail) => {
                 // Send the reset email
                 sendResetEmail(userEmail);
                 console.log("email sent successfully")
+                res.status(200).json({ success : true, message: 'A reset password email has been sent. Please check your email inbox.' });
 
             } else {
                 res.status(401).json({ message: "Email is not valid" });
