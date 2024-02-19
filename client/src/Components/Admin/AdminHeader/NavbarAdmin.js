@@ -44,7 +44,8 @@ const NavBarAdmin = () => {
         Cookies.remove('role');
 
         // Redirect to the home page
-        navigate('/login');
+        // navigate('/login');
+        window.location.href = "/login";
     };
 
     return (
