@@ -118,7 +118,7 @@ function LoginComponent() {
             type="submit"
             className={styles.SignUpLoginbutton}
           >
-            Sign Up
+            Log in
           </button>
         </form>
         <div className={styles.haveAccountName}>
