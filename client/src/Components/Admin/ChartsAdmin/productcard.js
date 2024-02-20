@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './charts.module.css';
-import {AreaChart,Area,Pie,PieChart, BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, LinearGradient, Stop } from 'recharts';
+import {AreaChart,Area,Pie,PieChart,LineChart,Line, BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 function ProductCard() {
   const [productCount, setProductCount] = useState(0);
@@ -149,23 +149,19 @@ function ProductCard() {
         <Legend />
       </PieChart>
     </div>
-        {/* <div className={styles.areagraph}> */}
-        {/* <h2 className={styles.charttitle}>COUNT OF ORDERS BY YEARS</h2> */}
-        {/* <AreaChart width={730} height={310} data={orderData}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-          <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#07393C" stopOpacity={0.8}/>
-              <stop offset="95%" stopColor="#07393C" stopOpacity={0}/>
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="_id" />
-          <YAxis />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Area type="monotone" dataKey="count" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-        </AreaChart> */}
-        {/* </div> */}
+       <div className={styles.linegraph}> 
+         <h2 className={styles.charttitle}>COUNT OF USERS BY COUNTRIES</h2> 
+         <LineChart width={730} height={250} data={userbyCountry}
+  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+  <CartesianGrid strokeDasharray="3 3" />
+  <XAxis dataKey="_id" />
+  <YAxis />
+  <Tooltip />
+  <Legend />
+  <Line type="monotone" dataKey="userCount" stroke="#07393C" />
+  {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+</LineChart>
+         </div> 
       </div>
     </div>
   );
