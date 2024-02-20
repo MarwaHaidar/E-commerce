@@ -11,7 +11,7 @@
   flex-direction: column;
   width: 80%;
   max-width: 400px;
-  height: 400px;
+  height: 300px;
   border: 4px solid transparent;
   border-radius: 15px;
   margin: 20px auto;
@@ -101,7 +101,7 @@
   margin-top: 20px;
 }
 .name {
-  font-size: 30px;
+  font-size: 26px;
   font-family: poppins;
   color: #2c666e;
   font-weight: 500;

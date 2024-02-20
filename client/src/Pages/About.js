@@ -14,38 +14,38 @@ import oussama from '../Components/Assets/oussama.jpg';
 import wassim from '../Components/Assets/wassim.png';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import {faDollar} from '@fortawesome/free-solid-svg-icons';
-import {faSackDollar} from '@fortawesome/free-solid-svg-icons';
-import {faStore} from '@fortawesome/free-solid-svg-icons';
-import {faUsers} from '@fortawesome/free-solid-svg-icons';
+import { faDollar } from '@fortawesome/free-solid-svg-icons';
+import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { faStore } from '@fortawesome/free-solid-svg-icons';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faDollar);
 
 const About = () => {
   return (
     <div>
-    <div style={{display:'flex',justifyContent:'space-between'}}>
-    <OurStory
-    />
-    <Slider
-    />
-    </div>
-    {/* <div style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <OurStory
+        />
+        <Slider
+        />
+      </div>
+      {/* <div style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
     <StatisticsCard icon={faDollar} value="33K" text="Monthly Product Sale" />
     <StatisticsCard icon={faUsers} value="45.5K" text="Active Customer in our website" />
     <StatisticsCard icon={faStore} value="5K" text="Active Sallers in our website" />
     <StatisticsCard icon={faSackDollar} value="45.5K" text="Anual gross sale in our site" />
     </div> */}
-    <StatisticsCard/>
-    <div style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
-    <CrewImageCard image={rayan} name="Rayan Sultan" position="Full Stack Developer" />
-    <CrewImageCard image={oussama} name="Oussama Hamzeh" position="Full Stack Developer"/>
-    <CrewImageCard image={marwa} name="Marwa Abou Haidar" position="Full Stack Developer" />
-    <CrewImageCard image={wassim} name="Wassim Youness" position="Full Stack Developer" />
-    </div>
-    
-    <Properties/>
-   
+      <StatisticsCard />
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evelnly', width: '85%', margin: 'auto' }}>
+        <CrewImageCard image={rayan} name="Rayan Sultan" position="Full Stack Developer" />
+        <CrewImageCard image={oussama} name="Oussama Hamzeh" position="Full Stack Developer" />
+        <CrewImageCard image={marwa} name="Marwa Abou Haidar" position="Full Stack Developer" />
+        <CrewImageCard image={wassim} name="Wassim Youness" position="Full Stack Developer" />
+      </div>
+
+      <Properties />
+
     </div>
 
   )

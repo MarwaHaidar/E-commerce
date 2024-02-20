@@ -8,10 +8,10 @@ const OurStory = () => {
       <pre className={styles.storypara}> 
         {`
         our platform, InStyle, stands as the leading online destination
-        for fashion enthusiasts in the region,specializing in clothing 
+        for fashion enthusiasts in the region, specializing in clothing 
         and accessories.
-        With a dedicated focus on fast delivery,stringent security measures,
-        and a secure online payment gateway,
+        With a dedicated focus on fast delivery, stringent security measures,
+        and a secure online payment gateway.
         InStyle guarantees a seamless shopping experience for 
         our valued customers.
         `}

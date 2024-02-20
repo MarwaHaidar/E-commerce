@@ -31,6 +31,8 @@
   }
    */
 .stcontainer {
+  width: 88%;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
