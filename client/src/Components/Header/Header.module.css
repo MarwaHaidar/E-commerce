@@ -35,6 +35,15 @@
 
   }
   
+  .logo img{
+   width: 250px;
+   font-size: 30px;
+   line-height: 20px;
+   font-weight: bold;
+   padding: 0 20px 0 100px ;
+   margin-right: 200px;
+   margin-left: 10%;
+  }
 
  .navBar {
     display: flex;
