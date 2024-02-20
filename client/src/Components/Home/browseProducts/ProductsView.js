@@ -30,7 +30,9 @@ const ProductsView = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [filterBoxVisible, setFilterBoxVisible] = useState(false);
     const [filterIconVisible, setFilterIconVisible] = useState(true);
-
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [itemId, setItemId] = useState(null)
 
 
 
@@ -85,16 +87,23 @@ const ProductsView = () => {
                 console.log("invoked after post")
                 console.log(userId)
                 console.log(accessToken)
-                console.log('Item added successfully:', response);
+
+                setSuccess('Adding to Wish Cart ...')
+                setTimeout(() => {
+                    setSuccess('');
+                }, 1000);
+
+
+
                 setProductInWishlist(prevProducts => prevProducts.filter(product => product.productId !== products.productId));
-                axios.get(`http://localhost:5000/user/wishlist/${userId}`, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    },
-                    withCredentials: true
-    
-                }
+                axios.get(`http://localhost:5000/user/wishlist/${userId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`
+                        },
+                        withCredentials: true
+
+                    }
                 )
                     .then(response => {
                         const count = response.data.result;
@@ -106,8 +115,16 @@ const ProductsView = () => {
                     });
             })
             .catch(error => {
-                console.error('Error adding item:', error);
-                // Handle the error appropriately
+                if (error.response && error.response.status === 409) {
+                    console.error('Product already exists in wishlist:', error.response.data.message);
+                    const itemId = error.response.data.product;
+                    setItemId(itemId);
+                    setError(error.response.data.message);
+                    setTimeout(() => {
+                        setError('');
+                        setItemId(null);
+                    }, 1000)
+                }
             });
     }
 
@@ -136,14 +153,10 @@ const ProductsView = () => {
 
 
 
-
-
-
-
-
-
     return (
+
         <div className="bg-custom-white">
+
             <div className="mx-auto max-w-2xl px-8 py-16 sm:px-6 sm:py-10 lg:max-w-7xl lg:mx-auto">
                 <h2 className="sr-only">Products</h2>
                 {filterIconVisible && <FaFilter className="filter-icon" onClick={showFilterBoxVisibility} />}
@@ -152,7 +165,7 @@ const ProductsView = () => {
                     <FilterBox />
                 </div>
 
-                <ProductCard products={currentProducts} addToWishList={addToWishList} />
+                <ProductCard products={currentProducts} addToWishList={addToWishList} error={error} success={success} itemId={itemId} />
                 <Pagination
                     productsPerPage={productsPerPage}
                     totalProducts={totalProducts}

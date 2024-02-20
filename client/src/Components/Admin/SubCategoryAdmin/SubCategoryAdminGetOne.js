@@ -20,8 +20,10 @@ function SubCategoryAdminGetOne() {
             alt={SubcategoryData.name}
             className="w-full h-40 object-cover mb-4 rounded-md"
           />
+            <div className='flex flex-col  items-center'>
           <h1 className="text-2xl font-bold mb-2">{SubcategoryData.name}</h1>
           <p className="text-gray-600 mb-4">{SubcategoryData.desc}</p>
+          </div>
           {/* Add additional information or styling as needed */}
         </div>
       ) : (

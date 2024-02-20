@@ -84,23 +84,23 @@ const FlashSaleProduct = ({ product }) => {
           className="h-full w-full object-contain object-center group-hover:opacity-0.8 lg:h-60 lg:w-80"
         />
         {/* ADD to cart */}
-        <div className='relative transform-translate-x-1/2 z-10 invisible group-hover:visible lg:relative lg:mt-2'>
+        {/* <div className='relative transform-translate-x-1/2 z-10 invisible group-hover:visible lg:relative lg:mt-2'>
           <div className="bg-greenish-blue py-2 text-xs text-white font-bold px-5 text-center lg:py-3 rounded ">
             <button>Add to Cart</button>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="mt-4 flex justify-between items-center">
         <div>
-          <h3 className="text-lg text-black font-bold">
+          <h3 className="text-lg text-greenish-blue font-bold">
             <a href={product.href}>
-              <span aria-hidden="true" className="absolute inset-0" />
+              <span aria-hidden="true" className="absolute inset-0 " />
               {product.name}
             </a>
           </h3>
           <div className="flex items-center">
-            <span className="text-lg font-bold text-gray-900 mr-1">${product.price}</span>
-            <span className="text-black text-lg line-through mr-14">$50</span>
+            <span className=" text-greenish-blue text-lg font-bold text-gray-900 mr-1">${product.price}</span>
+            <span className=" text-greenish-blue text-lg line-through mr-14">$50</span>
             {/* Render Rating Stars */}
             {renderRatingStars(product.rating)}
           </div>

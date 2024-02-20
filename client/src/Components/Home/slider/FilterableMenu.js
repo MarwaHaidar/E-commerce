@@ -133,7 +133,8 @@ const FilterableBox = () => {
                     value={minPrice}
                     onChange={(e) => setMinPrice(e.target.value)}
                 />
-                <span>USD Min Price</span>
+                <span className="text-black">USD Min Price</span>
+
                 <br />
                 <input
                     type="number"
@@ -143,9 +144,10 @@ const FilterableBox = () => {
                     value={maxPrice}
                     onChange={(e) => setMaxPrice(e.target.value)}
                 />
-                <span>USD Max Price</span><br />
+                <span className="text-black">USD Max Price</span>
 
-                <button onClick={ ()=> {handleFilter() }}>Filter Products</button>
+
+                <button onClick={() => { handleFilter() }}>Filter Products</button>
             </div>
         </div>
     );

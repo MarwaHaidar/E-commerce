@@ -17,13 +17,13 @@ const Categoriescard = ({ category, onClick }) => {
     // };
 
     return (
-        <div className="group relative ml-9">
-        <div className={styles.categorymaincontents}>
+        <div className="group relative ml-9 ">
+        <div className={`bg-gray-200  ${styles.categorymaincontents}`}>
         <div className={styles.categoryDivImages}>
                 <img
                     src={category.image}
                     alt={category.image}
-                    className="h-full w-full object-contain group-hover:opacity-0.8 lg:h-60 lg:w-80"
+                    className="h-full w-full object-contain group-hover:opacity-0.8 lg:h-60 lg:w-60"
                 />
             </div>
 

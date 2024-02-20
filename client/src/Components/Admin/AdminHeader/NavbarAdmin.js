@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './AdminHeader.module.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation,useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'; // Import Cookies library
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const NavBarAdmin = () => {
@@ -33,6 +34,19 @@ const NavBarAdmin = () => {
         };
     }, []);
 
+    const navigate = useNavigate(); // Initialize useNavigate
+    const handleLogout = () => {
+        // Clear the access token and refresh token cookies
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        Cookies.remove('user_id');
+        Cookies.remove('first_name');
+        Cookies.remove('role');
+
+        // Redirect to the home page
+        navigate('/login');
+    };
+
     return (
         <>
             <nav className={`bg-white-800 p-4 nav-bar ${isNavBarExtended ? styles.extended : styles.navBar}`}>
@@ -40,6 +54,8 @@ const NavBarAdmin = () => {
                     <ul className="flex space-x-4">
                         <Link to="/admin" className={`${styles.item} ${activePath === "/admin" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Dashborad</li></Link>
                         <Link to="/adminCharts" className={`${styles.item} ${activePath === "/adminCharts" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Charts</li></Link>
+                        <Link to="/admin/queries" className={`${styles.item} ${activePath === "/admin/queries" ? styles.activeTab : ""}`} onClick={() => { closeNavBar(); }}><li>Customer Queries</li></Link>
+                        <li className= {styles.item} onClick={() => { handleLogout(); }}>Logout</li>
                     </ul>
                 </div>
             </nav>

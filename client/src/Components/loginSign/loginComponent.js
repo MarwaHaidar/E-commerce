@@ -51,7 +51,8 @@ function LoginComponent() {
         const role = user.role;
         if (role == "admin") {
           // Redirect to home page if login is successful
-          navigate('/admin');
+          // navigate('/admin');
+          window.location.href = "/admin";
         }
         else {
           // Redirect to home page if login is successful
@@ -61,12 +62,11 @@ function LoginComponent() {
       } else {
         // Handle other cases, such as incorrect credentials
         setError(response.data.message);
-
       }
     } catch (error) {
       // Handle errors
       if (error.response && error.response.status === 401) {
-        // Redirect the user to the login page if the refresh token is expired
+        alert('Email or password incorrect,please try again!!');
 
       } else {
         setError('An error occurred. Please try again.'); // Handle generic errors

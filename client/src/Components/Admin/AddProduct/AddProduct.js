@@ -286,7 +286,7 @@ const updateProduct = async () => {
     <div> <ToastContainer />
     <div className={` mx-auto ${styles.AddProductMain}`}>
       <form onSubmit={handleSubmit} className={`space-y-4 ${styles.formcontainerAddPr}`}>
-      <h2 className="text-2xl font-semibold mb-4">Add Product</h2>
+      <h2 className={`text-2xl font-semibold mb-4 ${styles.ProductMainText}`}>Add Product</h2>
         <div>
           <label
             htmlFor="name"

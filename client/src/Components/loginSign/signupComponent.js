@@ -40,6 +40,7 @@ const handleChange = (e) => {
             password: ''
         });
         setErrorMessage(''); // Clear any previous error messages
+        alert('A verification email has been sent. Please check your email inbox.');
     } catch (error) {
         console.error('Error:', error.response.data);
         setErrorMessage(error.response.data.message); // Display error message to the user
@@ -61,7 +62,7 @@ const handleChange = (e) => {
       <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
         <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Create an account</h2>
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-        {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
+        {successMessage && <div style={{ color: '#579AD3',textAlign:'center' }}>{successMessage}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
             <label htmlFor="first_name" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Firstname</label>
