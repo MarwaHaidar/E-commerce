@@ -48,7 +48,7 @@ const StatisticsCard = ({ icon, value, text }) => {
       <div className={styles.stcard}>
         <div className={styles.stimg}><img className={styles.bagimg} src={Bag}/>
         <div className={styles.sticon}><IoStorefrontOutline /></div>
-        <p className={styles.nb}>33K</p></div>
+        <p className={styles.nb}>1K</p></div>
         <div className={styles.st_text}>
           <span className={styles.st_title}>Monthly Product Sale</span>
         </div>
@@ -56,7 +56,7 @@ const StatisticsCard = ({ icon, value, text }) => {
       <div className={styles.stcard}>
         <div className={styles.stimg}><img className={styles.bagimg} src={Bag}/>
         <div className={styles.sticon}><CiDollar /> </div>
-        <p className={styles.nb}>45K</p></div>
+        <p className={styles.nb}>45k</p></div>
         <div className={styles.st_text}>
           <span className={styles.st_title}>Active Sallers in our website</span>
         </div>
@@ -66,7 +66,7 @@ const StatisticsCard = ({ icon, value, text }) => {
       <div className={styles.stcard}>
         <div className={styles.stimg}><img className={styles.bagimg} src={Bag}/>
         <div className={styles.sticon}><BiSolidShoppingBags /></div>
-        <p className={styles.nb}>5K</p></div>
+        <p className={styles.nb}>12k</p></div>
         <div className={styles.st_text}>
           <span className={styles.st_title}>Active Customer in our website</span>
         </div>
@@ -75,7 +75,7 @@ const StatisticsCard = ({ icon, value, text }) => {
       <div className={styles.stcard}>
         <div className={styles.stimg}><img className={styles.bagimg} src={Bag}/>
         <div className={styles.sticon}><FaSackDollar /></div>
-        <p className={styles.nb}>45K</p></div>
+        <p className={styles.nb}>5k</p></div>
         <div className={styles.st_text}>
           <span className={styles.st_title}>Anual gross sale in our site</span>
         </div>
