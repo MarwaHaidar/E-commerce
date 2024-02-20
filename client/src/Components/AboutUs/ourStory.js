@@ -7,14 +7,13 @@ const OurStory = () => {
       <span className={styles.story}>Our Story</span>
       <pre className={styles.storypara}> 
         {`
-        Launched in 2015, Exclusive is South Asia’s premier online shopping
-        marketplace with an active presence in Bangladesh.
-        Supported by a wide range of tailored marketing, data,
-        and service solutions, Exclusive has 10,500 sellers 
-        and 300 brands and serves 3 million customers across the region.
-
-        Exclusive has more than 1 Million products to offer, growing at a very fast.
-        Exclusive offers a diverse assotment in categories ranging  from consumer.
+        our platform, InStyle, stands as the leading online destination
+        for fashion enthusiasts in the region,specializing in clothing 
+        and accessories.
+        With a dedicated focus on fast delivery,stringent security measures,
+        and a secure online payment gateway,
+        InStyle guarantees a seamless shopping experience for 
+        our valued customers.
         `}
       </pre>
     </div>
