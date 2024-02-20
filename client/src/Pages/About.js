@@ -37,7 +37,7 @@ const About = () => {
     <StatisticsCard icon={faSackDollar} value="45.5K" text="Anual gross sale in our site" />
     </div> */}
       <StatisticsCard />
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evelnly', width: '85%', margin: 'auto' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '85%', margin: 'auto' }}>
         <CrewImageCard image={rayan} name="Rayan Sultan" position="Full Stack Developer" />
         <CrewImageCard image={oussama} name="Oussama Hamzeh" position="Full Stack Developer" />
         <CrewImageCard image={marwa} name="Marwa Abou Haidar" position="Full Stack Developer" />
